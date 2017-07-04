@@ -467,7 +467,7 @@ function initEditInplace(id, model, addbtn) {
       }, this);
     }
   }
-  function _initOrder(id, model) {
+  function _initOrder() {
     new GSortTable(id, {
       'tag': 'li',
       'endDrag': function () {
@@ -483,10 +483,10 @@ function initEditInplace(id, model, addbtn) {
       }
     });
   }
-  function _doInitEditInplaceMethod(id) {
+  function _doInitEditInplaceMethod(src) {
     var loading = true,
       move = false;
-    forEach($G(id).elems('*'), function () {
+    forEach($G(src).elems('*'), function () {
       var hs = patt.exec(this.id);
       if (hs) {
         if ($G(this).hasClass('editinplace')) {
@@ -511,7 +511,7 @@ function initEditInplace(id, model, addbtn) {
       }
     });
     if (move) {
-      _initOrder(id, model);
+      _initOrder();
     }
     loading = false;
   }
