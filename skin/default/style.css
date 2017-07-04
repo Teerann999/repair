@@ -181,16 +181,18 @@ header.header a {
 }
 .footer {
   color: rgba(255, 255, 255, 0.5);
-  text-align: center;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 1px rgba(255, 255, 255, 0.1) inset;
   background-color: #3498DB;
-  overflow: hidden;
+  display: table;
+  width: 100%;
   margin-top: 10px;
 }
 .footer p {
-  line-height: 3.6em;
-  margin: 0;
+  height: 3.6em;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
 }
 .footer a {
   color: inherit;
