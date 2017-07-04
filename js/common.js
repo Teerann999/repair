@@ -401,7 +401,7 @@ function initAutoComplete(id, model, displayFields, doEmpty, getQuery) {
   });
 }
 function initEditInplace(id, model, addbtn) {
-  var patt = /list_(add|delete|name|color|published)_([0-9]+)(_([0-9]+))?/;
+  var patt = /list_([a-z]+)_([0-9]+)(_([0-9]+))?/;
   var o = {
     onSave: function (v, editor) {
       var req = new GAjax({
@@ -467,12 +467,31 @@ function initEditInplace(id, model, addbtn) {
       }, this);
     }
   }
+  function _initOrder(id, model) {
+    new GSortTable(id, {
+      'tag': 'li',
+      'endDrag': function () {
+        var trs = new Array();
+        forEach($G(id).elems('li'), function () {
+          if (this.id) {
+            trs.push(this.id);
+          }
+        });
+        if (trs.length > 1) {
+          send('index.php/' + model, 'action=move&data=' + trs.join(','), doFormSubmit);
+        }
+      }
+    });
+  }
   function _doInitEditInplaceMethod(id) {
-    var loading = true;
+    var loading = true,
+      move = false;
     forEach($G(id).elems('*'), function () {
       var hs = patt.exec(this.id);
       if (hs) {
-        if (hs[1] == 'published') {
+        if ($G(this).hasClass('editinplace')) {
+          new EditInPlace(this, o);
+        } else if (hs[1] == 'published') {
           callClick(this, _doAction);
           this.title = this.className == 'icon-published1' ? DISABLE : ENABLE;
         } else if (hs[1] == 'color') {
@@ -484,13 +503,16 @@ function initEditInplace(id, model, addbtn) {
               _doAction.call(this.input, c);
             }
           }).setColor(t);
-        } else if (hs[1] == 'name') {
-          new EditInPlace(this, o);
+        } else if (hs[1] == 'order') {
+          move = true;
         } else {
           callClick(this, _doAction);
         }
       }
     });
+    if (move) {
+      _initOrder(id, model);
+    }
     loading = false;
   }
   callClick(addbtn, _doAction);

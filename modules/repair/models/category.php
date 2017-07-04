@@ -109,8 +109,11 @@ class Model extends \Kotchasan\KBase
             $config->repair_first_status = (int)$value;
             // save config
             if (Config::save($config, ROOT_PATH.'settings/config.php')) {
-              // คืนค่า
-              $ret['alert'] = Language::get('Saved successfully');
+              // คืนค่าข้อมูลที่แก้ไข
+              $ret['edit'] = $value;
+            } else {
+              // ไม่สามารถบันทึก config ได้
+              $ret['alert'] = sprintf(Language::get('File %s cannot be created or is read-only.'), 'settings/config.php');
             }
           }
           if (isset($save)) {

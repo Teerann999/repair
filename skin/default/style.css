@@ -454,7 +454,7 @@ header .inline {
   display: table-cell;
   vertical-align: middle;
   border-bottom: 1px solid #EEE;
-  padding: 5px 0;
+  padding: 5px;
   white-space: nowrap;
   min-width: 3em;
 }
@@ -519,6 +519,9 @@ header .inline {
 }
 .icon-published1:before {
   color: #036;
+}
+.icon-move {
+  cursor: move;
 }
 .no {
   color: #007FAE;
