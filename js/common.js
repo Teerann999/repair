@@ -478,7 +478,7 @@ function initEditInplace(id, model, addbtn) {
           }
         });
         if (trs.length > 1) {
-          send('index.php/' + model, 'action=move&data=' + trs.join(','), doFormSubmit);
+          send('index.php/' + model, 'action=move&value=' + trs.join(',').replace(/list_/g, ''), doFormSubmit);
         }
       }
     });

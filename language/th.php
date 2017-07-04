@@ -126,7 +126,7 @@ return array(
   'scroll to top' => 'เลื่อนขึ้นด้านบน',
   'Unable to complete the transaction' => 'ไม่สามารถทำรายการนี้ได้',
   'General Site Settings' => 'ตั้งค่าพื้นฐานของเว็บไซต์',
-  'Site Name (You can add tags to decorate)' => 'ชื่อของเว็บไซต์ (สามารถใส่แท็กเพื่อตกแต่งได้)',
+  'Site Name' => 'ชื่อของเว็บไซต์',
   'Short description about your website' => 'ข้อความสั้นๆอธิบายว่าเป็นเว็บไซต์เกี่ยวกับอะไร',
   'Website title' => 'ชื่อเว็บ',
   'Time zone' => 'เขตเวลา',

@@ -47,7 +47,7 @@ class View extends \Gcms\View
       'labelClass' => 'g-input icon-home',
       'itemClass' => 'item',
       'label' => '{LNG_Website title}',
-      'comment' => '{LNG_Site Name (You can add tags to decorate)}',
+      'comment' => '{LNG_Site Name}',
       'maxlength' => 255,
       'value' => isset($config->web_title) ? $config->web_title : self::$cfg->web_title
     ));
