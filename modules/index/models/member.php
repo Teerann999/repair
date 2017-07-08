@@ -90,10 +90,10 @@ class Model extends \Kotchasan\Orm\Field
           }
         }
       }
-    } else {
-      $ret['alert'] = Language::get('Unable to complete the transaction');
     }
-    // คืนค่า JSON
-    echo json_encode($ret);
+    if (!empty($ret)) {
+      // คืนค่า JSON
+      echo json_encode($ret);
+    }
   }
 }

@@ -22,15 +22,16 @@ class Controller extends \Gcms\Controller
 {
 
   /**
-   * หน้าหลักเว็บไซต์
+   * ฟังก์ชั่นแปลงชื่อโมดูลที่ส่งมาเป็น Controller Class และโหลดคลาสไว้ เช่น
+   * home = Index\Home\Controller
+   * person-index = Person\Index\Controller
    *
-   * @param Request $request
-   * @return string
+   * @param string $module ชื่ิอโมดูล
+   * @param string $default ถ้าไม่ระบุจะคืนค่า Error Controller
+   * @return string|null คืนค่าชื่อคลาส ถ้าไม่พบจะคืนค่า null
    */
-  public function execute(Request $request)
+  public static function parseModule($module, $default = null)
   {
-    // โมดูลจาก URL ถ้าไม่มีใช้ default (home)
-    $module = $request->request('module', 'home')->toString();
     if (preg_match('/^([a-z]+)([\/\-]([a-z]+))?$/i', $module, $match)) {
       if (empty($match[3])) {
         $owner = 'index';
@@ -42,18 +43,28 @@ class Controller extends \Gcms\Controller
     } else {
       // ถ้าไม่ระบุ module มาแสดงหน้า home
       $owner = 'index';
-      $module = 'home';
+      $module = empty($default) ? 'error' : $default;
     }
     // ตรวจสอบหน้าที่เรียก
     if (is_file(APP_PATH.'modules/'.$owner.'/controllers/'.$module.'.php')) {
-      // หน้าที่เรียก
+      // โหลดคลาส ถ้าพบโมดูลที่เรียก
       include APP_PATH.'modules/'.$owner.'/controllers/'.$module.'.php';
-      $className = ucfirst($owner).'\\'.ucfirst($module).'\Controller';
-    } else {
-      // ถ้าไม่พบหน้าที่เรียก แสดงหน้า 404
-      include APP_PATH.'modules/index/controllers/error.php';
-      $className = 'Index\Error\Controller';
+      return ucfirst($owner).'\\'.ucfirst($module).'\Controller';
     }
+    return null;
+  }
+
+  /**
+   * หน้าหลักเว็บไซต์
+   *
+   * @param Request $request
+   * @return string
+   */
+  public function execute(Request $request)
+  {
+    // โมดูลจาก URL ถ้าไม่มีใช้ default (home)
+    $className = self::parseModule($request->request('module')->toString(), 'home');
+    // create Class
     $controller = new $className;
     // tempalate
     $template = Template::create('', '', 'main');

@@ -11,7 +11,7 @@ namespace Index\System;
 use \Kotchasan\Html;
 
 /**
- * ฟอร์ม system
+ * ฟอร์มตั้งค่า system
  *
  * @author Goragod Wiriya <admin@goragod.com>
  *

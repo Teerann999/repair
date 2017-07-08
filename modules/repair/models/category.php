@@ -47,7 +47,7 @@ class Model extends \Kotchasan\KBase
    * @param int $group_id
    * @return array
    */
-  private static function toSelect($group_id)
+  public static function toSelect($group_id)
   {
     $result = array();
     foreach (self::all($group_id) as $item) {

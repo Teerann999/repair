@@ -41,7 +41,21 @@ class View extends \Kotchasan\KBase
     $js[] = file_get_contents(ROOT_PATH.'js/table.js');
     $js[] = file_get_contents(ROOT_PATH.'js/tooltip.js');
     $js[] = file_get_contents(ROOT_PATH.'js/common.js');
-    $js[] = file_get_contents(ROOT_PATH.'modules/repair/script.js');
+    // js ของโมดูล
+    $dir = ROOT_PATH.'modules/';
+    $f = @opendir($dir);
+    if ($f) {
+      while (false !== ($text = readdir($f))) {
+        if ($text != "." && $text != "..") {
+          if (is_dir($dir.$text)) {
+            if (is_file($dir.$text.'/script.js')) {
+              $js[] = file_get_contents($dir.$text.'/script.js');
+            }
+          }
+        }
+      }
+      closedir($f);
+    }
     $lng = Language::name();
     $data_folder = Language::languageFolder();
     if (is_file($data_folder.$lng.'.js')) {

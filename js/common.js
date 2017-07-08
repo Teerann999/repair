@@ -518,6 +518,17 @@ function initEditInplace(id, model, addbtn) {
   callClick(addbtn, _doAction);
   _doInitEditInplaceMethod(id);
 }
+function initLanguageTable(id) {
+  forEach($G(id).elems('a'), function () {
+    if ($G(this).hasClass('icon-copy')) {
+      callClick(this, function () {
+        copyToClipboard(this.title);
+        document.body.msgBox(trans('successfully copied to clipboard'));
+        return false;
+      });
+    }
+  });
+}
 $G(window).Ready(function () {
   if (navigator.userAgent.indexOf("MSIE") > -1) {
     document.body.addClass("ie");

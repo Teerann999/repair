@@ -24,7 +24,7 @@ class Model extends \Kotchasan\KBase
 {
 
   /**
-   * module=system
+   * รับค่าจาก system.php
    *
    * @param Request $request
    */

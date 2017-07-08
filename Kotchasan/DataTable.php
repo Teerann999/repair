@@ -320,7 +320,7 @@ class DataTable extends \Kotchasan\KBase
         foreach ($this->fields as $field) {
           if (is_array($field)) {
             $this->columns[$field[1]] = array('text' => $field[1]);
-          } elseif (preg_match('/(.*?[`\s]+)?([a-z0-9_]+)`?$/i', $field, $match)) {
+          } elseif (is_string($field) && preg_match('/(.*?[`\s]+)?([a-z0-9_]+)`?$/i', $field, $match)) {
             $this->columns[$match[2]] = array('text' => $match[2]);
           }
         }
@@ -874,20 +874,29 @@ class DataTable extends \Kotchasan\KBase
     if (preg_match('/^((.*)\s+)?(icon-[a-z0-9\-_]+)(\s+(.*))?$/', $item['class'], $match)) {
       $match[2] = trim($match[2].' '.(isset($match[5]) ? $match[5] : ''));
     }
-    if (isset($item['href'])) {
-      // links, button
-      if (empty($match[3])) {
-        return '<a class="'.$item['class'].'" href="'.$item['href'].'">'.$item['text'].'</a>';
-      } else {
-        return '<a class="'.$match[2].'" href="'.$item['href'].'"><span class="'.$match[3].'">'.$item['text'].'</span></a>';
-      }
-    } elseif (isset($item['options'])) {
+    if (isset($item['options'])) {
       // select
       $rows = array();
       foreach ($item['options'] as $key => $text) {
         $rows[] = '<option value="'.$key.'">'.$text.'</option>';
       }
       return '<fieldset><select id="'.$item['id'].'">'.implode('', $rows).'</select><label for="'.$item['id'].'" class="button '.$item['class'].' action"><span>'.$item['text'].'</span></label></fieldset>';
+    } else {
+      // links, button
+      $prop = array();
+      if (empty($match[3])) {
+        $text = $item['text'];
+        $prop[] = 'class="'.$item['class'].'"';
+      } else {
+        $text = '<span class="'.$match[3].'">'.$item['text'].'</span>';
+        $prop[] = 'class="'.$match[2].'"';
+      }
+      foreach ($item as $k => $v) {
+        if ($k != 'class' && $k != 'text') {
+          $prop[] = $k.'="'.$v.'"';
+        }
+      }
+      return '<a '.implode(' ', $prop).'>'.$text.'</a>';
     }
   }
 

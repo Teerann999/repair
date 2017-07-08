@@ -5,6 +5,10 @@ return array(
     0 => 'Disable',
     1 => 'Enamle'
   ),
+  'CURRENCY_UNITS' => array(
+    'THB' => 'Baht',
+    'USD' => 'Dollar'
+  ),
   'DATE_FORMAT' => 'd M Y, H:i',
   'DATE_LONG' => array(
     0 => 'Sunday',
@@ -56,26 +60,22 @@ return array(
     11 => 'Nov',
     12 => 'Dec'
   ),
-  'SMTPSECURIES' => array(
-    '' => 'Clear Text',
-    'ssl' => 'Server using a secure connection (SSL)'
-  ),
-  'YEAR_OFFSET' => 0,
-  'SEXES' => array(
-    'f' => 'Female',
-    'm' => 'Male'
-  ),
-  'CURRENCY_UNITS' => array(
-    'THB' => 'Baht',
-    'USD' => 'Dollar'
-  ),
   'PERMISSIONS' => array(
     'can_config' => 'Can set up the system',
     'can_login' => 'Can login',
     'can_received_repair' => 'Can get the repair',
-    'can_repair' => 'Repairman',
+    'can_repair' => 'Repairman'
   ),
   'REPAIR_CATEGORIES' => array(
-    1 => 'Repair status',
+    1 => 'Repair status'
   ),
+  'SEXES' => array(
+    'f' => 'Female',
+    'm' => 'Male'
+  ),
+  'SMTPSECURIES' => array(
+    '' => 'Clear Text',
+    'ssl' => 'Server using a secure connection (SSL)'
+  ),
+  'YEAR_OFFSET' => 0
 );

@@ -92,7 +92,7 @@ class Html extends \Kotchasan\KBase
           'for' => $attributes['for']
         ));
       } else {
-        $prop['title'] = $attributes['label'];
+        $prop['title'] = strip_tags($attributes['label']);
         $item = self::fieldset($prop);
       }
     } else {
@@ -188,7 +188,7 @@ class Html extends \Kotchasan\KBase
           unset($attributes['id']);
         }
         if (isset($attributes['comment'])) {
-          $item['title'] = $attributes['comment'];
+          $item['title'] = strip_tags($attributes['comment']);
         }
         $div->add($tag == 'radiogroups' ? 'radio' : 'checkbox', $item);
       }

@@ -36,15 +36,18 @@ class View extends \Gcms\View
       $member_status[$key] = '{LNG_'.$value.'}';
     }
     // URL สำหรับส่งให้ตาราง
-    $uri = self::$request->createUriWithGlobals(WEB_URL.'index.php');
+    $uri = $request->createUriWithGlobals(WEB_URL.'index.php');
     // ตารางสมาชิก
     $table = new DataTable(array(
       /* Uri */
       'uri' => $uri,
       /* Model */
       'model' => 'Index\Member\Model',
+      /* รายการต่อหน้า */
       'perPage' => $request->cookie('member_perPage', 30)->toInt(),
+      /* เรียงลำดับ */
       'sort' => $request->cookie('member_sort', 'id desc')->toString(),
+      /* ฟังก์ชั่นจัดรูปแบบการแสดงผลแถวของตาราง */
       'onRow' => array($this, 'onRow'),
       /* คอลัมน์ที่ไม่ต้องแสดงผล */
       'hideColumns' => array('id', 'visited'),

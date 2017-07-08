@@ -454,29 +454,27 @@ header .inline {
   display: table-cell;
   vertical-align: middle;
   border-bottom: 1px solid #EEE;
-  padding: 5px;
+  padding: 5px 0;
   white-space: nowrap;
   min-width: 3em;
 }
+.editinplace_list em,
 .editinplace_list label,
 .editinplace_list  span {
   display: inline-block;
-  min-width: 3em;
   height: 2.3em;
   line-height: 2.3em;
+  padding: 0 0.5em;
+  margin: 0 5px;
   vertical-align: middle;
-  text-align: center;
 }
 .editinplace_list .editinplace {
   border-width: 1px;
   border-style: dashed;
   border-color: transparent transparent rgba(0, 0, 0, 0.3) transparent;
   cursor: pointer;
-  padding: 0 0.5em;
-  min-width: 10em;
   position: relative;
-  text-align: left;
-  display: block;
+  min-width: 10em;
 }
 .editinplace_list [type="text"] {
   background-color: transparent;
@@ -484,10 +482,10 @@ header .inline {
   padding: 0 0.5em;
   display: block;
   width: 100%;
+  margin: 0 5px;
 }
 .editinplace:hover:after {
-  background-color: rgba(0, 0, 0, 0.1);
-  color: #666;
+  color: #4CAF50;
   content: '\e6d2';
   font-size: 0.8em;
   text-align: center;
