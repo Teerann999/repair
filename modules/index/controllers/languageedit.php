@@ -31,57 +31,68 @@ class Controller extends \Gcms\Controller
    */
   public function render(Request $request)
   {
-    // ภาษาที่ติดตั้ง
-    $languages = self::$view->installedLanguage();
-    // รายการที่แก้ไข (id)
-    $id = $request->request('id')->toInt();
-    if ($id > 0) {
-      $title = '{LNG_Edit}';
-      // แก้ไข อ่านรายการที่เลือก
-      $model = new \Kotchasan\Model();
-      $language = $model->db()->first($model->getTableName('language'), $id);
-      if ($language && $language->type == 'array') {
-        foreach ($languages as $lng) {
-          if ($language->$lng != '') {
-            $ds = @unserialize($language->$lng);
-            if (is_array($ds)) {
-              foreach ($ds as $key => $value) {
-                $language->datas[$key]['key'] = $key;
-                $language->datas[$key][$lng] = $value;
-              }
-            }
-          }
-          unset($language->$lng);
-        }
-      } else {
-        $language->datas[0]['key'] = '';
-        foreach ($languages as $lng) {
-          $language->datas[0][$lng] = $language->$lng;
-          unset($language->$lng);
-        }
-      }
-    } else {
-      $title = '{LNG_Add New}';
-      // ใหม่
-      $language = array(
-        'id' => 0,
-        'key' => '',
-        'js' => $request->get('type')->toBoolean(),
-        'owner' => 'index',
-        'type' => 'text'
-      );
-      $language['datas'][0]['key'] = '';
-      foreach ($languages as $lng) {
-        $language['datas'][0][$lng] = '';
-      }
-      $language = (object)$language;
-    }
     // ข้อความ title bar
     $this->title = Language::get('Manage languages');
     // เลือกเมนู
     $this->menu = 'settings';
     // สามารถตั้งค่าระบบได้
     if (Login::checkPermission(Login::isMember(), 'can_config')) {
+      // ภาษาที่ติดตั้ง
+      $languages = Language::installedLanguage();
+      // รายการที่แก้ไข (id)
+      $id = $request->request('id')->toInt();
+      if ($id > 0) {
+        $title = '{LNG_Edit}';
+        // แก้ไข อ่านรายการที่เลือก
+        $model = new \Kotchasan\Model();
+        $language = $model->db()->first($model->getTableName('language'), $id);
+        if ($language && $language->type == 'array') {
+          foreach ($languages as $lng) {
+            if ($language->$lng != '') {
+              $ds = @unserialize($language->$lng);
+              if (is_array($ds)) {
+                foreach ($ds as $key => $value) {
+                  $language->datas[$key]['key'] = $key;
+                  $language->datas[$key][$lng] = $value;
+                }
+              } else {
+                $language->datas[0]['key'] = '';
+                $language->datas[0][$lng] = $language->$lng;
+              }
+            }
+            unset($language->$lng);
+          }
+          // ตรวจสอบข้อมูลให้มีทุกภาษา
+          foreach ($language->datas as $key => $values) {
+            foreach ($languages as $lng) {
+              if (!isset($language->datas[$key][$lng])) {
+                $language->datas[$key][$lng] = '';
+              }
+            }
+          }
+        } else {
+          $language->datas[0]['key'] = '';
+          foreach ($languages as $lng) {
+            $language->datas[0][$lng] = $language->$lng;
+            unset($language->$lng);
+          }
+        }
+      } else {
+        $title = '{LNG_Add New}';
+        // ใหม่
+        $language = array(
+          'id' => 0,
+          'key' => '',
+          'js' => $request->get('type')->toBoolean(),
+          'owner' => 'index',
+          'type' => 'text'
+        );
+        $language['datas'][0]['key'] = '';
+        foreach ($languages as $lng) {
+          $language['datas'][0][$lng] = '';
+        }
+        $language = (object)$language;
+      }
       // แสดงผล
       $section = Html::create('section');
       // breadcrumbs

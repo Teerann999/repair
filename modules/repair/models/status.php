@@ -32,7 +32,7 @@ class Model extends \Kotchasan\KBase
         ->select('id', 'topic', 'color')
         ->from('category')
         ->where(array(
-          array('group_id', 1),
+          array('type', 'repairstatus'),
           array('published', 1)
         ))
         ->order('id')

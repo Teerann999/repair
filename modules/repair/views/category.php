@@ -34,13 +34,13 @@ class View extends \Gcms\View
         'class' => 'setup_frm',
     ));
     $fieldset = $form->add('fieldset', array(
-      'title' => '{LNG_Details of} '.$index->categories[$index->group_id]
+      'title' => '{LNG_Details of} '.$index->categories[$index->type]
     ));
     $list = $fieldset->add('ul', array(
       'class' => 'editinplace_list',
       'id' => 'list'
     ));
-    foreach (\Repair\Category\Model::all($index->group_id) as $item) {
+    foreach (\Repair\Category\Model::all($index->type) as $item) {
       $list->appendChild(self::createRow($item));
     }
     $fieldset = $form->add('fieldset', array(
@@ -48,13 +48,13 @@ class View extends \Gcms\View
     ));
     $a = $fieldset->add('a', array(
       'class' => 'button add large',
-      'id' => 'list_add_0_'.$index->group_id
+      'id' => 'list_add_0_'.$index->type
     ));
     $a->add('span', array(
       'class' => 'icon-plus',
-      'innerHTML' => '{LNG_Add New} '.$index->categories[$index->group_id]
+      'innerHTML' => '{LNG_Add New} '.$index->categories[$index->type]
     ));
-    $form->script('initEditInplace("list", "repair/model/category/action", "list_add_0_'.$index->group_id.'");');
+    $form->script('initEditInplace("list", "repair/model/category/action", "list_add_0_'.$index->type.'");');
     return $form->render();
   }
 
@@ -66,13 +66,13 @@ class View extends \Gcms\View
    */
   public static function createRow($item)
   {
-    $id = $item['id'].'_'.$item['group_id'];
+    $id = $item['id'].'_'.$item['type'];
     $row = '<li class="row" id="list_'.$id.'">';
     $row .= '<div class="no">['.$item['id'].']</div>';
     $row .= '<div><span id="list_name_'.$id.'" title="{LNG_click to edit}" class="editinplace">'.$item['topic'].'</span></div>';
     $row .= '<div class="right">';
     $row .= '<span id="list_published_'.$id.'" class="icon-published'.$item['published'].'"></span>';
-    if ($item['group_id'] == 1) {
+    if ($item['type'] == 'repairstatus') {
       $row .= '<label><input type="radio" name="repair_first_status" id="list_status_'.$id.'" title="{LNG_Initial repair status}" value="'.$item['id'].'"'.(isset(self::$cfg->repair_first_status) && self::$cfg->repair_first_status == $item['id'] ? ' checked' : '').'></label>';
       $row .= '<span id="list_color_'.$id.'" class="icon-color" title="'.$item['color'].'"></span>';
     }

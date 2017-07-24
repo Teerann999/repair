@@ -151,6 +151,7 @@ class Model extends \Kotchasan\Model
                 $repair['job_id'] = Text::rndname(10, 'ABCDEFGHKMNPQRSTUVWXYZ0123456789');
               }
               $repair['create_date'] = date('Y-m-d H:i:s');
+              $log['create_date'] = $repair['create_date'];
               // บันทึกรายการแจ้งซ่อม
               $log['repair_id'] = $this->db()->insert($table, $repair);
               $log['status'] = isset(self::$cfg->repair_first_status) ? self::$cfg->repair_first_status : 1;

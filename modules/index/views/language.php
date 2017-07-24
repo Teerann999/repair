@@ -11,6 +11,7 @@ namespace Index\Language;
 use \Kotchasan\Http\Request;
 use \Kotchasan\DataTable;
 use \Kotchasan\Text;
+use \Kotchasan\Language;
 
 /**
  * module=language
@@ -36,7 +37,7 @@ class View extends \Gcms\View
   {
     // ชนิดของภาษาที่เลือก php,js
     $js = $request->request('js')->toBoolean();
-    $this->languages = self::installedLanguage();
+    $this->languages = Language::installedLanguage();
     // URL สำหรับส่งให้ตาราง
     $uri = $request->createUriWithGlobals(WEB_URL.'index.php');
     // ตารางภาษา
@@ -127,6 +128,7 @@ class View extends \Gcms\View
     setcookie('language_sort', $table->sort, time() + 3600 * 24 * 365, '/');
     // Javascript
     $table->script('initLanguageTable("language_table");');
+    // คืนค่า HTML
     return $table->render();
   }
 
@@ -153,6 +155,12 @@ class View extends \Gcms\View
     return $item;
   }
 
+  /**
+   * แปลงข้อความ สำหรับแสดงตัวอย่าง
+   *
+   * @param string $text
+   * @return string
+   */
   private static function toText($text)
   {
     return Text::cut(str_replace(array("\r", "\n", '&'), array('', ' ', '&amp;'), strip_tags($text)), 50);

@@ -1,6 +1,7 @@
 <?php
 /* language/th.php */
 return array(
+  'Add' => 'เพิ่ม',
   'Add New' => 'เพิ่ม',
   'Address' => 'ที่อยู่',
   'Address details' => 'รายละเอียดที่อยู่',
@@ -68,6 +69,7 @@ return array(
   'Equipment' => 'อุปกรณ์',
   'Expiration date' => 'วันหมดอายุ',
   'Fax' => 'โทรสาร',
+  'File' => 'ไฟล์',
   'Fill in the repair costs you want to inform the customer' => 'กรอกค่าใช้จ่ายในการซ่อมที่ต้องการแจ้งให้ลูกค้าทราบ',
   'Find your transaction history by' => 'ค้นหาประวัติการทำรายการได้จาก',
   'Forgot' => 'ลืมรหัสผ่าน',
@@ -82,6 +84,7 @@ return array(
   'Identity of the repair machine used to separate items.' => 'รหัสประจำตัวของเครื่องซ่อม ใช้แยกแต่ละรายการออกจากกัน',
   'Incorrect :name' => ':name ไม่ถูกต้อง',
   'Initial repair status' => 'สถานะซ่อมเริ่มต้น',
+  'Key' => 'คีย์',
   'Language' => 'ภาษา',
   'Last login' => 'เข้าระบบล่าสุด',
   'List of' => 'รายการ',
@@ -96,8 +99,10 @@ return array(
     0 => 'ส่งจดหมายด้วย PHP',
     1 => 'ส่งจดหมายด้วย PHPMailer (แนะนำ)'
   ),
+  'Manage languages' => 'จัดการภาษา',
   'Member list' => 'รายชื่อสมาชิก',
   'Member status' => 'สถานะสมาชิก',
+  'Module' => 'โมดูล',
   'Module settings' => 'ตั้งค่าโมดูล',
   'MONTH_LONG' => array(
     1 => 'มกราคม',
@@ -127,7 +132,8 @@ return array(
     11 => 'พ.ย.',
     12 => 'ธ.ค.'
   ),
-  'Name' => 'ชื่อ นามสกุล',
+  'Name' => 'ชื่อ',
+  'No need to fill in English text. If the English text matches the Key' => 'ไม่จำเป็นต้องกรอกข้อความในภาษาอังกฤษ หากข้อความในภาษาอังกฤษตรงกับคีย์',
   'not a registered user' => 'ไม่พบสมาชิกนี้ลงทะเบียนไว้',
   'Note or additional notes' => 'คำอธิบายหรือหมายเหตุเพิ่มเติม',
   'Operator' => 'ผู้ปฏิบัติงาน',
@@ -138,9 +144,7 @@ return array(
   'Permission' => 'สิทธิ์การใช้งาน',
   'PERMISSIONS' => array(
     'can_config' => 'สามารถตั้งค่าระบบได้',
-    'can_login' => 'สามารถเข้าระบบได้',
-    'can_received_repair' => 'สามารถรับงานซ่อมได้',
-    'can_repair' => 'ช่างซ่อม'
+    'can_login' => 'สามารถเข้าระบบได้'
   ),
   'Phone' => 'โทรศัพท์',
   'Please fill in' => 'กรุณากรอก',
@@ -154,6 +158,7 @@ return array(
   'Received date' => 'วันที่รับซ่อม',
   'Register' => 'สมัครสมาชิก',
   'Remember me' => 'จำการเข้าระบบ',
+  'Remove' => 'ลบ',
   'Repair' => 'แจ้งซ่อม',
   'Repair details' => 'รายละเอียดใบรับซ่อม',
   'Repair job description' => 'รายละเอียดการซ่อม',
@@ -167,7 +172,7 @@ return array(
   'Repair status' => 'สถานะการซ่อม',
   'Repair system' => 'ระบบแจ้งซ่อม',
   'REPAIR_CATEGORIES' => array(
-    1 => 'สถานะการซ่อม'
+    'repairstatus' => 'สถานะการซ่อม'
   ),
   'Repassword' => 'ยืนยันรหัสผ่าน',
   'Save' => 'บันทึก',
@@ -201,6 +206,7 @@ return array(
   'Sorry, Item not found It&#39;s may be deleted' => 'ขออภัย ไม่พบรายการที่เลือก รายการนี้อาจถูกลบไปแล้ว',
   'Specify the language code of the email, as utf-8' => 'ระบุรหัสภาษาของอีเมล์ที่ส่ง เช่น utf-8',
   'Status for general members' => 'สถานะสำหรับสมาชิกทั่วไป',
+  'successfully copied to clipboard' => 'สำเนาไปยังคลิปบอร์ดเรียบร้อยแล้ว',
   'The members status of the site' => 'สถานะของสมาชิกของเว็บไซต์',
   'The name of the mail server as localhost or smtp.gmail.com (To change the settings of your email is the default. To remove this box entirely.)' => 'ชื่อของเมล์เซิร์ฟเวอร์ เช่น localhost หรือ smtp.gmail.com (ต้องการเปลี่ยนค่ากำหนดของอีเมล์ทั้งหมดเป็นค่าเริ่มต้น ให้ลบข้อความในช่องนี้ออกทั้งหมด)',
   'The name of the repairs, eg Computers' => 'ชื่อของที่นำมาซ่อม เช่น คอมพิวเตอร์',
@@ -210,6 +216,7 @@ return array(
   'To change your password, enter your password to match the two inputs' => 'ถ้าต้องการเปลี่ยนรหัสผ่าน กรุณากรอกรหัสผ่านสองช่องให้ตรงกัน',
   'Transaction date' => 'วันที่ทำรายการ',
   'Transaction history' => 'ประวัติการทำรายการ',
+  'Type' => 'ชนิด',
   'Unable to complete the transaction' => 'ไม่สามารถทำรายการนี้ได้',
   'Update repair status' => 'ปรับปรุงสถานะการซ่อม',
   'User' => 'สมาชิก',
@@ -222,5 +229,7 @@ return array(
   'YEAR_OFFSET' => 543,
   'Your message was sent successfully' => 'ส่งข้อความไปยังผู้รับเรียบร้อยแล้ว',
   'Your new password is' => 'รหัสผ่านใหม่ของคุณคือ',
-  'Zipcode' => 'รหัสไปรษณีย์'
+  'Zipcode' => 'รหัสไปรษณีย์',
+  'Can get the repair' => 'สามารถรับงานซ่อมได้',
+  'Repairman' => 'ช่างซ่อม',
 );

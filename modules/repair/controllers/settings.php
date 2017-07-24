@@ -11,7 +11,6 @@ namespace Repair\Settings;
 use \Kotchasan\Http\Request;
 use \Gcms\Login;
 use \Kotchasan\Html;
-use \Kotchasan\Config;
 use \Kotchasan\Language;
 
 /**
@@ -50,10 +49,8 @@ class Controller extends \Gcms\Controller
       $section->add('header', array(
         'innerHTML' => '<h2 class="icon-tools">'.$this->title.'</h2>'
       ));
-      // โหลด config
-      $config = Config::load(ROOT_PATH.'settings/config.php');
       // แสดงฟอร์ม
-      $section->appendChild(createClass('Repair\Settings\View')->render($config));
+      $section->appendChild(createClass('Repair\Settings\View')->render());
       return $section->render();
     }
     // 404.html

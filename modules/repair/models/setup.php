@@ -24,8 +24,8 @@ class Model extends \Kotchasan\Model
 
   /**
    * Query ข้อมูลสำหรับส่งให้กับ DataTable
-   * @param Request $request
-   * @return type
+   *
+   * @return /static
    */
   public static function toDataTable()
   {

@@ -13,7 +13,7 @@ use \Gcms\Login;
 use \Kotchasan\Language;
 
 /**
- * โมเดลสำหรับแสดงรายการภาษา (setup.php)
+ * โมเดลสำหรับภาษา (language.php)
  *
  * @author Goragod Wiriya <admin@goragod.com>
  *
@@ -73,10 +73,10 @@ class Model extends \Kotchasan\Orm\Field
   public static function updateLanguageFile()
   {
     // ภาษาที่ติดตั้ง
-    $languages = \Gcms\View::installedLanguage();
+    $languages = Language::installedLanguage();
     // query ข้อมูลภาษา
     $model = new \Kotchasan\Model;
-    $query = $model->db()->createQuery()->select()->from('language');
+    $query = $model->db()->createQuery()->select()->from('language')->order('key');
     // เตรียมข้อมูล
     $datas = array();
     foreach ($query->toArray()->execute() as $item) {

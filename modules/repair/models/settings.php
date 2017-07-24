@@ -14,7 +14,7 @@ use \Kotchasan\Language;
 use \Kotchasan\Config;
 
 /**
- * บันทึกการตั้งค่าโมดูล
+ * module=repair-settings
  *
  * @author Goragod Wiriya <admin@goragod.com>
  *
@@ -24,7 +24,7 @@ class Model extends \Kotchasan\KBase
 {
 
   /**
-   * module=repair-settings
+   * บันทึกการตั้งค่าโมดูล
    *
    * @param Request $request
    */

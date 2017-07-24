@@ -60,6 +60,13 @@ class DataTable extends \Kotchasan\KBase
    */
   private $checkCol = -1;
   /**
+   * กำหนดการแสดงผล checkbox
+   * ถ้าเป็น true จะซ่อน checkbox เสมอ
+   *
+   * @var boolean
+   */
+  public $hideCheckbox = false;
+  /**
    * แสดงตารางกว้าง 100%
    *
    * @var bool
@@ -595,7 +602,7 @@ class DataTable extends \Kotchasan\KBase
       $colspan = 0;
       foreach ($this->headers as $key => $attributes) {
         if ($colspan === 0) {
-          if ($i == $this->checkCol) {
+          if (!$this->hideCheckbox && $i == $this->checkCol) {
             $row[] = '<th class="check-column"><a class="checkall icon-uncheck"></a></th>';
             $colCount++;
           }
@@ -640,7 +647,7 @@ class DataTable extends \Kotchasan\KBase
       $tfoot = null;
       if (isset($this->onCreateFooter)) {
         $tfoot = call_user_func($this->onCreateFooter);
-      } elseif ($this->checkCol > -1) {
+      } elseif (!$this->hideCheckbox && $this->checkCol > -1) {
         $tfoot = '<tr>';
         $tfoot .= '<td colspan="'.$this->checkCol.'"></td>';
         $tfoot .= '<td class="check-column"><a class="checkall icon-uncheck"></a></td>';
@@ -658,7 +665,9 @@ class DataTable extends \Kotchasan\KBase
       if (!empty($this->addNew)) {
         $prop = array();
         foreach ($this->addNew as $k => $v) {
-          $prop[$k] = $k.'="'.$v.'"';
+          if ($k != 'text') {
+            $prop[$k] = $k.'="'.$v.'"';
+          }
         }
         if (preg_match('/^((.*)\s+)?(icon-[a-z0-9\-_]+)(\s+(.*))?$/', $this->addNew['class'], $match)) {
           $prop['class'] = 'class="'.trim($match[2].' '.(isset($match[5]) ? $match[5] : '')).'"';
@@ -732,7 +741,7 @@ class DataTable extends \Kotchasan\KBase
         $i = 0;
         foreach ($this->headers as $field => $attributes) {
           if (!empty($field) && !in_array($field, $this->hideColumns)) {
-            if ($i == $this->checkCol) {
+            if (!$this->hideCheckbox && $i == $this->checkCol) {
               $row[] = '<td headers="r'.$id.'" class="check-column"><a id="check_'.$id.'" class="icon-uncheck"></a></td>';
             }
             if ($i == $this->dragColumn) {

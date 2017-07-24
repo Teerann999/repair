@@ -35,6 +35,12 @@ class Controller extends \Kotchasan\Controller
    * @var \Gcms\View
    */
   public static $view;
+  /**
+   * Menu Controller
+   *
+   * @var \Index\Menu\Controller
+   */
+  public static $menus;
 
   /**
    * init Class
@@ -64,5 +70,34 @@ class Controller extends \Kotchasan\Controller
   public function menu()
   {
     return $this->menu;
+  }
+
+  /**
+   * โหลด permissions ของโมดูลต่างๆ
+   *
+   * @return array
+   */
+  public static function getPermissions()
+  {
+    // permissions เริ่มต้น
+    $permissions = \Kotchasan\Language::get('PERMISSIONS');
+    // โหลดค่าติดตั้งโมดูล
+    $dir = ROOT_PATH.'modules/';
+    $f = @opendir($dir);
+    if ($f) {
+      while (false !== ($text = readdir($f))) {
+        if ($text != '.' && $text != '..' && $text != 'index' && $text != 'css' && $text != 'js' && is_dir($dir.$text)) {
+          if (is_file($dir.$text.'/controllers/init.php')) {
+            require_once $dir.$text.'/controllers/init.php';
+            $className = '\\'.ucfirst($text).'\Init\Controller';
+            if (method_exists($className, 'updatePermissions')) {
+              $permissions = $className::updatePermissions($permissions);
+            }
+          }
+        }
+      }
+      closedir($f);
+    }
+    return $permissions;
   }
 }

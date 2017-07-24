@@ -50,7 +50,7 @@ class View extends \Gcms\View
       'id' => 'register_username',
       'itemClass' => 'width50',
       'labelClass' => 'g-input icon-email',
-      'label' => '{LNG_Email}',
+      'label' => '{LNG_Email}/{LNG_Username}',
       'comment' => '{LNG_Email address used for login or request a new password}',
       'maxlength' => 50,
       'validator' => array('keyup,change', 'checkUsername', 'index.php/index/model/checker/username')
@@ -98,7 +98,7 @@ class View extends \Gcms\View
       'id' => 'register_permission',
       'label' => '{LNG_Permission}',
       'labelClass' => 'g-input icon-list',
-      'options' => Language::get('PERMISSIONS'),
+      'options' => \Gcms\Controller::getPermissions(),
       'value' => array('can_login')
     ));
     $fieldset = $form->add('fieldset', array(

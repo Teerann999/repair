@@ -43,7 +43,7 @@ class Model extends \Kotchasan\Model
         );
         $permission = $request->post('register_permission', array())->topic();
         if (empty($save['username'])) {
-          $ret['ret_register_username'] = 'Please fill in';
+          $ret['ret_register_username'] = 'this';
         } else {
           // ตรวจสอบ username ซ้ำ
           $search = $this->db()->first($this->getTableName('user'), array('username', $save['username']));

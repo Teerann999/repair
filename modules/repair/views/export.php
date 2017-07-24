@@ -45,9 +45,9 @@ class View extends \Gcms\View
     // template
     $template = Template::createFromFile(ROOT_PATH.'modules/repair/views/print.html');
     $template->add(array(
-      '/%COMPANY%/' => self::$cfg->company_name,
-      '/%COMPANYADDRESS%/' => self::$cfg->address,
-      '/%COMPANYPHONE%/' => self::$cfg->phone,
+      '/%COMPANY%/' => isset(self::$cfg->company_name) ? self::$cfg->company_name : '',
+      '/%COMPANYADDRESS%/' => isset(self::$cfg->address) ? self::$cfg->address : '',
+      '/%COMPANYPHONE%/' => isset(self::$cfg->phone) ? self::$cfg->phone : '',
       '/%JOB_ID%/' => $index->job_id,
       '/%NAME%/' => $index->name,
       '/%PHONE%/' => $index->phone,
@@ -63,7 +63,7 @@ class View extends \Gcms\View
       '/%COMMENT%/' => $index->comment,
       '/%URL%/' => $url,
       '/%QRCODE%/' => WEB_URL.$qrcode_file,
-      '/{UNIT}/' => Language::find('CURRENCY_UNITS', null, self::$cfg->currency_unit),
+      '/{UNIT}/' => isset(self::$cfg->currency_unit) ? Language::find('CURRENCY_UNITS', null, self::$cfg->currency_unit) : '',
       '/{WEBURL}/' => WEB_URL
     ));
     return Language::trans($template->render());

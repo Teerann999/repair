@@ -61,7 +61,7 @@ class Model extends \Kotchasan\KBase
             $config->member_status[$i] = Language::get('click to edit');
             $config->color_status[$i] = '#000000';
             // คืนค่าแถวใหม่
-            $ret['data'] = \Index\Memberstatus\View::createRow($i, $config->member_status[$i], $config->color_status[$i]);
+            $ret['data'] = Language::trans(\Index\Memberstatus\View::createRow($i, $config->member_status[$i], $config->color_status[$i]));
             $ret['newId'] = 'list_'.$i;
             $save = true;
           } elseif ($match[1] == 'delete') {
@@ -104,12 +104,11 @@ class Model extends \Kotchasan\KBase
           $ret['alert'] = sprintf(Language::get('File %s cannot be created or is read-only.'), 'settings/config.php');
         }
       }
-    } else {
+    }
+    if (empty($ret)) {
       $ret['alert'] = Language::get('Unable to complete the transaction');
     }
-    if (!empty($ret)) {
-      // คืนค่าเป็น JSON
-      echo json_encode($ret);
-    }
+    // คืนค่าเป็น JSON
+    echo json_encode($ret);
   }
 }

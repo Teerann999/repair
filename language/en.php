@@ -61,13 +61,11 @@ return array(
     12 => 'Dec'
   ),
   'PERMISSIONS' => array(
-    'can_config' => 'Can set up the system',
-    'can_login' => 'Can login',
-    'can_received_repair' => 'Can get the repair',
-    'can_repair' => 'Repairman'
+    'can_config' => 'Can configure the system',
+    'can_login' => 'Can login'
   ),
   'REPAIR_CATEGORIES' => array(
-    1 => 'Repair status'
+    'repairstatus' => 'Repair status'
   ),
   'SEXES' => array(
     'f' => 'Female',

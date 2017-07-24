@@ -24,18 +24,18 @@ class Model extends \Kotchasan\KBase
 {
 
   /**
-   * ลิสต์รายการหมวดหมู่ ตาม $group_id
+   * ลิสต์รายการหมวดหมู่ ตาม $type
    *
-   * @param int $group_id
+   * @param int $type
    * @return array
    */
-  public static function all($group_id)
+  public static function all($type)
   {
     $model = new \Kotchasan\Model;
     return $model->db()->createQuery()
         ->select()
         ->from('category')
-        ->where(array('group_id', $group_id))
+        ->where(array('type', $type))
         ->order('id')
         ->toArray()
         ->execute();
@@ -44,13 +44,13 @@ class Model extends \Kotchasan\KBase
   /**
    * อ่านรายการหมวดหมู่สำหรับใส่ลงใน select
    *
-   * @param int $group_id
+   * @param int $type
    * @return array
    */
-  public static function toSelect($group_id)
+  public static function toSelect($type)
   {
     $result = array();
-    foreach (self::all($group_id) as $item) {
+    foreach (self::all($type) as $item) {
       $result['id'] = $item['topic'];
     }
     return $result;
@@ -69,7 +69,7 @@ class Model extends \Kotchasan\KBase
         $action = self::$request->post('action')->toString();
         $value = self::$request->post('value')->topic();
         // ตรวจสอบค่าที่ส่งมา
-        if (preg_match('/^list_(add|delete|color|name|published|status)_([0-9]+)_([0-9]+)$/', $action, $match)) {
+        if (preg_match('/^list_(add|delete|color|name|published|status)_([0-9]+)_([a-z]+)$/', $action, $match)) {
           // Model
           $model = new \Kotchasan\Model;
           // ตารางหมวดหมู่
@@ -81,7 +81,7 @@ class Model extends \Kotchasan\KBase
               'topic' => Language::get('click to edit'),
               'color' => '#000000',
               'published' => 1,
-              'group_id' => $match[3]
+              'type' => $match[3]
             );
             $data['id'] = $model->db()->insert($table, $data);
             // คืนค่าแถวใหม่

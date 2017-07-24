@@ -176,7 +176,6 @@ var dataTableActionCallback = function (xhr) {
   var el,
     prop,
     val,
-    toplv = -1,
     ds = xhr.responseText.toJSON();
   if (ds) {
     for (prop in ds) {
@@ -187,6 +186,10 @@ var dataTableActionCallback = function (xhr) {
         } else {
           window.location = val;
         }
+      } else if (prop == 'open') {
+        window.setTimeout(function () {
+          window.open(val);
+        }, 1);
       } else if (prop == 'remove') {
         if ($E(val)) {
           $G(val).remove();
@@ -209,11 +212,7 @@ var dataTableActionCallback = function (xhr) {
           val.evalScript();
         }
       } else if ($E(prop)) {
-        as = val.split('|');
-        $E(prop).innerHTML = as[0];
-        $E('move_left_' + as[2]).className = (as[1] == 0 ? 'hidden' : 'icon-move_left');
-        $E('move_right_' + as[2]).className = (as[1] > toplv ? 'hidden' : 'icon-move_right');
-        toplv = as[1];
+        $G(prop).setValue(val);
       }
     }
   } else if (xhr.responseText != '') {
@@ -526,6 +525,28 @@ function initLanguageTable(id) {
         document.body.msgBox(trans('successfully copied to clipboard'));
         return false;
       });
+    }
+  });
+}
+function validateKeyPress(input, e, patt) {
+  var val = input.value;
+  var key = GEvent.keyCode(e);
+  if (!((key > 36 && key < 41) || key == 8 || key == 9 || key == 13 || GEvent.isCtrlKey(e))) {
+    val = String.fromCharCode(key);
+    if (val !== '' && !patt.test(val)) {
+      GEvent.stop(e);
+      return false;
+    }
+  }
+  return true;
+}
+function initFirstRowNumberOnly(tr) {
+  var doKeyPress = function (e) {
+    return validateKeyPress(this, e, /[0-9]+/);
+  };
+  forEach($G(tr).elems('input'), function (item, index) {
+    if (index == 0) {
+      $G(item).addEvent('keypress', doKeyPress);
     }
   });
 }

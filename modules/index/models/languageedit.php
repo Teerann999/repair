@@ -72,29 +72,25 @@ class Model extends \Kotchasan\Model
           'key' => $this->allowTags($request->post('write_key')->topic())
         );
         // ภาษาที่ติดตั้ง
-        $languages = \Gcms\View::installedLanguage();
-        $array = false;
+        $languages = Language::installedLanguage();
         foreach ($request->post('datas')->topic() as $items) {
           foreach ($languages as $lng) {
             if ($items[$lng] != '') {
               $save[$lng][$items['key']] = $items[$lng];
               if (sizeof($save[$lng]) > 1) {
-                $array = true;
+                $save['type'] = 'array';
               }
             }
           }
         }
         foreach ($languages as $lng) {
-          if ($array) {
+          if ($save['type'] == 'array') {
             $save[$lng] = $this->allowTags(serialize($save[$lng]));
           } elseif (isset($save[$lng])) {
             $save[$lng] = $this->allowTags(reset($save[$lng]));
           } else {
             $save[$lng] = '';
           }
-        }
-        if ($array) {
-          $save['type'] = 'array';
         }
         if ($save['js']) {
           if (isset($save['en']) && $save['en'] == '') {

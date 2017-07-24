@@ -39,7 +39,7 @@ class View extends \Gcms\View
     // สถานะการซ่อม
     $this->statuses = \Repair\Status\Model::create();
     // รายชื่อช่างซ่อม
-    $operator_id = $request->get('operator_id', -1)->toInt();
+    $operator_id = $request->request('operator_id', -1)->toInt();
     $this->operators = \Repair\Operator\Model::create();
     $operators = array();
     if ($isAdmin) {
@@ -94,7 +94,7 @@ class View extends \Gcms\View
           'default' => -1,
           'text' => '{LNG_Repair status}',
           'options' => ArrayTool::merge(array(-1 => '{LNG_all items}'), $this->statuses->toSelect()),
-          'value' => $request->get('status', -1)->toInt()
+          'value' => $request->request('status', -1)->toInt()
         )
       ),
       /* ส่วนหัวของตาราง และการเรียงลำดับ (thead) */

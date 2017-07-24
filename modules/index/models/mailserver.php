@@ -25,7 +25,7 @@ class Model extends \Kotchasan\KBase
 {
 
   /**
-   * module=mailserver
+   * form submit (mailserver.php)
    *
    * @param Request $request
    */

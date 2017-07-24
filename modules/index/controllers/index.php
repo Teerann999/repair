@@ -12,6 +12,7 @@ use \Kotchasan\Http\Request;
 use \Gcms\Login;
 use \Kotchasan\Template;
 use \Kotchasan\Http\Response;
+use \Kotchasan\Language;
 
 /**
  * Controller สำหรับแสดงหน้าเว็บ
@@ -43,6 +44,23 @@ class Controller extends \Gcms\Controller
     if ($login = Login::isMember()) {
       // โหลดเมนู
       $menu = \Index\Menu\Controller::init($login);
+      // โหลดค่าติดตั้งโมดูล
+      $dir = ROOT_PATH.'modules/';
+      $f = @opendir($dir);
+      if ($f) {
+        while (false !== ($text = readdir($f))) {
+          if ($text != '.' && $text != '..' && $text != 'index' && $text != 'css' && $text != 'js' && is_dir($dir.$text)) {
+            if (is_file($dir.$text.'/controllers/init.php')) {
+              require_once $dir.$text.'/controllers/init.php';
+              $className = '\\'.ucfirst($text).'\Init\Controller';
+              if (method_exists($className, 'execute')) {
+                $className::execute($request, $menu, $login);
+              }
+            }
+          }
+        }
+        closedir($f);
+      }
       // Controller หลัก
       $main = new \Index\Main\Controller;
       $bodyclass = 'mainpage';
@@ -53,7 +71,7 @@ class Controller extends \Gcms\Controller
     }
     $languages = array();
     $uri = $request->getUri();
-    foreach (self::$view->installedLanguage() as $item) {
+    foreach (Language::installedLanguage() as $item) {
       $languages[$item] = '<li><a id=lang_'.$item.' href="'.$uri->withParams(array('lang' => $item), true).'" title="{LNG_Language} '.strtoupper($item).'" style="background-image:url('.WEB_URL.'language/'.$item.'.gif)" tabindex=1>&nbsp;</a></li>';
     }
     // เนื้อหา
@@ -72,7 +90,7 @@ class Controller extends \Gcms\Controller
         // แสดงชื่อคน Login
         '/{LOGINNAME}/' => $login['name'],
         // เมนู
-        '/{MENUS}/' => $menu->render($main->menu())
+        '/{MENUS}/' => $menu->render($main->menu(), $login)
       ));
     }
     // ส่งออก เป็น HTML

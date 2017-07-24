@@ -11,6 +11,7 @@ namespace Index\Home;
 use \Kotchasan\Http\Request;
 use \Kotchasan\Html;
 use \Kotchasan\Language;
+use \Gcms\Login;
 
 /**
  * module=home
@@ -45,8 +46,60 @@ class Controller extends \Gcms\Controller
     $section->add('header', array(
       'innerHTML' => '<h2 class="icon-dashboard">'.$this->title.'</h2>'
     ));
-    // แสดงฟอร์ม
-    $section->appendChild(createClass('Index\Home\View')->render($request));
+    $dashboard = $section->add('div', array(
+      'class' => 'dashboard'
+    ));
+    $card = $dashboard->add('div', array(
+      'class' => 'ggrid row'
+    ));
+    // Login
+    $login = Login::isMember();
+    // โหลด Component หน้า Home
+    $dir = ROOT_PATH.'modules/';
+    $f = @opendir($dir);
+    if ($f) {
+      while (false !== ($text = readdir($f))) {
+        if ($text != '.' && $text != '..' && $text != 'index' && $text != 'css' && $text != 'js' && is_dir($dir.$text)) {
+          if (is_file($dir.$text.'/controllers/home.php')) {
+            require_once $dir.$text.'/controllers/home.php';
+            $className = '\\'.ucfirst($text).'\Home\Controller';
+            if (method_exists($className, 'addCard')) {
+              $className::addCard($request, $card, $login);
+            }
+          }
+        }
+      }
+      closedir($f);
+    }
+    if (sizeof($card) < 4) {
+      self::renderCard($card, 'icon-users', 'Users', \Index\Member\Model::getCount(), 'Member list', 'index.php?module=member');
+    }
     return $section->render();
+  }
+
+  /**
+   * ฟังก์ชั่นสร้าง card ในหน้า Home
+   *
+   * @param \Kotchasan\Html $card
+   * @param string $icon
+   * @param string $title
+   * @param int $value
+   * @param string $link
+   * @param string $url
+   */
+  public static function renderCard($card, $icon, $title, $value, $link, $url)
+  {
+    $content = array('<div class="table fullwidth">');
+    $content[] = '<div class="td '.$icon.' notext"></div>';
+    $content[] = '<div class="td right">';
+    $content[] = '<span class="cuttext">{LNG_'.$title.'}</span>';
+    $content[] = '<h3>'.number_format($value).'</h3>';
+    $content[] = '<a href="'.$url.'" class="cuttext">{LNG_'.$link.'}</a>';
+    $content[] = '</div>';
+    $content[] = '</div>';
+    $card->add('section', array(
+      'class' => 'card block3 float-left',
+      'innerHTML' => implode('', $content)
+    ));
   }
 }

@@ -33,15 +33,15 @@ class Controller extends \Gcms\Controller
   {
     $index = (object)array(
         // ประเภทที่ต้องการ
-        'group_id' => $request->request('typ')->toInt(),
+        'type' => $request->request('typ')->topic(),
         // ชื่อหมวดหมู่ที่สามารถใช้งานได้
         'categories' => Language::get('REPAIR_CATEGORIES')
     );
-    if (!isset($index->categories[$index->group_id])) {
-      $index->group_id = reset((array_keys($index->categories)));
+    if (!isset($index->categories[$index->type])) {
+      $index->type = reset((array_keys($index->categories)));
     }
     // ข้อความ title bar
-    $title = $index->categories[$index->group_id];
+    $title = $index->categories[$index->type];
     $this->title = Language::trans('{LNG_List of} ').$title;
     // เลือกเมนู
     $this->menu = 'settings';

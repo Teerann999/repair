@@ -111,7 +111,7 @@ class View extends \Gcms\View
     $groups->add('text', array(
       'id' => 'register_phone',
       'labelClass' => 'g-input icon-phone',
-      'itemClass' => 'width33',
+      'itemClass' => 'width50',
       'label' => '{LNG_Phone}',
       'maxlength' => 32,
       'value' => $user['phone']
@@ -120,20 +120,12 @@ class View extends \Gcms\View
     $groups->add('text', array(
       'id' => 'register_id_card',
       'labelClass' => 'g-input icon-profile',
-      'itemClass' => 'width33',
+      'itemClass' => 'width50',
       'label' => '{LNG_Identification number}',
       'pattern' => '[0-9]+',
       'maxlength' => 13,
       'value' => $user['id_card'],
       'validator' => array('keyup,change', 'checkIdcard')
-    ));
-    // expire_date
-    $groups->add('date', array(
-      'id' => 'register_expire_date',
-      'labelClass' => 'g-input icon-calendar',
-      'itemClass' => 'width33',
-      'label' => '{LNG_Expiration date}',
-      'value' => $user['expire_date']
     ));
     // address
     $fieldset->add('text', array(
@@ -178,11 +170,12 @@ class View extends \Gcms\View
         'options' => self::$cfg->member_status,
         'value' => $user['status']
       ));
+      // permission
       $fieldset->add('checkboxgroups', array(
         'id' => 'register_permission',
         'label' => '{LNG_Permission}',
         'labelClass' => 'g-input icon-list',
-        'options' => Language::get('PERMISSIONS'),
+        'options' => \Gcms\Controller::getPermissions(),
         'value' => $user['permission']
       ));
     }

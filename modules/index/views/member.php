@@ -74,7 +74,7 @@ class View extends \Gcms\View
           'default' => -1,
           'text' => '{LNG_Member status}',
           'options' => $member_status,
-          'value' => $request->get('status', -1)->toInt()
+          'value' => $request->request('status', -1)->toInt()
         )
       ),
       /* รายชื่อฟิลด์ที่ query (ถ้าแตกต่างจาก Model) */
@@ -145,6 +145,7 @@ class View extends \Gcms\View
     // save cookie
     setcookie('member_perPage', $table->perPage, time() + 3600 * 24 * 365, '/');
     setcookie('member_sort', $table->sort, time() + 3600 * 24 * 365, '/');
+    // คืนค่า HTML
     return $table->render();
   }
 
@@ -160,7 +161,7 @@ class View extends \Gcms\View
     $item['permission'] = empty($item['permission']) ? array() : explode(',', $item['permission']);
     if (in_array('can_login', $item['permission'])) {
       $item['permission'] = '<span class="icon-valid access" title="{LNG_Can login}"></span>';
-      $item['lastvisited'] = Date::format($item['lastvisited'], 'd M Y H:i').' ('.number_format($item['visited']).')';
+      $item['lastvisited'] = empty($item['lastvisited']) ? '-' : Date::format($item['lastvisited'], 'd M Y H:i').' ('.number_format($item['visited']).')';
     } else {
       $item['permission'] = '<span class="icon-valid disabled"></span>';
       $item['lastvisited'] = '-';

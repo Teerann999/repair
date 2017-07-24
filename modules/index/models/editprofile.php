@@ -41,7 +41,6 @@ class Model extends \Kotchasan\Model
           'sex' => $request->post('register_sex')->topic(),
           'phone' => $request->post('register_phone')->topic(),
           'id_card' => $request->post('register_id_card')->number(),
-          'expire_date' => $request->post('register_expire_date')->date(),
           'address' => $request->post('register_address')->topic(),
           'provinceID' => $request->post('register_provinceID')->number(),
           'zipcode' => $request->post('register_zipcode')->number(),

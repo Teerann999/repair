@@ -22,12 +22,11 @@ class View extends \Gcms\View
 {
 
   /**
-   * จัดการการตั้งค่า
+   * ฟอร์ม ตั้งค่าร้านค้า
    *
-   * @param object $index
    * @return string
    */
-  public function render($index)
+  public function render()
   {
     // form
     $form = Html::create('form', array(
@@ -59,7 +58,7 @@ class View extends \Gcms\View
       'itemClass' => 'width50',
       'label' => '{LNG_Phone}',
       'maxlength' => 32,
-      'comment' => '%COMPANYHONE%',
+      'comment' => '%COMPANYPHONE%',
       'value' => isset(self::$cfg->phone) ? self::$cfg->phone : ''
     ));
     // address
@@ -81,7 +80,7 @@ class View extends \Gcms\View
       'itemClass' => 'item',
       'label' => '{LNG_Currency unit}',
       'options' => Language::get('CURRENCY_UNITS'),
-      'value' => isset($index->currency_unit) ? $index->currency_unit : 'THB'
+      'value' => isset(self::$cfg->currency_unit) ? self::$cfg->currency_unit : 'THB'
     ));
     $fieldset = $form->add('fieldset', array(
       'class' => 'submit'

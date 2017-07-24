@@ -8,9 +8,6 @@
 
 namespace Index\Menu;
 
-use \Gcms\Login;
-use \Kotchasan\Language;
-
 /**
  * รายการเมนู
  *
@@ -34,18 +31,9 @@ class Model
         'text' => '{LNG_Home}',
         'url' => 'index.php?module=home'
       ),
-      'repair' => array(
-        'text' => '{LNG_Repair Jobs}',
-        'submenus' => array(
-          'get' => array(
-            'text' => '{LNG_Get a repair}',
-            'url' => 'index.php?module=repair-receive'
-          ),
-          array(
-            'text' => '{LNG_Repair list}',
-            'url' => 'index.php?module=repair-setup'
-          ),
-        )
+      'module' => array(
+        'text' => '{LNG_Module}',
+        'submenus' => array(),
       ),
       'member' => array(
         'text' => '{LNG_Users}',
@@ -68,12 +56,12 @@ class Model
             'url' => 'index.php?module=system'
           ),
           array(
-            'text' => '{LNG_Member status}',
-            'url' => 'index.php?module=memberstatus'
-          ),
-          array(
             'text' => '{LNG_Email settings}',
             'url' => 'index.php?module=mailserver'
+          ),
+          array(
+            'text' => '{LNG_Member status}',
+            'url' => 'index.php?module=memberstatus'
           ),
         ),
       ),
@@ -82,28 +70,6 @@ class Model
         'url' => 'index.php?action=logout'
       ),
     );
-    // สามารถตั้งค่าระบบได้
-    if (!Login::checkPermission($login, 'can_config')) {
-      unset($menus['settings']);
-    } else {
-      $menus['settings']['submenus'][] = array(
-        'text' => '{LNG_Repair settings}',
-        'url' => 'index.php?module=repair-settings'
-      );
-      foreach (Language::get('REPAIR_CATEGORIES') as $key => $value) {
-        $menus['settings']['submenus'][] = array(
-          'text' => $value,
-          'url' => 'index.php?module=repair-category&amp;typ='.$key
-        );
-      }
-    }
-    if (!Login::checkPermission($login, 'can_received_repair')) {
-      unset($menus['repair']['submenus']['get']);
-    }
-    // ไม่ใช่แอดมิน
-    if (!Login::isAdmin()) {
-      unset($menus['member']);
-    }
     return $menus;
   }
 }

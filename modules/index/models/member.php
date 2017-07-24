@@ -29,6 +29,22 @@ class Model extends \Kotchasan\Orm\Field
   protected $table = 'user U';
 
   /**
+   * ฟังก์ชั่นอ่านจำนวนสมาชิกทั้งหมด
+   *
+   * @return int
+   */
+  public static function getCount()
+  {
+    $model = new \Kotchasan\Model;
+    $query = $model->db()->createQuery()
+      ->selectCount()
+      ->from('user')
+      ->toArray()
+      ->execute();
+    return $query[0]['count'];
+  }
+
+  /**
    * รับค่าจาก action
    *
    * @param Request $request
@@ -38,9 +54,7 @@ class Model extends \Kotchasan\Orm\Field
     $ret = array();
     // session, referer, admin
     if ($request->initSession() && $request->isReferer() && $login = Login::isAdmin()) {
-      if ($login['username'] == 'demo') {
-        $ret['alert'] = Language::get('Unable to complete the transaction');
-      } else {
+      if ($login['username'] != 'demo') {
         // รับค่าจากการ POST
         $action = $request->post('action')->toString();
         // id ที่ส่งมา
@@ -91,9 +105,10 @@ class Model extends \Kotchasan\Orm\Field
         }
       }
     }
-    if (!empty($ret)) {
-      // คืนค่า JSON
-      echo json_encode($ret);
+    if (empty($ret)) {
+      $ret['alert'] = Language::get('Unable to complete the transaction');
     }
+    // คืนค่า JSON
+    echo json_encode($ret);
   }
 }
