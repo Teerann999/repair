@@ -28,27 +28,28 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `rp_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `group_id` tinyint(4) NOT NULL,
+  `type` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `category_id` int(11) NOT NULL,
   `topic` varchar(128) CHARACTER SET utf8 NOT NULL,
   `color` varchar(16) CHARACTER SET utf8 NOT NULL,
   `published` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- dump ตาราง `rp_category`
 --
 
-INSERT INTO `rp_category` (`id`, `group_id`, `topic`, `color`, `published`) VALUES
-(1, 1, 'แจ้งซ่อม', '#660000', 1),
-(2, 1, 'กำลังดำเนินการ', '#120eeb', 1),
-(3, 1, 'รออะไหล่', '#d940ff', 1),
-(4, 1, 'ซ่อมสำเร็จ', '#06d628', 1),
-(5, 1, 'ซ่อมไม่สำเร็จ', '#FF0000', 1),
-(6, 1, 'เปลี่ยนสินค้าชิ้นใหม่', '#ff6969', 1),
-(7, 1, 'ยกเลิกการซ่อม', '#FF6600', 1),
-(8, 1, 'ชำระเงิน', '#006600', 1),
-(9, 1, 'ส่งมอบสินค้าคืนลูกค้าเรียบร้อย', '#2A2A2A', 1);
+INSERT INTO `rp_category` (`id`, `type`, `category_id`, `topic`, `color`, `published`) VALUES
+(1, 'repairstatus', 1, 'แจ้งซ่อม', '#660000', 1),
+(2, 'repairstatus', 2, 'กำลังดำเนินการ', '#120eeb', 1),
+(3, 'repairstatus', 3, 'รออะไหล่', '#d940ff', 1),
+(4, 'repairstatus', 4, 'ซ่อมสำเร็จ', '#06d628', 1),
+(5, 'repairstatus', 5, 'ซ่อมไม่สำเร็จ', '#FF0000', 1),
+(6, 'repairstatus', 6, 'เปลี่ยนสินค้าชิ้นใหม่', '#ff6969', 1),
+(7, 'repairstatus', 7, 'ยกเลิกการซ่อม', '#FF6600', 1),
+(8, 'repairstatus', 8, 'ชำระเงิน', '#006600', 1),
+(9, 'repairstatus', 9, 'ส่งมอบสินค้าคืนลูกค้าเรียบร้อย', '#2A2A2A', 1);
 
 -- --------------------------------------------------------
 
@@ -62,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `rp_inventory` (
   `serial` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `create_date` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=113 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- dump ตาราง `rp_inventory`
@@ -194,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `rp_repair` (
   `appraiser` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `job_id` (`job_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=101 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- dump ตาราง `rp_repair`
@@ -318,7 +319,7 @@ CREATE TABLE IF NOT EXISTS `rp_repair_status` (
   `create_date` datetime NOT NULL,
   `cost` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=101 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 --
 -- dump ตาราง `rp_repair_status`
