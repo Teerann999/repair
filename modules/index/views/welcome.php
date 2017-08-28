@@ -32,16 +32,16 @@ class View extends \Kotchasan\View
   public static function login(Request $request)
   {
     // โหมดตัวอย่าง
-    if (!empty(self::$cfg->demo_mode) && empty(Login::$text_username) && empty(Login::$text_password)) {
-      Login::$text_username = 'demo';
-      Login::$text_password = 'demo';
+    if (!empty(self::$cfg->demo_mode) && empty(Login::$login_params['username']) && empty(Login::$login_params['password'])) {
+      Login::$login_params['username'] = 'demo';
+      Login::$login_params['password'] = 'demo';
     }
     // template
     $template = Template::create('', '', 'login');
     $template->add(array(
       '/{TOKEN}/' => $request->createToken(),
-      '/{EMAIL}/' => Login::$text_username,
-      '/{PASSWORD}/' => Login::$text_password,
+      '/{EMAIL}/' => Login::$login_params['username'],
+      '/{PASSWORD}/' => Login::$login_params['password'],
       '/{MESSAGE}/' => Login::$login_message,
       '/{CLASS}/' => empty(Login::$login_message) ? 'hidden' : (empty(Login::$login_input) ? 'message' : 'error')
     ));
@@ -63,7 +63,7 @@ class View extends \Kotchasan\View
     $template = Template::create('', '', 'forgot');
     $template->add(array(
       '/{TOKEN}/' => $request->createToken(),
-      '/{EMAIL}/' => Login::$text_username,
+      '/{EMAIL}/' => Login::$login_params['username'],
       '/{MESSAGE}/' => Login::$login_message,
       '/{CLASS}/' => empty(Login::$login_message) ? 'hidden' : (empty(Login::$login_input) ? 'message' : 'error')
     ));

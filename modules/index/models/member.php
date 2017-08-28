@@ -54,7 +54,7 @@ class Model extends \Kotchasan\Orm\Field
     $ret = array();
     // session, referer, admin
     if ($request->initSession() && $request->isReferer() && $login = Login::isAdmin()) {
-      if ($login['username'] != 'demo') {
+      if ($login['active'] == 1) {
         // รับค่าจากการ POST
         $action = $request->post('action')->toString();
         // id ที่ส่งมา
@@ -101,6 +101,16 @@ class Model extends \Kotchasan\Orm\Field
                 $ret['alert'] = implode("\n", $msgs);
               }
             }
+          } elseif (preg_match('/active_([01])/', $action, $match2)) {
+            // สถานะการเข้าระบบ
+            $model->db()->update($user_table, array(
+              array('id', $match[1]),
+              array('id', '!=', '1')
+              ), array(
+              'active' => (int)$match2[1]
+            ));
+            // reload
+            $ret['location'] = 'reload';
           }
         }
       }

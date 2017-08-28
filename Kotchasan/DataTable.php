@@ -227,6 +227,10 @@ class DataTable extends \Kotchasan\KBase
   /**
    * method สำหรับเตรียมการแสดงผล button
    * ถ้าคืนค่า false กลับมาจะไม่มีการสรางปุ่ม
+   * function($btn, $attributes, $items)
+   * $btn string id ของ button
+   * $attributes array property ของปุ่ม
+   * $items array ข้อมูลในแถว
    *
    * @var array array($this, methodName)
    */
@@ -234,6 +238,7 @@ class DataTable extends \Kotchasan\KBase
   /**
    * method เรียกเมื่อต้องการสร้าง footer
    * คืนค่า tag tr ที่อยู่ภายใน footer
+   * function()
    *
    * @var array array($this, methodName)
    */
@@ -471,6 +476,7 @@ class DataTable extends \Kotchasan\KBase
       $form[] = '<fieldset class=search>';
       $form[] = '<label accesskey=f><input type=text name=search value="'.$search.'" placeholder="'.Language::get('Search').'"></label>';
       $form[] = '<button type=submit>&#xe607;</button>';
+      $form[] = '<button type=submit class=clear_search>&#x78;</button>';
       $form[] = '</fieldset>';
     }
     if (!empty($form)) {

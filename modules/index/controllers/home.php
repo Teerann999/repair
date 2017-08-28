@@ -12,6 +12,7 @@ use \Kotchasan\Http\Request;
 use \Kotchasan\Html;
 use \Kotchasan\Language;
 use \Gcms\Login;
+use \Kotchasan\Collection;
 
 /**
  * module=home
@@ -46,14 +47,10 @@ class Controller extends \Gcms\Controller
     $section->add('header', array(
       'innerHTML' => '<h2 class="icon-dashboard">'.$this->title.'</h2>'
     ));
-    $dashboard = $section->add('div', array(
-      'class' => 'dashboard'
-    ));
-    $card = $dashboard->add('div', array(
-      'class' => 'ggrid row'
-    ));
     // Login
     $login = Login::isMember();
+    // card
+    $card = new Collection;
     // โหลด Component หน้า Home
     $dir = ROOT_PATH.'modules/';
     $f = @opendir($dir);
@@ -71,8 +68,22 @@ class Controller extends \Gcms\Controller
       }
       closedir($f);
     }
-    if (sizeof($card) < 4) {
+    if ($card->count() < 4) {
+      // จำนวนสมาชิกทั้งหมด
       self::renderCard($card, 'icon-users', 'Users', \Index\Member\Model::getCount(), 'Member list', 'index.php?module=member');
+    }
+    // render card
+    $dashboard = $section->add('div', array(
+      'class' => 'dashboard'
+    ));
+    $ggrid = $dashboard->add('div', array(
+      'class' => 'ggrid row'
+    ));
+    foreach ($card as $k => $item) {
+      $ggrid->add('section', array(
+        'class' => 'card block3 float-left',
+        'innerHTML' => $item
+      ));
     }
     return $section->render();
   }
@@ -80,7 +91,7 @@ class Controller extends \Gcms\Controller
   /**
    * ฟังก์ชั่นสร้าง card ในหน้า Home
    *
-   * @param \Kotchasan\Html $card
+   * @param Collection $card
    * @param string $icon
    * @param string $title
    * @param int $value
@@ -89,17 +100,14 @@ class Controller extends \Gcms\Controller
    */
   public static function renderCard($card, $icon, $title, $value, $link, $url)
   {
-    $content = array('<div class="table fullwidth">');
-    $content[] = '<div class="td '.$icon.' notext"></div>';
-    $content[] = '<div class="td right">';
-    $content[] = '<span class="cuttext">{LNG_'.$title.'}</span>';
-    $content[] = '<h3>'.number_format($value).'</h3>';
-    $content[] = '<a href="'.$url.'" class="cuttext">{LNG_'.$link.'}</a>';
-    $content[] = '</div>';
-    $content[] = '</div>';
-    $card->add('section', array(
-      'class' => 'card block3 float-left',
-      'innerHTML' => implode('', $content)
-    ));
+    $content = '<a class="table fullwidth" href="'.$url.'">';
+    $content .= '<span class="td '.$icon.' notext"></span>';
+    $content .= '<span class="td right">';
+    $content .= '<span class="cuttext">{LNG_'.$title.'}</span>';
+    $content .= '<b>'.number_format($value).'</b>';
+    $content .= '<span class="cuttext">{LNG_'.$link.'}</span>';
+    $content .= '</span>';
+    $content .= '</a>';
+    $card->set($icon, $content);
   }
 }

@@ -10,7 +10,6 @@ namespace Index\Register;
 
 use \Kotchasan\Html;
 use \Gcms\Login;
-use \Kotchasan\Language;
 
 /**
  * ลงทะเบียนสมาชิกใหม่
@@ -60,8 +59,8 @@ class View extends \Gcms\View
       'id' => 'register_name',
       'labelClass' => 'g-input icon-customer',
       'itemClass' => 'width50',
-      'label' => '{LNG_Name}',
-      'comment' => '{LNG_Please fill in} {LNG_Name}',
+      'label' => '{LNG_Name} {LNG_Surname}',
+      'comment' => '{LNG_Please fill in} {LNG_Name} {LNG_Surname}',
       'maxlength' => 100,
     ));
     $groups = $fieldset->add('groups');
@@ -99,7 +98,7 @@ class View extends \Gcms\View
       'label' => '{LNG_Permission}',
       'labelClass' => 'g-input icon-list',
       'options' => \Gcms\Controller::getPermissions(),
-      'value' => array('can_login')
+      'value' => array()
     ));
     $fieldset = $form->add('fieldset', array(
       'class' => 'submit'

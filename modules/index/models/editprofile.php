@@ -32,9 +32,7 @@ class Model extends \Kotchasan\Model
     $ret = array();
     // session, token, member
     if ($request->initSession() && $request->isSafe() && $login = Login::isMember()) {
-      if ($login['username'] == 'demo') {
-        $ret['alert'] = Language::get('Unable to complete the transaction');
-      } else {
+      if ($login['active'] == 1) {
         // รับค่าจากการ POST
         $save = array(
           'name' => $request->post('register_name')->topic(),
@@ -73,8 +71,8 @@ class Model extends \Kotchasan\Model
         }
         if ($index) {
           $save['username'] = $request->post('register_username', $index['username'])->username();
-          if (isset($permission['can_login']) && $save['username'] == '') {
-            // ไม่ได้กรอก username
+          if ($index['active'] == 1 && $save['username'] == '') {
+            // สามารถเข้าระบบได้ และ ไม่ได้กรอก username
             $ret['ret_register_username'] = 'Please fill in';
           } elseif ($save['name'] == '') {
             // ไม่ได้กรอก ชื่อ
@@ -140,7 +138,8 @@ class Model extends \Kotchasan\Model
           $ret['alert'] = Language::get('not a registered user');
         }
       }
-    } else {
+    }
+    if (empty($ret)) {
       $ret['alert'] = Language::get('Unable to complete the transaction');
     }
     // คืนค่าเป็น JSON

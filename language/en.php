@@ -61,8 +61,7 @@ return array(
     12 => 'Dec'
   ),
   'PERMISSIONS' => array(
-    'can_config' => 'Can configure the system',
-    'can_login' => 'Can login'
+    'can_config' => 'Can configure the system'
   ),
   'REPAIR_CATEGORIES' => array(
     'repairstatus' => 'Repair status'

@@ -32,14 +32,13 @@ class Model extends \Kotchasan\Model
     $ret = array();
     // session, token, admin
     if ($request->initSession() && $request->isSafe() && $login = Login::isAdmin()) {
-      if ($login['username'] == 'demo') {
-        $ret['alert'] = Language::get('Unable to complete the transaction');
-      } else {
+      if ($login['active'] == 1) {
         // รับค่าจากการ POST
         $save = array(
           'username' => $request->post('register_username')->username(),
           'name' => $request->post('register_name')->topic(),
           'status' => $request->post('register_status')->toInt(),
+          'active' => 1
         );
         $permission = $request->post('register_permission', array())->topic();
         if (empty($save['username'])) {
@@ -77,7 +76,8 @@ class Model extends \Kotchasan\Model
           $request->removeToken();
         }
       }
-    } else {
+    }
+    if (empty($ret)) {
       $ret['alert'] = Language::get('Unable to complete the transaction');
     }
     // คืนค่าเป็น JSON
@@ -111,8 +111,8 @@ class Model extends \Kotchasan\Model
     // คืนค่าแอเรย์ของข้อมูลสมาชิกใหม่
     $save['permission'] = array();
     if (!empty($permission)) {
-      foreach ($permission as $key => $value) {
-        $save['permission'] [] = $value;
+      foreach ($permission As $item) {
+        $save['permission'][] = $item;
       }
     }
     return $save;

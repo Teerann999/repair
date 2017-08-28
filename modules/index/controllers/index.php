@@ -88,7 +88,7 @@ class Controller extends \Gcms\Controller
     if ($login) {
       self::$view->setContents(array(
         // แสดงชื่อคน Login
-        '/{LOGINNAME}/' => $login['name'],
+        '/{LOGINNAME}/' => empty($login['name']) ? $login['username'] : $login['name'],
         // เมนู
         '/{MENUS}/' => $menu->render($main->menu(), $login)
       ));

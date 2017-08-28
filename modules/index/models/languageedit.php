@@ -63,7 +63,7 @@ class Model extends \Kotchasan\Model
     $ret = array();
     // session, token, can_config
     if ($request->initSession() && $request->isSafe() && $login = Login::isMember()) {
-      if ($login['username'] != 'demo' && Login::checkPermission($login, 'can_config')) {
+      if ($login['active'] == 1 && Login::checkPermission($login, 'can_config')) {
         // ค่าที่ส่งมา
         $save = array(
           'js' => $request->post('write_js')->toBoolean(),
@@ -73,75 +73,83 @@ class Model extends \Kotchasan\Model
         );
         // ภาษาที่ติดตั้ง
         $languages = Language::installedLanguage();
+        $values = array();
         foreach ($request->post('datas')->topic() as $items) {
           foreach ($languages as $lng) {
             if ($items[$lng] != '') {
-              $save[$lng][$items['key']] = $items[$lng];
-              if (sizeof($save[$lng]) > 1) {
+              $values[$lng][$items['key']] = $items[$lng];
+              if (sizeof($values[$lng]) > 1) {
                 $save['type'] = 'array';
               }
             }
           }
         }
-        foreach ($languages as $lng) {
-          if ($save['type'] == 'array') {
-            $save[$lng] = $this->allowTags(serialize($save[$lng]));
-          } elseif (isset($save[$lng])) {
-            $save[$lng] = $this->allowTags(reset($save[$lng]));
-          } else {
-            $save[$lng] = '';
-          }
-        }
-        if ($save['js']) {
-          if (isset($save['en']) && $save['en'] == '') {
-            $save['en'] = $save['key'];
-          }
-          $save['key'] = strtoupper(preg_replace(array('/[\s]+/', '/([^A-Z_]+)/i'), array('_', ''), $save['key']));
-        }
-        $id = $request->post('write_id')->toInt();
-        // Model
-        $model = new static;
-        // ตาราง
-        $table_language = $model->getTableName('language');
-        // ตรวจสอบรายการที่แก้ไข
-        if ($id > 0) {
-          $language = $model->db()->first($table_language, $id);
-        }
-        if ($id > 0 && !$language) {
-          $ret['alert'] = Language('Sorry, Item not found It&#39;s may be deleted');
-        } elseif ($save['key'] == '') {
-          $ret['ret_write_key'] = Language::get('Please fill in');
+        if (empty($values)) {
+          // ไม่ได้กรอกภาษา
+          $ret['alert'] = Language::trans('{LNG_Please fill in} {LNG_Language} th');
         } else {
-          // ตรวจสอบข้อมูลซ้ำ
-          $search = $model->db()->first($table_language, array(
-            array('key', $save['key']),
-            array('js', $save['js'])
-          ));
-          if ($search && ($id == 0 || $id != $search->id)) {
-            $ret['ret_write_key'] = Language::replace('This :name already exist', array(':name' => Language::get('Key')));
+          foreach ($languages as $lng) {
+            if (isset($values[$lng])) {
+              if ($save['type'] == 'array') {
+                $save[$lng] = $this->allowTags(serialize($values[$lng]));
+              } else {
+                $save[$lng] = $this->allowTags(reset($values[$lng]));
+              }
+            } else {
+              $save[$lng] = '';
+            }
+          }
+          if ($save['js']) {
+            if (isset($save['en']) && $save['en'] == '') {
+              $save['en'] = $save['key'];
+            }
+            $save['key'] = strtoupper(preg_replace(array('/[\s]+/', '/([^A-Z_]+)/i'), array('_', ''), $save['key']));
+          }
+          $id = $request->post('write_id')->toInt();
+          // Model
+          $model = new static;
+          // ตาราง
+          $table_language = $model->getTableName('language');
+          // ตรวจสอบรายการที่แก้ไข
+          if ($id > 0) {
+            $language = $model->db()->first($table_language, $id);
+          }
+          if ($id > 0 && !$language) {
+            $ret['alert'] = Language('Sorry, Item not found It&#39;s may be deleted');
+          } elseif ($save['key'] == '') {
+            $ret['ret_write_key'] = Language::get('Please fill in');
           } else {
-            // บันทึก
-            if ($id == 0) {
-              // ใหม่
-              $id = $model->db()->insert($table_language, $save);
-              // redirect
-              $ret['location'] = $request->getUri()->postBack('index.php', array('module' => 'language', 'js' => $save['js'], 'sort' => 'id DESC')).'#datatable_'.$id;
+            // ตรวจสอบข้อมูลซ้ำ
+            $search = $model->db()->first($table_language, array(
+              array('key', $save['key']),
+              array('js', $save['js'])
+            ));
+            if ($search && ($id == 0 || $id != $search->id)) {
+              $ret['ret_write_key'] = Language::replace('This :name already exist', array(':name' => Language::get('Key')));
             } else {
-              // แก้ไข
-              $model->db()->update($table_language, $id, $save);
-              // redirect
-              $ret['location'] = $request->getUri()->postBack('index.php', array('module' => 'language', 'js' => $save['js'])).'#datatable_'.$id;
+              // บันทึก
+              if ($id == 0) {
+                // ใหม่
+                $id = $model->db()->insert($table_language, $save);
+                // redirect
+                $ret['location'] = $request->getUri()->postBack('index.php', array('module' => 'language', 'js' => $save['js'], 'sort' => 'id DESC')).'#datatable_'.$id;
+              } else {
+                // แก้ไข
+                $model->db()->update($table_language, $id, $save);
+                // redirect
+                $ret['location'] = $request->getUri()->postBack('index.php', array('module' => 'language', 'js' => $save['js'])).'#datatable_'.$id;
+              }
+              // อัปเดทไฟล์ ภาษา
+              $error = \Index\Language\Model::updateLanguageFile();
+              if (empty($error)) {
+                $ret['alert'] = Language::get('Saved successfully');
+              } else {
+                unset($ret['location']);
+                $ret['alert'] = $error;
+              }
+              // clear
+              $request->removeToken();
             }
-            // อัปเดทไฟล์ ภาษา
-            $error = \Index\Language\Model::updateLanguageFile();
-            if (empty($error)) {
-              $ret['alert'] = Language::get('Saved successfully');
-            } else {
-              unset($ret['location']);
-              $ret['alert'] = $error;
-            }
-            // clear
-            $request->removeToken();
           }
         }
       }

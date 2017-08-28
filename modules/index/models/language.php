@@ -38,7 +38,7 @@ class Model extends \Kotchasan\Orm\Field
     $ret = array();
     // session, referer, can_config
     if ($request->initSession() && $request->isReferer() && $login = Login::isMember()) {
-      if ($login['username'] != 'demo' && Login::checkPermission($login, 'can_config')) {
+      if ($login['active'] == 1 && Login::checkPermission($login, 'can_config')) {
         // ค่าที่ส่งมา
         $id = $request->post('id')->filter('0-9,');
         $action = $request->post('action')->toString();
@@ -116,14 +116,12 @@ class Model extends \Kotchasan\Orm\Field
       $model = new \Kotchasan\Model;
       // ตาราง language
       $language_table = $model->getTableName('language');
-      // ลบข้อมูลทั้งหมดในตาราง
-      $model->db()->emptyTable($language_table);
       // โหลดไฟล์ภาษาที่ติดตั้งไว้
       $f = opendir($dir);
       while (false !== ($text = readdir($f))) {
         if (preg_match('/([a-z]{2,2})\.(php|js)/', $text, $match)) {
           if ($model->db()->fieldExists($language_table, $match[1]) == false) {
-            // เพิ่อมคอลัมน์ภาษา ถ้ายังไม่มีภาษาที่ต้องการ
+            // เพิ่มคอลัมน์ภาษา ถ้ายังไม่มีภาษาที่ต้องการ
             $model->db()->query("ALTER TABLE `$language_table` ADD `$match[1]` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci AFTER `key`");
           }
           if ($match[2] == 'php') {
@@ -157,8 +155,7 @@ class Model extends \Kotchasan\Orm\Field
       }
       $search = $db->first($language_table, array(
         array('key', $key),
-        array('js', 0),
-        array('type', $type)
+        array('js', 0)
       ));
       if ($type == 'array') {
         $value = serialize($value);

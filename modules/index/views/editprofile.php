@@ -26,12 +26,12 @@ class View extends \Gcms\View
    * module=editprofile
    *
    * @param array $user
+   * @param array $login
    * @return string
    */
-  public function render($user)
+  public function render($user, $login)
   {
-    // สามารถตั้งค่าระบบได้
-    $isAdmin = Login::isAdmin();
+    $login_admin = Login::isAdmin();
     // register form
     $form = Html::create('form', array(
         'id' => 'setup_frm',
@@ -42,19 +42,19 @@ class View extends \Gcms\View
         'ajax' => true,
         'token' => true
     ));
-    if (in_array('can_login', $user['permission'])) {
+    if ($user['active'] == 1) {
       $fieldset = $form->add('fieldset', array(
         'title' => '{LNG_Login information}'
       ));
       $groups = $fieldset->add('groups');
-      // username
+      // username (แอดมิน และตัวเอง สามารถแก้ไขได้)
       $groups->add('text', array(
         'id' => 'register_username',
         'itemClass' => 'width50',
         'labelClass' => 'g-input icon-email',
         'label' => '{LNG_Email}',
         'comment' => '{LNG_Email address used for login or request a new password}',
-        'disabled' => $isAdmin ? false : true,
+        'disabled' => $login_admin ? false : true,
         'maxlength' => 50,
         'value' => $user['username'],
         'validator' => array('keyup,change', 'checkUsername', 'index.php/index/model/checker/username')
@@ -93,7 +93,7 @@ class View extends \Gcms\View
       'id' => 'register_name',
       'labelClass' => 'g-input icon-customer',
       'itemClass' => 'width50',
-      'label' => '{LNG_Name}',
+      'label' => '{LNG_Name} {LNG_Surname}',
       'maxlength' => 100,
       'value' => $user['name']
     ));
@@ -156,7 +156,7 @@ class View extends \Gcms\View
       'maxlength' => 10,
       'value' => $user['zipcode']
     ));
-    if ($isAdmin) {
+    if ($login_admin) {
       $fieldset = $form->add('fieldset', array(
         'title' => '{LNG_Other}'
       ));
@@ -166,7 +166,7 @@ class View extends \Gcms\View
         'itemClass' => 'item',
         'label' => '{LNG_Member status}',
         'labelClass' => 'g-input icon-star0',
-        'disabled' => $isAdmin['id'] == $user['id'] ? true : false,
+        'disabled' => $login_admin['id'] == $user['id'] ? true : false,
         'options' => self::$cfg->member_status,
         'value' => $user['status']
       ));

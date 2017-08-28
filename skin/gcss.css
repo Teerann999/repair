@@ -1529,6 +1529,7 @@ html[dir="rtl"] .topmenu > ul ul ul {
   padding: 0 !important;
   list-style-type: none;
   border-color: inherit;
+  overflow: visible;
 }
 .btntab > ul {
   margin-left: 1px;

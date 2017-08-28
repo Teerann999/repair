@@ -35,7 +35,7 @@ class Controller extends \Kotchasan\Controller
     // กำหนด skin ให้กับ template
     Template::init(self::$cfg->skin);
     // ตรวจสอบโมดูลที่เรียก
-    $className = \Index\Main\Controller::parseModule($request->get('module')->toString());
+    $className = \Index\Main\Controller::parseModule($request);
     if ($className && method_exists($className, 'execute')) {
       // create Class
       createClass($className)->execute($request);

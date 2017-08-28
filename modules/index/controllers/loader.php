@@ -41,30 +41,13 @@ class Controller extends \Gcms\Controller
       // View
       self::$view = new \Gcms\View;
       // โมดูลจาก URL ถ้าไม่มีใช้ default (home)
-      $module = $request->post('module', 'home')->toString();
-      if (preg_match('/^([a-z]+)([\/\-]([a-z]+))?$/i', $module, $match)) {
-        if (empty($match[3])) {
-          $owner = 'index';
-          $module = $match[1];
-        } else {
-          $owner = $match[1];
-          $module = $match[3];
-        }
-      } else {
-        // หน้า default ถ้าไม่ระบุ module มา
-        $owner = 'index';
-        $module = 'home';
-      }
-      // ตรวจสอบหน้าที่เรียก
-      if (is_file(APP_PATH.'modules/'.$owner.'/controllers/'.$module.'.php')) {
-        // หน้าที่เรียก (Admin)
-        include APP_PATH.'modules/'.$owner.'/controllers/'.$module.'.php';
-        $className = ucfirst($owner).'\\'.ucfirst($module).'\Controller';
-      } else {
+      $className = \Index\Main\Controller::parseModule($request, 'home');
+      if ($className === null) {
         // ถ้าไม่พบหน้าที่เรียก แสดงหน้า 404
         include APP_PATH.'modules/index/controllers/error.php';
         $className = 'Index\Error\Controller';
       }
+      // create Controller
       $controller = new $className;
       // เนื้อหา
       self::$view->setContents(array(

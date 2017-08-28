@@ -25,29 +25,29 @@ class Login extends \Kotchasan\Login implements \Kotchasan\LoginInterface
   /**
    * ฟังก์ชั่นตรวจสอบสมาชิกกับฐานข้อมูล
    *
-   * @param string $username
-   * @param string $password
+   * @param array $params
    * @return array|string คืนค่าข้อมูลสมาชิก (array) ไม่พบคืนค่าข้อความผิดพลาด (string)
    */
-  public static function checkMember($username, $password)
+  public static function checkMember($params)
   {
+    // query Where
     $where = array();
     foreach (self::$cfg->login_fields as $field) {
-      $where[] = array($field, $username);
+      $where[] = array("U.{$field}", $params['username']);
     }
     // model
     $model = new Model;
     $query = $model->db()->createQuery()
       ->select()
-      ->from('user')
+      ->from('user U')
       ->where($where, 'OR')
-      ->order('status DESC')
+      ->order('U.status DESC')
       ->toArray();
     $login_result = null;
     foreach ($query->execute() as $item) {
-      if ($item['password'] == sha1($password.$item[reset(self::$cfg->login_fields)])) {
-        $item['permission'] = empty($item['permission']) ? array() : explode(',', $item['permission']);
-        if ($item['status'] == 1 || in_array('can_login', $item['permission'])) {
+      if ($item['password'] == sha1($params['password'].$item[reset(self::$cfg->login_fields)])) {
+        if ($item['status'] == 1 || $item['active'] == 1) {
+          $item['permission'] = empty($item['permission']) ? array() : explode(',', $item['permission']);
           $login_result = $item;
           break;
         }
@@ -65,24 +65,24 @@ class Login extends \Kotchasan\Login implements \Kotchasan\LoginInterface
   /**
    * ฟังก์ชั่นตรวจสอบการ login และบันทึกการเข้าระบบ
    *
-   * @param string $username
-   * @param string $password
+   * @param array $params ข้อมูลการ login ที่ส่งมา $params = array('username' => '', 'password' => '');
    * @return string|array เข้าระบบสำเร็จคืนค่าแอเรย์ข้อมูลสมาชิก, ไม่สำเร็จ คืนค่าข้อความผิดพลาด
    */
-  public function checkLogin($username, $password)
+  public function checkLogin($params)
   {
-    if (!empty(self::$cfg->demo_mode) && $username == 'demo' && $password == 'demo') {
+    if (!empty(self::$cfg->demo_mode) && $params['username'] == 'demo' && $params['password'] == 'demo') {
       // login เป็น demo
       $login_result = array(
         'id' => 0,
         'username' => 'demo',
         'name' => 'demo',
         'permission' => array_keys(Language::get('PERMISSIONS')),
-        'status' => 1
+        'status' => 1,
+        'active' => 0
       );
     } else {
       // ตรวจสอบสมาชิกกับฐานข้อมูล
-      $login_result = self::checkMember($username, $password);
+      $login_result = self::checkMember($params);
       if (is_string($login_result)) {
         return $login_result;
       } else {
@@ -125,7 +125,7 @@ class Login extends \Kotchasan\Login implements \Kotchasan\LoginInterface
       if ($login['status'] == 1) {
         // แอดมิน
         return true;
-      } else {
+      } elseif (!empty($permission)) {
         foreach ((array)$permission as $item) {
           if (in_array($item, $login['permission'])) {
             // มีสิทธิ์
@@ -150,7 +150,7 @@ class Login extends \Kotchasan\Login implements \Kotchasan\LoginInterface
         self::$login_message = Language::get('Please fill in');
       }
     } else {
-      self::$text_username = $username;
+      self::$login_params['username'] = $username;
       // ชื่อฟิลด์สำหรับตรวจสอบอีเมล์ ใช้ฟิลด์แรกจาก config
       $field = reset(self::$cfg->login_fields);
       // Model

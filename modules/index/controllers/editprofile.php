@@ -54,7 +54,7 @@ class Controller extends \Gcms\Controller
           'innerHTML' => '<h2 class="icon-profile">'.$this->title.'</h2>'
         ));
         // แสดงฟอร์ม
-        $section->appendChild(createClass('Index\Editprofile\View')->render($user));
+        $section->appendChild(createClass('Index\Editprofile\View')->render($user, $login));
         return $section->render();
       }
     }

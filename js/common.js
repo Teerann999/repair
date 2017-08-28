@@ -366,7 +366,7 @@ function selectMenu(module) {
     }
   }
 }
-function initAutoComplete(id, model, displayFields, doEmpty, getQuery) {
+function initAutoComplete(id, model, displayFields, doEmpty, getQuery, icon) {
   displayFields = displayFields.split(',');
   function doGetQuery() {
     var q = null,
@@ -388,7 +388,7 @@ function initAutoComplete(id, model, displayFields, doEmpty, getQuery) {
       datas.push(this[displayFields[i]]);
     }
     var patt = new RegExp('(' + $E(id).value.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&') + ')', 'gi');
-    return '<p><span class="icon-search">' + datas.join(' ').unentityify().replace(patt, '<em>$1</em>') + '</span></p>';
+    return '<p><span class="icon-' + (icon || 'search') + '">' + datas.join(' ').unentityify().replace(patt, '<em>$1</em>') + '</span></p>';
   }
   new GAutoComplete(id, {
     className: 'gautocomplete',
@@ -554,7 +554,7 @@ $G(window).Ready(function () {
   if (navigator.userAgent.indexOf("MSIE") > -1) {
     document.body.addClass("ie");
   }
-  forEach($E(document.body).getElementsByTagName('nav'), function () {
+  forEach(document.body.elems('nav'), function () {
     if ($G(this).hasClass('topmenu sidemenu slidemenu gddmenu')) {
       new GDDMenu(this);
     }

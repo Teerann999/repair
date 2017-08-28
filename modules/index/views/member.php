@@ -63,6 +63,8 @@ class View extends \Gcms\View
           'text' => '{LNG_With selected}',
           'options' => array(
             'sendpassword' => '{LNG_Get new password}',
+            'active_1' => '{LNG_Can login}',
+            'active_0' => '{LNG_Unable to login}',
             'delete' => '{LNG_Delete}'
           )
         ),
@@ -81,7 +83,7 @@ class View extends \Gcms\View
       'fields' => array(
         'id',
         'name',
-        'permission',
+        'active',
         'phone',
         'status',
         'create_date',
@@ -94,7 +96,7 @@ class View extends \Gcms\View
           'text' => '{LNG_Name}',
           'sort' => 'name'
         ),
-        'permission' => array(
+        'active' => array(
           'text' => '',
         ),
         'phone' => array(
@@ -117,7 +119,7 @@ class View extends \Gcms\View
       ),
       /* รูปแบบการแสดงผลของคอลัมน์ (tbody) */
       'cols' => array(
-        'permission' => array(
+        'active' => array(
           'class' => 'center'
         ),
         'phone' => array(
@@ -158,12 +160,11 @@ class View extends \Gcms\View
   public function onRow($item, $o, $prop)
   {
     $item['create_date'] = Date::format($item['create_date'], 'd M Y');
-    $item['permission'] = empty($item['permission']) ? array() : explode(',', $item['permission']);
-    if (in_array('can_login', $item['permission'])) {
-      $item['permission'] = '<span class="icon-valid access" title="{LNG_Can login}"></span>';
+    if ($item['active'] == 1) {
+      $item['active'] = '<span class="icon-valid access" title="{LNG_Can login}"></span>';
       $item['lastvisited'] = empty($item['lastvisited']) ? '-' : Date::format($item['lastvisited'], 'd M Y H:i').' ('.number_format($item['visited']).')';
     } else {
-      $item['permission'] = '<span class="icon-valid disabled"></span>';
+      $item['active'] = '<span class="icon-valid disabled" title="{LNG_Unable to login}"></span>';
       $item['lastvisited'] = '-';
     }
     $item['status'] = isset(self::$cfg->member_status[$item['status']]) ? '<span class=status'.$item['status'].'>{LNG_'.self::$cfg->member_status[$item['status']].'}</span>' : '';

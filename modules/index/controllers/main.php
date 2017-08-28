@@ -26,22 +26,27 @@ class Controller extends \Gcms\Controller
    * home = Index\Home\Controller
    * person-index = Person\Index\Controller
    *
-   * @param string $module ชื่ิอโมดูล
+   * @param Request $request
    * @param string $default ถ้าไม่ระบุจะคืนค่า Error Controller
    * @return string|null คืนค่าชื่อคลาส ถ้าไม่พบจะคืนค่า null
    */
-  public static function parseModule($module, $default = null)
+  public static function parseModule($request, $default = null)
   {
-    if (preg_match('/^([a-z]+)([\/\-]([a-z]+))?$/i', $module, $match)) {
+    if (preg_match('/^([a-z]+)([\/\-]([a-z]+))?$/i', $request->request('module')->toString(), $match)) {
       if (empty($match[3])) {
-        $owner = 'index';
-        $module = $match[1];
+        if (is_file(APP_PATH.'modules/'.$match[1].'/controllers/index.php')) {
+          $owner = $match[1];
+          $module = 'index';
+        } else {
+          $owner = 'index';
+          $module = $match[1];
+        }
       } else {
         $owner = $match[1];
         $module = $match[3];
       }
     } else {
-      // ถ้าไม่ระบุ module มาแสดงหน้า home
+      // ถ้าไม่ระบุ module มาแสดงหน้า $default
       $owner = 'index';
       $module = empty($default) ? 'error' : $default;
     }
@@ -63,7 +68,7 @@ class Controller extends \Gcms\Controller
   public function execute(Request $request)
   {
     // โมดูลจาก URL ถ้าไม่มีใช้ default (home)
-    $className = self::parseModule($request->request('module')->toString(), 'home');
+    $className = self::parseModule($request, 'home');
     // create Class
     $controller = new $className;
     // tempalate

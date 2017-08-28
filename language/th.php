@@ -143,8 +143,7 @@ return array(
   'Passwords must be at least four characters' => 'รหัสผ่านต้องไม่น้อยกว่า 4 ตัวอักษร',
   'Permission' => 'สิทธิ์การใช้งาน',
   'PERMISSIONS' => array(
-    'can_config' => 'สามารถตั้งค่าระบบได้',
-    'can_login' => 'สามารถเข้าระบบได้'
+    'can_config' => 'สามารถตั้งค่าระบบได้'
   ),
   'Phone' => 'โทรศัพท์',
   'Please fill in' => 'กรุณากรอก',
@@ -207,6 +206,7 @@ return array(
   'Specify the language code of the email, as utf-8' => 'ระบุรหัสภาษาของอีเมล์ที่ส่ง เช่น utf-8',
   'Status for general members' => 'สถานะสำหรับสมาชิกทั่วไป',
   'successfully copied to clipboard' => 'สำเนาไปยังคลิปบอร์ดเรียบร้อยแล้ว',
+  'Surname' => 'นามสกุล',
   'The members status of the site' => 'สถานะของสมาชิกของเว็บไซต์',
   'The name of the mail server as localhost or smtp.gmail.com (To change the settings of your email is the default. To remove this box entirely.)' => 'ชื่อของเมล์เซิร์ฟเวอร์ เช่น localhost หรือ smtp.gmail.com (ต้องการเปลี่ยนค่ากำหนดของอีเมล์ทั้งหมดเป็นค่าเริ่มต้น ให้ลบข้อความในช่องนี้ออกทั้งหมด)',
   'The name of the repairs, eg Computers' => 'ชื่อของที่นำมาซ่อม เช่น คอมพิวเตอร์',
