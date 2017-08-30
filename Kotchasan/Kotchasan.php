@@ -44,14 +44,20 @@ class Kotchasan extends Kotchasan\KBase
   /**
    * create Singleton
    *
-   * @param Config $cfg
+   * @param Config|string|null $cfg
    */
   private function __construct($cfg)
   {
     /* Request Class */
     self::$request = new Request;
     /* config */
-    self::$cfg = empty($cfg) ? Config::create() : $cfg;
+    if (empty($cfg)) {
+      self::$cfg = Config::create();
+    } elseif (is_string($cfg)) {
+      self::$cfg = $cfg::create();
+    } else {
+      self::$cfg = $cfg;
+    }
     /* charset */
     ini_set('default_charset', $this->char_set);
     if (extension_loaded('mbstring')) {
@@ -59,15 +65,19 @@ class Kotchasan extends Kotchasan\KBase
     }
     /* time zone */
     @date_default_timezone_set(self::$cfg->timezone);
+    /* custom init site */
+    if (is_string($cfg) && method_exists($cfg, 'init')) {
+      $cfg::init(self::$cfg);
+    }
   }
 
   /**
    * สร้าง Application สามารถเรียกใช้ได้ครั้งเดียวเท่านั้น
    *
-   * @param Config $cfg ถ้าไม่กำหนดมาจะใช้ค่าเริ่มต้นของคชสาร
+   * @param Config|string|null $cfg ถ้าไม่กำหนดมาจะใช้ค่าเริ่มต้นของคชสาร
    * @return \static
    */
-  public static function createWebApplication(Config $cfg = null)
+  public static function createWebApplication($cfg = null)
   {
     if (null === self::$instance) {
       self::$instance = new static($cfg);

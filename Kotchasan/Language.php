@@ -410,7 +410,7 @@ final class Language extends \Kotchasan\KBase
   public static function trans($content)
   {
     return preg_replace_callback('/{LNG_([^}]+)}/', function($match) {
-      return self::get($match[1]);
+      return Language::get($match[1]);
     }, $content);
   }
 }

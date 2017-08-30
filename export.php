@@ -12,6 +12,6 @@
 // load Kotchasan
 include 'load.php';
 // Initial Kotchasan Framework
-$app = Kotchasan::createWebApplication(Gcms\Config::create());
+$app = Kotchasan::createWebApplication('Gcms\Config');
 $app->defaultController = 'Index\Export\Controller';
 $app->run();

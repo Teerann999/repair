@@ -140,7 +140,7 @@ class Config
    *
    * @return \static
    */
-  private function __construct()
+  protected function __construct()
   {
     if (is_file(ROOT_PATH.'settings/config.php')) {
       $config = include (ROOT_PATH.'settings/config.php');

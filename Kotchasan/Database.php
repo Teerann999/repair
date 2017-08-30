@@ -15,7 +15,7 @@ namespace Kotchasan;
  *
  * @since 1.0
  */
-final class Database
+final class Database extends KBase
 {
   /**
    * database connection instances
@@ -42,6 +42,12 @@ final class Database
         'tables' => (object)array(
         )
     );
+    // database config จาก config.php
+    if (isset(self::$cfg->database[$name]) && is_array(self::$cfg->database[$name])) {
+      foreach (self::$cfg->database[$name] as $key => $value) {
+        $param->settings->$key = $value;
+      }
+    }
     if (is_string($name) && empty(self::$instances[$name])) {
       if (is_file(APP_PATH.'settings/database.php')) {
         $config = include APP_PATH.'settings/database.php';

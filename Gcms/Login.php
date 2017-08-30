@@ -8,7 +8,6 @@
 
 namespace Gcms;
 
-use \Kotchasan\Model;
 use \Kotchasan\Language;
 use \Kotchasan\Http\Request;
 
@@ -36,7 +35,7 @@ class Login extends \Kotchasan\Login implements \Kotchasan\LoginInterface
       $where[] = array("U.{$field}", $params['username']);
     }
     // model
-    $model = new Model;
+    $model = new \Kotchasan\Model;
     $query = $model->db()->createQuery()
       ->select()
       ->from('user U')
@@ -87,7 +86,7 @@ class Login extends \Kotchasan\Login implements \Kotchasan\LoginInterface
         return $login_result;
       } else {
         // model
-        $model = new Model;
+        $model = new \Kotchasan\Model;
         // ip ที่ login
         $ip = self::$request->getClientIp();
         // current session
