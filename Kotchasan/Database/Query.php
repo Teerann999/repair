@@ -184,7 +184,7 @@ abstract class Query extends \Kotchasan\Database\Db
   /**
    * สร้างคำสั่ง JOIN
    *
-   * @param string $table ชื่อตารางต้องมี alias ด้วย
+   * @param string|array $table ชื่อตารางต้องมี alias ด้วย หรือ (QueryBuilder, alias)
    * @param string $type เข่น INNER OUTER LEFT RIGHT
    * @param mixed $on query string หรือ array
    * @return string ถ้าไม่มี alias คืนค่าว่าง
@@ -193,7 +193,9 @@ abstract class Query extends \Kotchasan\Database\Db
   {
     $ret = $this->buildWhere($on);
     $sql = is_array($ret) ? $ret[0] : $ret;
-    if (preg_match('/^([a-zA-Z0-9_]+)([\s]+(as|AS))?[\s]+([A-Z0-9]{1,2})$/', $table, $match)) {
+    if (is_array($table)) {
+      $sql = ' '.$type.' JOIN ('.$table[0]->text().') AS '.$table[1].' ON '.$sql;
+    } elseif (preg_match('/^([a-zA-Z0-9_]+)([\s]+(as|AS))?[\s]+([A-Z0-9]{1,2})$/', $table, $match)) {
       $sql = ' '.$type.' JOIN '.$this->getFullTableName($match[1]).' AS '.$match[4].' ON '.$sql;
     } elseif (preg_match('/^([a-z0-9_]+)([\s]+as)?[\s]+([a-z0-9_]+)$/i', $table, $match)) {
       $sql = ' '.$type.' JOIN '.$this->getFullTableName($match[1]).' AS `'.$match[3].'` ON '.$sql;

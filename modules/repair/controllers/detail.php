@@ -12,7 +12,6 @@ use \Kotchasan\Http\Request;
 use \Gcms\Login;
 use \Kotchasan\Html;
 use \Kotchasan\Language;
-use \Kotchasan\ArrayTool;
 
 /**
  * module=repair-detail

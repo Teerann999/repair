@@ -33,12 +33,12 @@ class Controller extends \Gcms\Controller
   {
     $index = (object)array(
         // ประเภทที่ต้องการ
-        'type' => $request->request('typ')->topic(),
+        'type' => $request->request('type')->topic(),
         // ชื่อหมวดหมู่ที่สามารถใช้งานได้
         'categories' => Language::get('REPAIR_CATEGORIES')
     );
     if (!isset($index->categories[$index->type])) {
-      $index->type = reset((array_keys($index->categories)));
+      $index->type = \Kotchasan\ArrayTool::getFirstKey($index->categories);
     }
     // ข้อความ title bar
     $title = $index->categories[$index->type];

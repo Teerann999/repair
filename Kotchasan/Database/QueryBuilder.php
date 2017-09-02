@@ -341,6 +341,7 @@ class QueryBuilder extends \Kotchasan\Database\Query
    * สร้างคำสั่ง JOIN
    *
    * @param string $table ชื่อตารางที่ต้องการ join เช่น table alias
+   * @param string|array $table ชื่อตารางที่ต้องการ join เช่น table alias หรือ (QueryBuilder, alias)
    * @param string $type เข่น INNER OUTER LEFT RIGHT
    * @param mixed $on query string หรือ array
    * @return \static

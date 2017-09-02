@@ -57,6 +57,8 @@ class Model extends \Kotchasan\Model
 
   /**
    * form submit
+   *
+   * @param Request $request
    */
   public function submit(Request $request)
   {

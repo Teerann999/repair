@@ -8,9 +8,7 @@
 
 namespace Repair\Detail;
 
-use \Kotchasan\Http\Request;
-use \Gcms\Login;
-use \Kotchasan\Language;
+use \Kotchasan\Database\Sql;
 
 /**
  * รับงานซ่อม
@@ -31,10 +29,15 @@ class Model extends \Kotchasan\Model
   public static function get($id)
   {
     $model = new static;
+    $q1 = $model->db()->createQuery()
+      ->select('repair_id', Sql::MAX('id', 'max_id'))
+      ->from('repair_status')
+      ->groupBy('repair_id');
     $sql = $model->db()->createQuery()
       ->select('R.*', 'U.name', 'U.phone', 'U.address', 'U.zipcode', 'U.provinceID', 'V.equipment', 'V.serial', 'S.status', 'S.comment', 'S.cost', 'S.operator_id', 'S.id status_id')
       ->from('repair R')
-      ->join('repair_status S', 'INNER', array('S.repair_id', 'R.id'))
+      ->join(array($q1, 'T'), 'INNER', array('T.repair_id', 'R.id'))
+      ->join('repair_status S', 'INNER', array('S.id', 'T.max_id'))
       ->join('inventory V', 'INNER', array('V.id', 'R.inventory_id'))
       ->join('user U', 'INNER', array('U.id', 'R.customer_id'))
       ->where(array('R.id', $id))
@@ -46,8 +49,9 @@ class Model extends \Kotchasan\Model
   }
 
   /**
+   * อ่านสถานะการทำรายการทั้งหมด
    *
-   * @param type $id
+   * @param int $id
    */
   public static function getAllStatus($id)
   {
@@ -60,26 +64,5 @@ class Model extends \Kotchasan\Model
         ->order('S.id')
         ->toArray()
         ->execute();
-  }
-
-  /**
-   * รับค่า submit จากหน้าดูรายละเอียดการซ่อม
-   *
-   * @param Request $request
-   */
-  public function submit(Request $request)
-  {
-    $ret = array();
-    // session, token, can_received_repair, can_repair
-    if ($request->initSession() && $request->isSafe() && $login = Login::isMember()) {
-      if ($login['username'] != 'demo' && Login::checkPermission($login, array('can_received_repair', 'repair'))) {
-        print_r($_POST);
-      }
-    }
-    if (empty($ret)) {
-      $ret['alert'] = Language::get('Unable to complete the transaction');
-    }
-    // คืนค่าเป็น JSON
-    echo json_encode($ret);
   }
 }

@@ -11,6 +11,7 @@ namespace Repair\Receive;
 use \Kotchasan\Http\Request;
 use \Gcms\Login;
 use \Kotchasan\Language;
+use \Kotchasan\Database\Sql;
 use \Kotchasan\Text;
 
 /**
@@ -24,15 +25,16 @@ class Model extends \Kotchasan\Model
 {
 
   /**
-   * อ่านรายละเอียดการทำรายการจาก $id
-   * ถ้า $id = 0 หมายถึงเพิ่มรายการใหม่
+   * อ่านข้อมูลรายการที่เลือก
+   * ถ้า $id = 0 หมายถึงรายการใหม่
    *
-   * @param int $id
-   * @return object
+   * @param int $id ID
+   * @return object|null คืนค่าข้อมูล object ไม่พบคืนค่า null
    */
   public static function get($id)
   {
     if (empty($id)) {
+      // ใหม่
       $today = date('Y-m-d');
       return (object)array(
           'name' => '',
@@ -51,22 +53,23 @@ class Model extends \Kotchasan\Model
           'appraiser' => '',
           'id' => 0,
           'comment' => '',
-          'status_id' => 0,
+          'status_id' => 0
       );
     } else {
+      // แก้ไข
       $model = new static;
-      $sql = $model->db()->createQuery()
-        ->select('R.*', 'U.name', 'U.phone', 'U.address', 'U.zipcode', 'U.provinceID', 'U.status user_status', 'V.equipment', 'V.serial', 'S.status', 'S.comment', 'S.cost', 'S.operator_id', 'S.id status_id')
-        ->from('repair R')
-        ->join('repair_status S', 'INNER', array('S.repair_id', 'R.id'))
-        ->join('inventory V', 'INNER', array('V.id', 'R.inventory_id'))
-        ->join('user U', 'INNER', array('U.id', 'R.customer_id'))
-        ->where(array('R.id', $id))
-        ->order('S.id');
+      $q1 = $model->db()->createQuery()
+        ->select('repair_id', Sql::MAX('id', 'max_id'))
+        ->from('repair_status')
+        ->groupBy('repair_id');
       return $model->db()->createQuery()
-          ->from(array($sql, 'Q'))
-          ->groupBy('Q.id')
-          ->first();
+          ->from('repair R')
+          ->join(array($q1, 'T'), 'INNER', array('T.repair_id', 'R.id'))
+          ->join('repair_status S', 'INNER', array('S.id', 'T.max_id'))
+          ->join('inventory V', 'INNER', array('V.id', 'R.inventory_id'))
+          ->join('user U', 'INNER', array('U.id', 'R.customer_id'))
+          ->where(array('R.id', $id))
+          ->first('R.*', 'U.name', 'U.phone', 'U.address', 'U.zipcode', 'U.provinceID', 'U.status user_status', 'V.equipment', 'V.serial', 'S.status', 'S.comment', 'S.cost', 'S.operator_id', 'S.id status_id');
     }
   }
 
@@ -80,7 +83,7 @@ class Model extends \Kotchasan\Model
     $ret = array();
     // session, token, can_received_repair
     if ($request->initSession() && $request->isSafe() && $login = Login::isMember()) {
-      if ($login['username'] != 'demo' && Login::checkPermission($login, 'can_received_repair')) {
+      if ($login['active'] == 1 && Login::checkPermission($login, 'can_received_repair')) {
         // รับค่าจากการ POST
         $user = array(
           'name' => $request->post('name')->topic(),

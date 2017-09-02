@@ -101,7 +101,7 @@ class Sql
    *
    * @assert ('U.id') [==] 'U.`id`'
    * @assert ('U1.id') [==] 'U1.`id`'
-   * @assert (field_name) [==] '`field_name`'
+   * @assert ('field_name') [==] '`field_name`'
    * @assert ('table_name.field_name') [==] '`table_name`.`field_name`'
    * @assert ('`table_name`.`field_name`') [==] '`table_name`.`field_name`'
    * @assert ('table_name.`field_name`') [==] '`table_name`.`field_name`'
@@ -230,25 +230,25 @@ class Sql
    * @return string
    * @throws \InvalidArgumentException ถ้ารูปแบบของ $value ไม่ถูกต้อง
    *
-   * @assert ('id', 'ทดสอบ') [==] "'ทดสอบ'"
-   * @assert ('id', 'test') [==] "'test'"
-   * @assert ('id', 'abcde012345') [==] "'abcde012345'"
-   * @assert ('id', 123456) [==] 123456
-   * @assert ('id', 0.1) [==] 0.1
-   * @assert ('id', null) [==] 'NULL'
-   * @assert ('id', 'U.id') [==] "U.`id`"
-   * @assert ('id', 'U.`id`') [==] 'U.`id`'
-   * @assert ('id', 'domain.tld') [==] "'domain.tld'"
-   * @assert ('id', 'table_name.`id`') [==] '`table_name`.`id`'
-   * @assert ('id', '`table_name`.id') [==] '`table_name`.`id`'
-   * @assert ('id', '`table_name`.`id`') [==] '`table_name`.`id`'
-   * @assert ('id', 'INSERT INTO') [==] ':id0'
-   * @assert ('id', array(1, '2', null)) [==] "(1, '2', NULL)"
-   * @assert ('id', '0x64656') [==] ':id0'
-   * @assert ('id', 0x64656) [==] 411222
-   * @assert ('`table_name`.`id`', '0x64656') [==] ':tablenameid0'
-   * @assert ('U1.`id`', '0x64656') [==] ':u1id0'
-   * @assert ('U.id', '0x64656') [==] ':uid0'
+   * @assert ('id', 'ทดสอบ', $array) [==] "'ทดสอบ'"
+   * @assert ('id', 'test', $array) [==] "'test'"
+   * @assert ('id', 'abcde012345', $array) [==] "'abcde012345'"
+   * @assert ('id', 123456, $array) [==] 123456
+   * @assert ('id', 0.1, $array) [==] 0.1
+   * @assert ('id', null, $array) [==] 'NULL'
+   * @assert ('id', 'U.id', $array) [==] "U.`id`"
+   * @assert ('id', 'U.`id`', $array) [==] 'U.`id`'
+   * @assert ('id', 'domain.tld', $array) [==] "'domain.tld'"
+   * @assert ('id', 'table_name.`id`', $array) [==] '`table_name`.`id`'
+   * @assert ('id', '`table_name`.id', $array) [==] '`table_name`.`id`'
+   * @assert ('id', '`table_name`.`id`', $array) [==] '`table_name`.`id`'
+   * @assert ('id', 'INSERT INTO', $array) [==] ':id0'
+   * @assert ('id', array(1, '2', null), $array) [==] "(1, '2', NULL)"
+   * @assert ('id', '0x64656', $array) [==] ':id0'
+   * @assert ('id', 0x64656, $array) [==] 411222
+   * @assert ('`table_name`.`id`', '0x64656', $array) [==] ':tablenameid0'
+   * @assert ('U1.`id`', '0x64656', $array) [==] ':u1id0'
+   * @assert ('U.id', '0x64656', $array) [==] ':uid0'
    */
   public static function quoteValue($column_name, $value, &$values)
   {

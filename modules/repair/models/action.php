@@ -32,7 +32,7 @@ class Model extends \Kotchasan\Model
     $ret = array();
     // session, token, can_received_repair, can_repair
     if ($request->initSession() && $request->isSafe() && $login = Login::isMember()) {
-      if ($login['username'] != 'demo' && Login::checkPermission($login, array('can_received_repair', 'repair'))) {
+      if ($login['active'] == 1 && Login::checkPermission($login, array('can_received_repair', 'repair'))) {
         $save = array(
           'member_id' => $login['id'],
           'comment' => $request->post('comment')->topic(),

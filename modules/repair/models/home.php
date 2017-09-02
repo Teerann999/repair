@@ -30,17 +30,14 @@ class Model extends \Kotchasan\Model
     if (isset(self::$cfg->repair_first_status)) {
       $model = new static;
       $q1 = $model->db()->createQuery()
-        ->select('id', 'status', 'repair_id')
+        ->select('repair_id', Sql::MAX('id', 'max_id'))
         ->from('repair_status')
-        ->order('create_date DESC');
-      $q2 = $model->db()->createQuery()
-        ->select()
-        ->from(array($q1, 'S'))
-        ->groupBy('S.repair_id')
-        ->having(array('S.status', self::$cfg->repair_first_status));
+        ->groupBy('repair_id');
       $search = $model->db()->createQuery()
         ->selectCount()
-        ->from(array($q2, 'Z'))
+        ->from('repair_status S')
+        ->join(array($q1, 'T'), 'INNER', array(array('T.repair_id', 'S.repair_id'), array('S.id', 'T.max_id')))
+        ->where(array('S.status', self::$cfg->repair_first_status))
         ->toArray()
         ->execute();
       if (!empty($search)) {

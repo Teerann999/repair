@@ -485,6 +485,8 @@ class DataTable extends \Kotchasan\KBase
     if (isset($this->model)) {
       // field select
       $this->model->select($this->fields);
+      // debug Query
+      //echo $this->model->text();
       // จำนวนข้อมูลทั้งหมด (Query Builder)
       $model = new \Kotchasan\Model;
       $query = $model->db()->createQuery()
