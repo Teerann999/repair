@@ -26,6 +26,7 @@ class Controller extends \Gcms\Controller
 
   /**
    * หน้าหลักเว็บไซต์ (index.html)
+   * ให้ผลลัพท์เป็น HTML
    *
    * @param Request $request
    */

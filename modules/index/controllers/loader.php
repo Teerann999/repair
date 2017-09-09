@@ -24,9 +24,9 @@ class Controller extends \Gcms\Controller
 
   /**
    * มาจากการเรียกด้วย GLoader
+   * ให้ผลลัพท์เป็น JSON String
    *
    * @param Request $request
-   * @return JSON string
    */
   public function index(Request $request)
   {

@@ -13,7 +13,7 @@ use \Gcms\Login;
 use \Kotchasan\Language;
 
 /**
- * ฟอร์มแก้ไขสมาชิก
+ * module=editprofile
  *
  * @author Goragod Wiriya <admin@goragod.com>
  *
@@ -23,7 +23,7 @@ class View extends \Gcms\View
 {
 
   /**
-   * module=editprofile
+   * ฟอร์มแก้ไขสมาชิก
    *
    * @param array $user
    * @param array $login

@@ -116,25 +116,25 @@ class Login extends \Kotchasan\Login implements \Kotchasan\LoginInterface
    *
    * @param array $login
    * @param array|string $permission
-   * @return boolean true ถ้าสามารถทำรายการได้
+   * array|null คืนค่าข้อมูลสมาชิก (แอเรย์) ถ้าไม่สามารถทำรายการได้คืนค่า null
    */
   public static function checkPermission($login, $permission)
   {
     if (!empty($login)) {
       if ($login['status'] == 1) {
         // แอดมิน
-        return true;
+        return $login;
       } elseif (!empty($permission)) {
         foreach ((array)$permission as $item) {
           if (in_array($item, $login['permission'])) {
             // มีสิทธิ์
-            return true;
+            return $login;
           }
         }
       }
     }
     // ไม่มีสิทธิ
-    return false;
+    return null;
   }
 
   /**

@@ -366,39 +366,6 @@ function selectMenu(module) {
     }
   }
 }
-function initAutoComplete(id, model, displayFields, doEmpty, getQuery, icon) {
-  displayFields = displayFields.split(',');
-  function doGetQuery() {
-    var q = null,
-      value = $E(id).value;
-    if (value != '') {
-      q = (id + '=' + encodeURIComponent(value));
-    }
-    return q;
-  }
-  function doCallBack() {
-    for (var prop in this) {
-      $G(prop).setValue(this[prop]);
-    }
-    $G(id).valid();
-  }
-  function doPopulate() {
-    var datas = new Array();
-    for (var i in displayFields) {
-      datas.push(this[displayFields[i]]);
-    }
-    var patt = new RegExp('(' + $E(id).value.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&') + ')', 'gi');
-    return '<p><span class="icon-' + (icon || 'search') + '">' + datas.join(' ').unentityify().replace(patt, '<em>$1</em>') + '</span></p>';
-  }
-  new GAutoComplete(id, {
-    className: 'gautocomplete',
-    get: getQuery || doGetQuery,
-    url: 'index.php/' + model,
-    callBack: doCallBack,
-    populate: doPopulate,
-    onEmpty: doEmpty
-  });
-}
 function initEditInplace(id, model, addbtn) {
   var patt = /list_([a-z]+)_([0-9]+)(_([0-9]+))?/;
   var o = {
