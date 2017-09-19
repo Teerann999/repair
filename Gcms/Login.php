@@ -69,42 +69,30 @@ class Login extends \Kotchasan\Login implements \Kotchasan\LoginInterface
    */
   public function checkLogin($params)
   {
-    if (!empty(self::$cfg->demo_mode) && $params['username'] == 'demo' && $params['password'] == 'demo') {
-      // login เป็น demo
-      $login_result = array(
-        'id' => 0,
-        'username' => 'demo',
-        'name' => 'demo',
-        'permission' => array_keys(Language::get('PERMISSIONS')),
-        'status' => 1,
-        'active' => 0
-      );
+    // ตรวจสอบสมาชิกกับฐานข้อมูล
+    $login_result = self::checkMember($params);
+    if (is_string($login_result)) {
+      return $login_result;
     } else {
-      // ตรวจสอบสมาชิกกับฐานข้อมูล
-      $login_result = self::checkMember($params);
-      if (is_string($login_result)) {
-        return $login_result;
-      } else {
-        // model
-        $model = new \Kotchasan\Model;
-        // ip ที่ login
-        $ip = self::$request->getClientIp();
-        // current session
-        $session_id = session_id();
-        // อัปเดทการเยี่ยมชม
-        if ($session_id != $login_result['session_id']) {
-          $login_result['visited'] ++;
-          $model->db()->createQuery()
-            ->update('user')
-            ->set(array(
-              'session_id' => $session_id,
-              'visited' => $login_result['visited'],
-              'lastvisited' => time(),
-              'ip' => $ip
-            ))
-            ->where((int)$login_result['id'])
-            ->execute();
-        }
+      // model
+      $model = new \Kotchasan\Model;
+      // ip ที่ login
+      $ip = self::$request->getClientIp();
+      // current session
+      $session_id = session_id();
+      // อัปเดทการเยี่ยมชม
+      if ($session_id != $login_result['session_id']) {
+        $login_result['visited'] ++;
+        $model->db()->createQuery()
+          ->update('user')
+          ->set(array(
+            'session_id' => $session_id,
+            'visited' => $login_result['visited'],
+            'lastvisited' => time(),
+            'ip' => $ip
+          ))
+          ->where((int)$login_result['id'])
+          ->execute();
       }
     }
     return $login_result;
@@ -138,6 +126,17 @@ class Login extends \Kotchasan\Login implements \Kotchasan\LoginInterface
   }
 
   /**
+   * ฟังก์ชั่นตรวจสอบว่า เป็นสมาชิกตัวอย่างหรือไม่
+   *
+   * @param array|null $login
+   * @return array|null คืนค่าข้อมูลสมาชิก (แอเรย์) ถ้าไม่ใช่สมาชิกตัวอย่าง, null ถ้าเป็นสมาชิกตัวอย่างและเปิดโหมดตัวอย่างไว้
+   */
+  public static function notDemoMode($login)
+  {
+    return $login && (empty($login['fb']) || !self::$cfg->demo_mode) ? $login : null;
+  }
+
+  /**
    * ฟังก์ชั่นส่งอีเมล์ลืมรหัสผ่าน
    */
   public function forgot(Request $request)
@@ -157,7 +156,7 @@ class Login extends \Kotchasan\Login implements \Kotchasan\LoginInterface
       // ตาราง user
       $table = $model->getTableName('user');
       // ค้นหาอีเมล์
-      $search = $model->db()->first($table, array(array($field, $username)));
+      $search = $model->db()->first($table, array(array($field, $username), array('fb', '0')));
       if ($search === false) {
         self::$login_message = Language::get('not a registered user');
       } else {

@@ -131,7 +131,7 @@ class Sql
         // table_name.field_name, table_name.`field_name`, `table_name`.field_name, `table_name`.`field_name`
         return "`$match[1]`.`$match[2]`";
       } else {
-        // อื่นๆ คืนค่าเป็นข้อความภายใต้เครื่องหมาย ''
+        // อื่นๆ คืนค่าเป็นข้อความภายใต้เครื่องหมาย ' (อัญประกาศเดี่ยว)
         return "'$column_name'";
       }
     }

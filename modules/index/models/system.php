@@ -11,7 +11,7 @@ namespace Index\System;
 use \Kotchasan\Http\Request;
 use \Gcms\Login;
 use \Kotchasan\Language;
-use \Kotchasan\Config;
+use \Gcms\Config;
 
 /**
  * บันทึกการตั้งค่าเว็บไซต์
@@ -24,16 +24,16 @@ class Model extends \Kotchasan\KBase
 {
 
   /**
-   * รับค่าจาก system.php
+   * บันทึกการตั้งค่าเว็บไซต์ (system.php)
    *
    * @param Request $request
    */
   public function submit(Request $request)
   {
     $ret = array();
-    // session, token, can_config
+    // session, token, member, can_config, ไม่ใช่สมาชิกตัวอย่าง
     if ($request->initSession() && $request->isSafe() && $login = Login::isMember()) {
-      if ($login['active'] == 1 && Login::checkPermission($login, 'can_config')) {
+      if (Login::checkPermission($login, 'can_config') && Login::notDemoMode($login)) {
         // โหลด config
         $config = Config::load(ROOT_PATH.'settings/config.php');
         foreach (array('web_title', 'web_description') as $key) {

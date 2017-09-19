@@ -318,6 +318,9 @@ table th:last-child {
 td a[class*="icon"] {
   display: block;
 }
+tr.bg3 {
+  background-color: #FBDCA0;
+}
 /* form */
 div.dashboard,
 .setup_frm {
@@ -371,6 +374,9 @@ main h3 {
   display: block;
   padding: 10px 10px;
   font-size: 1.625em;
+}
+main h3 select {
+  border: none;
 }
 .icon-sex-f:before {
   color: #F480D1;
@@ -472,12 +478,13 @@ header .inline {
   padding-bottom: 0;
 }
 /* dashboard */
+.dashboard h3 {
+  text-shadow: 1px 1px 0 #FFF;
+  color: rgba(0,0,0,0.4);
+}
 .card {
   color: #FFF;
   line-height: 1;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
-  -moz-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
-  -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
 }
 .card:nth-child(1) {
   background-color: #8CC152;
@@ -511,6 +518,30 @@ header .inline {
   text-align: center;
   width: 5.5em;
   background-color: rgba(0,0,0,0.05);
+}
+.qmenu a {
+  background-color: #FFF;
+  color: inherit;
+  display: block;
+  padding: 10px;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.qmenu a,
+.card {
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+.qmenu [class*="icon"]:before {
+  color: inherit;
+}
+.qmenu a:hover {
+  background-color: #333;
+  color: #FFF;
 }
 /* edit inplace */
 .editinplace_list {
@@ -628,7 +659,7 @@ article.help ul {
   div.dashboard,
   .setup_frm {
     display: block;
-    margin: 0;
+    margin: 10px 10px 0 10px;
     width: auto;
   }
   .writetab > ul > li > .select {

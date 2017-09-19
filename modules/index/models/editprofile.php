@@ -9,7 +9,7 @@
 namespace Index\Editprofile;
 
 use \Kotchasan\Http\Request;
-use \Kotchasan\Login;
+use \Gcms\Login;
 use \Kotchasan\Language;
 
 /**
@@ -23,16 +23,41 @@ class Model extends \Kotchasan\Model
 {
 
   /**
-   * module=editprofile
+   * อ่านข้อมูลสมาชิกที่ $user_id
+   *
+   * @param int $user_id
+   * @return array|null คืนค่า array ของข้อมูล ไม่พบคืนค่า null
+   */
+  public static function get($user_id)
+  {
+    if (!empty($user_id)) {
+      // query ข้อมูลที่เลือก
+      $model = new \Kotchasan\Model;
+      $user = $model->db()->createQuery()
+        ->from('user')
+        ->where(array('id', $user_id))
+        ->toArray()
+        ->first();
+      if ($user) {
+        // permission
+        $user['permission'] = empty($user['permission']) ? array() : explode(',', $user['permission']);
+        return $user;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * แก้ไขข้อมูลสมาชิก (editprofile.php)
    *
    * @param Request $request
    */
   public function submit(Request $request)
   {
     $ret = array();
-    // session, token, member
+    // session, token, สมาชิก และไม่ใช่สมาชิกตัวอย่าง
     if ($request->initSession() && $request->isSafe() && $login = Login::isMember()) {
-      if ($login['active'] == 1) {
+      if (Login::notDemoMode()) {
         // รับค่าจากการ POST
         $save = array(
           'name' => $request->post('register_name')->topic(),
@@ -42,7 +67,7 @@ class Model extends \Kotchasan\Model
           'address' => $request->post('register_address')->topic(),
           'provinceID' => $request->post('register_provinceID')->number(),
           'zipcode' => $request->post('register_zipcode')->number(),
-          'status' => $request->post('register_status')->toInt(),
+          'status' => $request->post('register_status')->toInt()
         );
         $permission = $request->post('register_permission', array())->topic();
         // Model
@@ -144,30 +169,5 @@ class Model extends \Kotchasan\Model
     }
     // คืนค่าเป็น JSON
     echo json_encode($ret);
-  }
-
-  /**
-   * อ่านข้อมูลสมาชิกที่ $user_id
-   *
-   * @param int $user_id
-   * @return array|null คืนค่า array ของข้อมูล ไม่พบคืนค่า null
-   */
-  public static function get($user_id)
-  {
-    if (!empty($user_id)) {
-      // query ข้อมูลที่เลือก
-      $model = new \Kotchasan\Model;
-      $user = $model->db()->createQuery()
-        ->from('user')
-        ->where(array('id', $user_id))
-        ->toArray()
-        ->first();
-      if ($user) {
-        // permission
-        $user['permission'] = empty($user['permission']) ? array() : explode(',', $user['permission']);
-        return $user;
-      }
-    }
-    return null;
   }
 }

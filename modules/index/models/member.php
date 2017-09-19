@@ -19,14 +19,21 @@ use \Kotchasan\Language;
  *
  * @since 1.0
  */
-class Model extends \Kotchasan\Orm\Field
+class Model extends \Kotchasan\Model
 {
+
   /**
-   * ชื่อตาราง
+   * อ่านข้อมูลสำหรับใส่ลงในตาราง
    *
-   * @var string
+   * @return array
    */
-  protected $table = 'user U';
+  public static function toDataTable()
+  {
+    $model = new static;
+    return $model->db()->createQuery()
+        ->select('id', 'name', 'active', 'fb', 'phone', 'status', 'create_date', 'lastvisited', 'visited', 'website')
+        ->from('user');
+  }
 
   /**
    * ฟังก์ชั่นอ่านจำนวนสมาชิกทั้งหมด
@@ -45,16 +52,16 @@ class Model extends \Kotchasan\Orm\Field
   }
 
   /**
-   * รับค่าจาก action
+   * ตารางสมาชิก (member.php)
    *
    * @param Request $request
    */
   public function action(Request $request)
   {
     $ret = array();
-    // session, referer, admin
+    // session, referer, admin, ไม่ใช่สมาชิกตัวอย่าง
     if ($request->initSession() && $request->isReferer() && $login = Login::isAdmin()) {
-      if ($login['active'] == 1) {
+      if (Login::notDemoMode($login)) {
         // รับค่าจากการ POST
         $action = $request->post('action')->toString();
         // id ที่ส่งมา
@@ -79,6 +86,7 @@ class Model extends \Kotchasan\Orm\Field
               ->where(array(
                 array('id', $match[1]),
                 array('id', '!=', 1),
+                array('fb', '0'),
                 array('username', '!=', '')
               ))
               ->toArray();

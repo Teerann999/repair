@@ -135,8 +135,10 @@ class View extends \Gcms\View
   /**
    * จัดรูปแบบการแสดงผลในแต่ละแถว
    *
-   * @param array $item
-   * @return array
+   * @param array $item ข้อมูลแถว
+   * @param int $o ID ของข้อมูล
+   * @param object $prop กำหนด properties ของ TR
+   * @return array คืนค่า $item กลับไป
    */
   public function onRow($item, $o, $prop)
   {

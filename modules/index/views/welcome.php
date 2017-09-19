@@ -31,14 +31,10 @@ class View extends \Kotchasan\View
    */
   public static function login(Request $request)
   {
-    // โหมดตัวอย่าง
-    if (!empty(self::$cfg->demo_mode) && empty(Login::$login_params['username']) && empty(Login::$login_params['password'])) {
-      Login::$login_params['username'] = 'demo';
-      Login::$login_params['password'] = 'demo';
-    }
     // template
     $template = Template::create('', '', 'login');
     $template->add(array(
+      '/<FACEBOOK>(.*)<\/FACEBOOK>/' => empty(self::$cfg->facebook_appId) ? '' : '\\1',
       '/{TOKEN}/' => $request->createToken(),
       '/{EMAIL}/' => Login::$login_params['username'],
       '/{PASSWORD}/' => Login::$login_params['password'],

@@ -30,8 +30,8 @@
       var showing = false;
       var listindex = 0;
       var list = new Array();
-      var input = $G(id);
-      var text = input.value;
+      this.input = $G(id);
+      this.text = this.input.value;
       var req = new GAjax();
       var self = this;
       if (!$E('gautocomplete_div')) {
@@ -64,7 +64,7 @@
           _hide();
           try {
             options.callBack.call(this.datas);
-            text = input.value;
+            self.text = self.input.value;
           } catch (e) {
           }
         }
@@ -72,7 +72,7 @@
       var _mouseclick = function () {
         onSelect.call(this);
         if (Object.isFunction(options.onSuccess)) {
-          options.onSuccess.call(input);
+          options.onSuccess.call(self.input);
         }
       };
       var _mousemove = function () {
@@ -99,23 +99,23 @@
         _movehighlight(0);
       }
       function _hide() {
-        input.removeClass(options.loadingClass);
+        self.input.removeClass(options.loadingClass);
         display.style.left = '-100000px';
         showing = false;
       }
       var _search = function () {
         window.clearTimeout(self.timer);
         req.abort();
-        if (text != input.value) {
-          options.onChanged.call(input);
+        if (self.text != self.input.value) {
+          options.onChanged.call(self.input);
         }
         if (!cancleEvent && options.url) {
           var q = options.get.call(this);
           if (q && q != '') {
-            input.addClass(options.loadingClass);
+            self.input.addClass(options.loadingClass);
             self.timer = window.setTimeout(function () {
               req.send(options.url, q, function (xhr) {
-                input.removeClass(options.loadingClass);
+                self.input.removeClass(options.loadingClass);
                 if (xhr.responseText !== '') {
                   var datas = xhr.responseText.toJSON();
                   listindex = 0;
@@ -124,8 +124,8 @@
                   } else {
                     display.setValue(xhr.responseText);
                   }
-                  var vp = input.viewportOffset(),
-                    dm = input.getDimensions(),
+                  var vp = self.input.viewportOffset(),
+                    dm = self.input.getDimensions(),
                     cw = document.viewport.getWidth();
                   display.style.width = dm.width + 'px';
                   display.style.left = Math.max(0, (vp.left + dm.width > cw ? cw - dm.width : vp.left)) + 'px';
@@ -175,7 +175,7 @@
             }
           });
           if (Object.isFunction(options.onSuccess)) {
-            options.onSuccess.call(input);
+            options.onSuccess.call(self.input);
           }
         } else if (key == 32) {
           if (this.value == '') {
@@ -187,20 +187,37 @@
           GEvent.stop(evt);
         }
       }
-      input.addEvent('click', _search);
-      input.addEvent('keyup', _search);
-      input.addEvent('keydown', _dokeydown);
-      input.addEvent('blur', function () {
+      self.input.addEvent('click', _search);
+      self.input.addEvent('keyup', _search);
+      self.input.addEvent('keydown', _dokeydown);
+      self.input.addEvent('blur', function () {
         _hide();
       });
       $G(document.body).addEvent('click', function () {
         _hide();
       });
-    }
+    },
+    setText: function (value) {
+      this.input.value = value;
+      this.text = value;
+    },
+    valid: function () {
+      this.input.valid();
+      this.text = this.input.value;
+    },
+    invalid: function () {
+      this.input.invalid();
+      this.text = this.input.value;
+    },
+    reset: function () {
+      this.input.reset();
+      this.text = this.input.value;
+    },
   };
 }());
 function initAutoComplete(id, model, displayFields, icon, options) {
-  displayFields = displayFields.split(',');
+  var obj,
+    df = displayFields.split(',');
   function doGetQuery() {
     var q = null,
       value = $E(id).value;
@@ -213,12 +230,12 @@ function initAutoComplete(id, model, displayFields, icon, options) {
     for (var prop in this) {
       $G(prop).setValue(this[prop]);
     }
-    $G(id).valid();
+    obj.valid();
   }
   function doPopulate() {
     var datas = new Array();
-    for (var i in displayFields) {
-      datas.push(this[displayFields[i]]);
+    for (var i in df) {
+      datas.push(this[df[i]]);
     }
     var patt = new RegExp('(' + $E(id).value.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&') + ')', 'gi');
     return '<p><span class="icon-' + (icon || 'search') + '">' + datas.join(' ').unentityify().replace(patt, '<em>$1</em>') + '</span></p>';
@@ -232,5 +249,6 @@ function initAutoComplete(id, model, displayFields, icon, options) {
   for (var prop in options) {
     o[prop] = options[prop];
   }
-  new GAutoComplete(id, o);
+  obj = new GAutoComplete(id, o);
+  return obj;
 }

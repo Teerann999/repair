@@ -411,7 +411,7 @@ function initEditInplace(id, model, addbtn) {
           if (ds.data) {
             $G(id).appendChild(ds.data.toDOM());
             _doInitEditInplaceMethod(ds.newId);
-            $E(ds.newId.replace('list_', 'list_name')).focus();
+            $E(ds.newId.replace('list_', 'list_name_')).focus();
           } else if (ds.del) {
             $G(ds.del).remove();
           } else if (ds.editId) {

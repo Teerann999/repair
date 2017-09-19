@@ -62,9 +62,9 @@ class Model extends \Kotchasan\KBase
   public function action()
   {
     $ret = array();
-    // session, referer, can_config
+    // session, referer, can_config, ไม่ใช่สมาชิกตัวอย่าง
     if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isMember()) {
-      if ($login['active'] == 1 && Login::checkPermission($login, 'can_config')) {
+      if (Login::checkPermission($login, 'can_config') && Login::notDemoMode($login)) {
         // ค่าที่ส่งมา
         $action = self::$request->post('action')->toString();
         $value = self::$request->post('value')->topic();

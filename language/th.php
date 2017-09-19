@@ -15,6 +15,7 @@ return array(
     0 => 'ปิดใช้งาน',
     1 => 'เปิดใช้งาน'
   ),
+  'Can get the repair' => 'สามารถรับงานซ่อมได้',
   'Can login' => 'สามารถเข้าระบบได้',
   'Can not be performed this request. Because they do not find the information you need or you are not allowed' => 'ไม่สามารถดำเนินการตามที่ร้องขอได้ เนื่องจากไม่พบข้อมูลที่ต้องการ หรือ คุณไม่มีสิทธิ์',
   'click to edit' => 'คลิกเพื่อแก้ไข',
@@ -173,6 +174,7 @@ return array(
   'REPAIR_CATEGORIES' => array(
     'repairstatus' => 'สถานะการซ่อม'
   ),
+  'Repairman' => 'ช่างซ่อม',
   'Repassword' => 'ยืนยันรหัสผ่าน',
   'Save' => 'บันทึก',
   'Save &amp; Print receipt' => 'บันทึกและพิมพ์ใบรับซ่อม',
@@ -229,7 +231,5 @@ return array(
   'YEAR_OFFSET' => 543,
   'Your message was sent successfully' => 'ส่งข้อความไปยังผู้รับเรียบร้อยแล้ว',
   'Your new password is' => 'รหัสผ่านใหม่ของคุณคือ',
-  'Zipcode' => 'รหัสไปรษณีย์',
-  'Can get the repair' => 'สามารถรับงานซ่อมได้',
-  'Repairman' => 'ช่างซ่อม',
+  'Zipcode' => 'รหัสไปรษณีย์'
 );

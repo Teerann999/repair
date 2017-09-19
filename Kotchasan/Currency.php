@@ -70,7 +70,6 @@ class Currency
   public static function bahtEng($thb)
   {
     if (preg_match('/^(\-?[0-9]+)(\.([0-9]+))/', (string)$thb, $match)) {
-      print_r(substr($match[3].'00', 0, 2));
       $thb = self::engFormat((int)$match[1]).' Baht';
       if ((int)$match[3] > 0) {
         $thb .= ' and '.self::engFormat((int)substr($match[3].'00', 0, 2)).' Satang';

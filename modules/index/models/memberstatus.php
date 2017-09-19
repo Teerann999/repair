@@ -8,9 +8,10 @@
 
 namespace Index\Memberstatus;
 
+use \Kotchasan\Http\Request;
 use \Gcms\Login;
 use \Kotchasan\Language;
-use \Kotchasan\Config;
+use \Gcms\Config;
 
 /**
  * บันทึกสถานะสมาชิก
@@ -23,18 +24,20 @@ class Model extends \Kotchasan\KBase
 {
 
   /**
-   * รับค่าจาก action
+   * บันทึกสถานะสมาชิก (memberstatus.php)
+   *
+   * @param Request $request
    */
-  public function action()
+  public function action(Request $request)
   {
     $ret = array();
-    // session, referer, can_config
-    if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isMember()) {
-      if ($login['active'] == 1 && Login::checkPermission($login, 'can_config')) {
+    // session, token, member, can_config, ไม่ใช่สมาชิกตัวอย่าง
+    if ($request->initSession() && $request->isReferer() && $login = Login::isMember()) {
+      if (Login::checkPermission($login, 'can_config') && Login::notDemoMode($login)) {
         // โหลด config
         $config = Config::load(ROOT_PATH.'settings/config.php');
         // รับค่าจากการ POST
-        $action = self::$request->post('action')->toString();
+        $action = $request->post('action')->toString();
         if (preg_match('/^list_(add|delete|color|name)_([0-9]+)$/', $action, $match)) {
           // do not saved
           $save = false;
@@ -81,7 +84,7 @@ class Model extends \Kotchasan\KBase
             $save = true;
           } elseif ($match[1] == 'color' || $match[1] == 'name') {
             // แก้ไขชื่อสถานะหรือสี
-            $value = self::$request->post('value')->text();
+            $value = $request->post('value')->text();
             $match[2] = (int)$match[2];
             if ($value == '' && $match[1] == 'name') {
               $value = $config->member_status[$match[2]];

@@ -81,9 +81,9 @@ class Model extends \Kotchasan\Model
   public function submit(Request $request)
   {
     $ret = array();
-    // session, token, can_received_repair
+    // session, token, can_received_repair, ไม่ใช่สมาชิกตัวอย่าง
     if ($request->initSession() && $request->isSafe() && $login = Login::isMember()) {
-      if ($login['active'] == 1 && Login::checkPermission($login, 'can_received_repair')) {
+      if (Login::checkPermission($login, 'can_received_repair') && Login::notDemoMode($login)) {
         // รับค่าจากการ POST
         $user = array(
           'name' => $request->post('name')->topic(),

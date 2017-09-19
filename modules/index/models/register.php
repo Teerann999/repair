@@ -23,16 +23,16 @@ class Model extends \Kotchasan\Model
 {
 
   /**
-   * module=register
+   * บันทึกข้อมูล (register.php)
    *
    * @param Request $request
    */
   public function submit(Request $request)
   {
     $ret = array();
-    // session, token, admin
+    // session, token, admin, ไม่ใช่สมาชิกตัวอย่าง
     if ($request->initSession() && $request->isSafe() && $login = Login::isAdmin()) {
-      if ($login['active'] == 1) {
+      if (Login::notDemoMode($login)) {
         // รับค่าจากการ POST
         $save = array(
           'username' => $request->post('register_username')->username(),
@@ -92,10 +92,12 @@ class Model extends \Kotchasan\Model
    * @param array $permission
    * @return array คืนค่าแอเรย์ของข้อมูลสมาชิกใหม่
    */
-  public static function execute($model, $save, $permission = array())
+  public static function execute($model, $save, $permission = null)
   {
-    // ตาราง user
-    $user_table = $model->getTableName('user');
+    // permission ถ้าเป็น null สามารถทำได้ทั้งหมด
+    if ($permission === null) {
+      $permission = array_keys(\Gcms\Controller::getPermissions());
+    }
     if (!isset($save['username'])) {
       $save['username'] = '';
     }
@@ -105,15 +107,14 @@ class Model extends \Kotchasan\Model
       $save['password'] = sha1($save['password'].$save['username']);
     }
     $save['permission'] = empty($permission) ? '' : implode(',', $permission);
+    $save['active'] = 1;
     $save['create_date'] = date('Y-m-d H:i:s');
     // บันทึกลงฐานข้อมูล
-    $save['id'] = $model->db()->insert($user_table, $save);
+    $save['id'] = $model->db()->insert($model->getTableName('user'), $save);
     // คืนค่าแอเรย์ของข้อมูลสมาชิกใหม่
     $save['permission'] = array();
-    if (!empty($permission)) {
-      foreach ($permission As $item) {
-        $save['permission'][] = $item;
-      }
+    foreach ($permission As $key => $value) {
+      $save['permission'][] = $value;
     }
     return $save;
   }

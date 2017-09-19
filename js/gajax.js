@@ -2177,7 +2177,9 @@ window.$K = (function () {
       replace(/"/g, '&quot;').
       replace(/'/g, '&#39;').
       replace(/\\/g, '&#92;').
-      replace(/&/g, '&amp;');
+      replace(/&/g, '&amp;').
+      replace(/\{/g, '&#x007B;').
+      replace(/\}/g, '&#x007D;');
   };
   String.prototype.unentityify = function () {
     return this.replace(/&lt;/g, '<').
@@ -2185,7 +2187,9 @@ window.$K = (function () {
       replace(/&quot;/g, '"').
       replace(/&#[0]?39;/g, "'").
       replace(/&#92;/g, '\\').
-      replace(/&amp;/g, '&');
+      replace(/&amp;/g, '&').
+      replace(/&#x007B;/g, '{').
+      replace(/&#x007D;/g, '}');
   };
   String.prototype.toJSON = function () {
     try {

@@ -73,6 +73,10 @@ class View extends \Kotchasan\KBase
     $js[] = 'Date.longDayNames = ["'.implode('", "', $languages['DATE_LONG']).'"];';
     $js[] = 'Date.dayNames = ["'.implode('", "', $languages['DATE_SHORT']).'"];';
     $js[] = 'Date.yearOffset = '.(int)$languages['YEAR_OFFSET'].';';
+    if (!empty(self::$cfg->facebook_appId)) {
+      $js[] = file_get_contents(ROOT_PATH.'js/facebook.js');
+      $js[] = 'initFacebook("'.self::$cfg->facebook_appId.'", "'.Language::name().'");';
+    }
     // compress javascript
     $patt = array('#/\*(?:[^*]*(?:\*(?!/))*)*\*/#u', '#[\r\t]#', '#\n//.*\n#', '#;//.*\n#', '#[\n]#', '#[\s]{2,}#');
     $replace = array('', '', '', ";\n", '', ' ');

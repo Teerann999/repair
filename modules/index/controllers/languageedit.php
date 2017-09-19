@@ -83,7 +83,7 @@ class Controller extends \Gcms\Controller
         $language = array(
           'id' => 0,
           'key' => '',
-          'js' => $request->get('type')->toBoolean(),
+          'js' => $request->request('type')->toBoolean(),
           'owner' => 'index',
           'type' => 'text'
         );

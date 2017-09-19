@@ -730,14 +730,14 @@ class DataTable extends \Kotchasan\KBase
         $src_items = $items;
         // id ของข้อมูล
         $id = isset($items[$this->primaryKey]) ? $items[$this->primaryKey] : $o;
-        $prop = array(
-          'id' => $this->id.'_'.$id
+        $prop = (object)array(
+            'id' => $this->id.'_'.$id
         );
         if (isset($this->onRow)) {
-          $items = call_user_func($this->onRow, $items, $o, array(&$prop));
+          $items = call_user_func($this->onRow, $items, $o, $prop);
         }
         if (isset($this->dragColumn)) {
-          $prop['class'] = (empty($prop['class']) ? 'sort' : $prop['class'].' sort');
+          $prop->class = (empty($prop->class) ? 'sort' : $prop->class.' sort');
         }
         // แถว
         $p = array();
