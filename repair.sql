@@ -107,9 +107,8 @@ CREATE TABLE IF NOT EXISTS `rp_repair_status` (
 --
 -- โครงสร้างตาราง `rp_user`
 --
-
-CREATE TABLE IF NOT EXISTS `rp_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rp_user` (
+  `id` int(11) NOT NULL,
   `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `status` tinyint(1) NOT NULL,
@@ -127,9 +126,11 @@ CREATE TABLE IF NOT EXISTS `rp_user` (
   `session_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `ip` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `create_date` datetime NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `fb` tinyint(1) NOT NULL DEFAULT '0',
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `website` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- dump ตาราง `rp_user`
