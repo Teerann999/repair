@@ -31,10 +31,8 @@ class Config extends \Kotchasan\Config
    * @var array
    */
   public $member_status = array(
-    // พนักงาน
-    0 => 'Officer',
-    // ผู้ดูแลระบบสูงสุด
-    1 => 'Administrator',
+    0 => 'สมาชิก',
+    1 => 'ผู้ดูแลระบบ',
   );
   /**
    * สีของสมาชิกตามสถานะ
@@ -65,22 +63,22 @@ class Config extends \Kotchasan\Config
   public $skin = 'default';
   /*
    * คีย์สำหรับการเข้ารหัส ควรแก้ไขให้เป็นรหัสของตัวเอง
-   * ตัวเลขเท่านั้น ไม่น้อยกว่า 10 ตัว
+   * ตัวเลขหรือภาษาอังกฤษเท่านั้น ไม่น้อยกว่า 10 ตัว
    *
    * @var string
    */
-  public $password_key = '1234567890';
+  public $password_key = '1245678912';
   /**
    * ถ้ากำหนดเป็น true บัญชี Facebook จะเป็นบัญชีตัวอย่าง
    * ได้รับสถานะแอดมิน (สมาชิกใหม่) แต่อ่านได้อย่างเดียว
    *
-   * @var boolean default false
+   * @var boolean
    */
-  public $demo_mode = true;
+  public $demo_mode = false;
   /**
    * App ID สำหรับการเข้าระบบด้วย Facebook https://gcms.in.th/howto/การขอ_app_id_จาก_facebook.html
    *
    * @var string
    */
-  public $facebook_appId = '256899174661440';
+  public $facebook_appId = '';
 }
