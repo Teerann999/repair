@@ -90,7 +90,7 @@ class View extends \Gcms\View
     // submit
     $fieldset->add('submit', array(
       'id' => 'save',
-      'class' => 'button save large',
+      'class' => 'button save large icon-save',
       'value' => '{LNG_Save}'
     ));
     // repair_id

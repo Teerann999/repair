@@ -137,7 +137,8 @@ class Model extends \Kotchasan\Model
             if (empty($ret)) {
               // แก้ไข
               if (!empty($password)) {
-                $save['password'] = sha1($password.$save['username']);
+                $save['salt'] = uniqid();
+                $save['password'] = sha1($password.$save['salt']);
               }
               // แก้ไข
               $db->update($table_user, $index['id'], $save);

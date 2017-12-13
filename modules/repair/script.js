@@ -9,10 +9,10 @@ function initRepairGet() {
     $G('equipment').reset();
     $G('serial').reset();
   }
-  initAutoComplete('name', 'repair/model/autocomplete/findCustomer', 'name,phone', doCustomerEmpty);
-  initAutoComplete('phone', 'repair/model/autocomplete/findCustomer', 'phone,name', doCustomerEmpty);
-  initAutoComplete('equipment', 'repair/model/autocomplete/findInventory', 'equipment,serial', doInventoryEmpty);
-  initAutoComplete('serial', 'repair/model/autocomplete/findInventory', 'serial,equipment', doInventoryEmpty);
+  initAutoComplete('name', WEB_URL + 'index.php/repair/model/autocomplete/findCustomer', 'name,phone', doCustomerEmpty);
+  initAutoComplete('phone', WEB_URL + 'index.php/repair/model/autocomplete/findCustomer', 'phone,name', doCustomerEmpty);
+  initAutoComplete('equipment', WEB_URL + 'index.php/repair/model/autocomplete/findInventory', 'equipment,serial', doInventoryEmpty);
+  initAutoComplete('serial', WEB_URL + 'index.php/repair/model/autocomplete/findInventory', 'serial,equipment', doInventoryEmpty);
   var doSubmit = function () {
     $E('print').value = this.id == 'save_print' ? 1 : 0;
   };
