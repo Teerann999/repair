@@ -40,7 +40,9 @@ class Controller extends \Gcms\Controller
     // สามารถรับเครื่องซ่อมได้
     if (Login::checkPermission(Login::isMember(), 'can_received_repair')) {
       // แสดงผล
-      $section = Html::create('section');
+      $section = Html::create('section', array(
+          'class' => 'content_bg'
+      ));
       // breadcrumbs
       $breadcrumbs = $section->add('div', array(
         'class' => 'breadcrumbs'

@@ -145,7 +145,10 @@ return array(
   'Passwords must be at least four characters' => 'รหัสผ่านต้องไม่น้อยกว่า 4 ตัวอักษร',
   'Permission' => 'สิทธิ์การใช้งาน',
   'PERMISSIONS' => array(
-    'can_config' => 'สามารถตั้งค่าระบบได้'
+    'can_config' => 'สามารถตั้งค่าระบบได้',
+    'can_login' => 'สามารถเข้าระบบได้',
+    'can_received_repair' => 'สามารถรับงานซ่อมได้',
+    'can_repair' => 'ช่างซ่อม'
   ),
   'Phone' => 'โทรศัพท์',
   'Please fill in' => 'กรุณากรอก',
@@ -195,8 +198,8 @@ return array(
   ),
   'Short description about your website' => 'ข้อความสั้นๆอธิบายว่าเป็นเว็บไซต์เกี่ยวกับอะไร',
   'Show' => 'แสดง',
-  'Sign In' => 'เข้าสู่ระบบ',
-  'Sign Out' => 'ออกจากระบบ',
+  'Sign in' => 'เข้าสู่ระบบ',
+  'Sign out' => 'ออกจากระบบ',
   'Site Name' => 'ชื่อของเว็บไซต์',
   'Site settings' => 'ตั้งค่าเว็บไซต์',
   'skip to content' => 'ข้ามไปยังเนื้อหา',
