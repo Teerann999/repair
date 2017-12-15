@@ -226,6 +226,9 @@
     initTBODY: function (tbody, tr) {
       var row = 0,
         temp = this;
+      var doSelect = function () {
+        temp.callAction(this, 'action=' + this.id + '&value=' + this.value);
+      };
       forEach($G(tbody).elems('tr'), function () {
         if (temp.options.pmButton) {
           this.id = temp.table.id + '_' + row;
