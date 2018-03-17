@@ -35,7 +35,6 @@ class Model extends \Kotchasan\Model
   {
     if (empty($id)) {
       // ใหม่
-      $today = date('Y-m-d');
       return (object)array(
           'name' => '',
           'phone' => '',
@@ -48,8 +47,8 @@ class Model extends \Kotchasan\Model
           'serial' => '',
           'inventory_id' => 0,
           'job_description' => '',
-          'create_date' => $today,
-          'appointment_date' => $today,
+          'create_date' => date('Y-m-d H:i:s'),
+          'appointment_date' => date('Y-m-d'),
           'appraiser' => '',
           'id' => 0,
           'comment' => '',
@@ -65,9 +64,9 @@ class Model extends \Kotchasan\Model
       return $model->db()->createQuery()
           ->from('repair R')
           ->join(array($q1, 'T'), 'INNER', array('T.repair_id', 'R.id'))
-          ->join('repair_status S', 'INNER', array('S.id', 'T.max_id'))
-          ->join('inventory V', 'INNER', array('V.id', 'R.inventory_id'))
-          ->join('user U', 'INNER', array('U.id', 'R.customer_id'))
+          ->join('repair_status S', 'LEFT', array('S.id', 'T.max_id'))
+          ->join('inventory V', 'LEFT', array('V.id', 'R.inventory_id'))
+          ->join('user U', 'LEFT', array('U.id', 'R.customer_id'))
           ->where(array('R.id', $id))
           ->first('R.*', 'U.name', 'U.phone', 'U.address', 'U.zipcode', 'U.provinceID', 'U.status user_status', 'V.equipment', 'V.serial', 'S.status', 'S.comment', 'S.cost', 'S.operator_id', 'S.id status_id');
     }

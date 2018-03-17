@@ -52,6 +52,7 @@ class View extends \Gcms\View
         $operators[$k] = $v;
       }
     }
+    $status = $request->request('status', -1)->toInt();
     // URL สำหรับส่งให้ตาราง
     $uri = self::$request->createUriWithGlobals(WEB_URL.'index.php');
     // ตาราง
@@ -92,9 +93,9 @@ class View extends \Gcms\View
         'status' => array(
           'name' => 'status',
           'default' => -1,
-          'text' => '{LNG_Repair status}',
+          'text' => '{LNG_Status}',
           'options' => ArrayTool::merge(array(-1 => '{LNG_all items}'), $this->statuses->toSelect()),
-          'value' => $request->request('status', -1)->toInt()
+          'value' => $status
         )
       ),
       /* ส่วนหัวของตาราง และการเรียงลำดับ (thead) */

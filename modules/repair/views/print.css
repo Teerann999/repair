@@ -43,17 +43,22 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-table, td {
+table, td, th {
   border-width: 1px;
 }
 table.border {
   border-style: none none solid solid;
 }
+table.border th,
 table.border td {
   border-style: solid solid none none;
 }
+th,
 td {
   padding: 5px;
+}
+caption {
+  display: none;
 }
 .center {
   text-align: center;
@@ -67,4 +72,8 @@ span.line {
 }
 table.signature td {
   width: 50%;
+}
+.term {
+  white-space: nowrap;
+  font-size: 80%;
 }

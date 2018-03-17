@@ -67,7 +67,7 @@ CREATE TABLE `{prefix}_repair` (
   `inventory_id` int(11) NOT NULL,
   `job_id` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `job_description` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
-  `create_date` date NOT NULL,
+  `create_date` datetime NOT NULL,
   `appointment_date` date NOT NULL,
   `appraiser` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`),

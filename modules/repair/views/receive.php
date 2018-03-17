@@ -9,6 +9,7 @@
 namespace Repair\Receive;
 
 use \Kotchasan\Html;
+use \Kotchasan\Date;
 
 /**
  * เพิ่ม-แก้ไข ใบรับงาน
@@ -144,7 +145,7 @@ class View extends \Gcms\View
       'labelClass' => 'g-input icon-calendar',
       'itemClass' => 'width33',
       'label' => '{LNG_Received date}',
-      'value' => $index->create_date
+      'value' => Date::format($index->create_date, 'o-m-d')
     ));
     // appointment_date
     $groups->add('date', array(
