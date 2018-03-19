@@ -30,7 +30,7 @@ class Model extends \Kotchasan\KBase
     return $model->db()->createQuery()
         ->select('id', 'name')
         ->from('user')
-        ->where(array('permission', 'LIKE', '%can_repair%'))
+        ->where(array('permission', 'LIKE', '%,can_repair,%'))
         ->order('id')
         ->toArray()
         ->execute();
