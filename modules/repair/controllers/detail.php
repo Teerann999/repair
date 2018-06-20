@@ -1,20 +1,22 @@
 <?php
 /**
  * @filesource modules/repair/controllers/detail.php
- * @link http://www.kotchasan.com/
+ *
+ * @see http://www.kotchasan.com/
+ *
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
  */
 
 namespace Repair\Detail;
 
-use \Kotchasan\Http\Request;
-use \Gcms\Login;
-use \Kotchasan\Html;
-use \Kotchasan\Language;
+use Gcms\Login;
+use Kotchasan\Html;
+use Kotchasan\Http\Request;
+use Kotchasan\Language;
 
 /**
- * module=repair-detail
+ * module=repair-detail.
  *
  * @author Goragod Wiriya <admin@goragod.com>
  *
@@ -22,43 +24,44 @@ use \Kotchasan\Language;
  */
 class Controller extends \Gcms\Controller
 {
+    /**
+     * รายละเอียดการซ่อม
+     *
+     * @param Request $request
+     *
+     * @return string
+     */
+    public function render(Request $request)
+    {
+        // อ่านข้อมูลรายการที่ต้องการ
+        $index = \Repair\Detail\Model::get($request->request('id')->toInt());
+        // ข้อความ title bar
+        $this->title = Language::get('Repair job description');
+        // เลือกเมนู
+        $this->menu = 'repair';
+        // สามารถรับเครื่องซ่อมได้
+        if ($index && Login::checkPermission(Login::isMember(), array('can_received_repair', 'can_repair'))) {
+            // แสดงผล
+            $section = Html::create('section', array(
+                'class' => 'content_bg',
+            ));
+            // breadcrumbs
+            $breadcrumbs = $section->add('div', array(
+                'class' => 'breadcrumbs',
+            ));
+            $ul = $breadcrumbs->add('ul');
+            $ul->appendChild('<li><span class="icon-tools">{LNG_Repair system}</span></li>');
+            $ul->appendChild('<li><a href="{BACKURL?module=repair-setup&id=0}">{LNG_Repair list}</a></li>');
+            $ul->appendChild('<li><span>'.$index->job_id.'</span></li>');
+            $section->add('header', array(
+                'innerHTML' => '<h2 class="icon-write">'.$this->title.'</h2>',
+            ));
+            // แสดงฟอร์ม
+            $section->appendChild(createClass('Repair\Detail\View')->render($index));
 
-  /**
-   * รายละเอียดการซ่อม
-   *
-   * @param Request $request
-   * @return string
-   */
-  public function render(Request $request)
-  {
-    // อ่านข้อมูลรายการที่ต้องการ
-    $index = \Repair\Detail\Model::get($request->request('id')->toInt());
-    // ข้อความ title bar
-    $this->title = Language::get('Repair job description');
-    // เลือกเมนู
-    $this->menu = 'repair';
-    // สามารถรับเครื่องซ่อมได้
-    if ($index && Login::checkPermission(Login::isMember(), array('can_received_repair', 'can_repair'))) {
-      // แสดงผล
-      $section = Html::create('section', array(
-          'class' => 'content_bg'
-      ));
-      // breadcrumbs
-      $breadcrumbs = $section->add('div', array(
-        'class' => 'breadcrumbs'
-      ));
-      $ul = $breadcrumbs->add('ul');
-      $ul->appendChild('<li><span class="icon-tools">{LNG_Repair system}</span></li>');
-      $ul->appendChild('<li><a href="{BACKURL?module=repair-setup&id=0}">{LNG_Repair list}</a></li>');
-      $ul->appendChild('<li><span>'.$index->job_id.'</span></li>');
-      $section->add('header', array(
-        'innerHTML' => '<h2 class="icon-write">'.$this->title.'</h2>'
-      ));
-      // แสดงฟอร์ม
-      $section->appendChild(createClass('Repair\Detail\View')->render($index));
-      return $section->render();
+            return $section->render();
+        }
+        // 404.html
+        return \Index\Error\Controller::page404();
     }
-    // 404.html
-    return \Index\Error\Controller::page404();
-  }
 }

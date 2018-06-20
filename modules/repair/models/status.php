@@ -1,7 +1,9 @@
 <?php
 /**
  * @filesource modules/repair/modules/status.php
- * @link http://www.kotchasan.com/
+ *
+ * @see http://www.kotchasan.com/
+ *
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
  */
@@ -17,75 +19,79 @@ namespace Repair\Status;
  */
 class Model extends \Kotchasan\KBase
 {
-  private $statuses;
-  private $colors;
+    private $statuses;
+    private $colors;
 
-  /**
-   * Query รายการสถานะทั้งหมดที่สามารถเผยแพร่ได้
-   *
-   * @return array
-   */
-  public static function all()
-  {
-    $model = new \Kotchasan\Model;
-    return $model->db()->createQuery()
-        ->select('id', 'topic', 'color')
-        ->from('category')
-        ->where(array(
-          array('type', 'repairstatus'),
-          array('published', 1)
-        ))
-        ->order('id')
-        ->toArray()
-        ->execute();
-  }
+    /**
+     * Query รายการสถานะทั้งหมดที่สามารถเผยแพร่ได้.
+     *
+     * @return array
+     */
+    public static function all()
+    {
+        $model = new \Kotchasan\Model();
 
-  /**
-   * อ่านค่าสถานะ
-   *
-   * @return array
-   */
-  public static function create()
-  {
-    $obj = new static;
-    $obj->statuses = array();
-    $obj->colors = array();
-    foreach (self::all() as $item) {
-      $obj->statuses[$item['id']] = $item['topic'];
-      $obj->colors[$item['id']] = $item['color'];
+        return $model->db()->createQuery()
+            ->select('id', 'topic', 'color')
+            ->from('category')
+            ->where(array(
+                array('type', 'repairstatus'),
+                array('published', 1),
+            ))
+            ->order('id')
+            ->toArray()
+            ->execute();
     }
-    return $obj;
-  }
 
-  /**
-   * อ่านค่าสีที่ $id
-   *
-   * @param int $id
-   * @return string
-   */
-  public function getColor($id)
-  {
-    return isset($this->colors[$id]) ? $this->colors[$id] : 'inherit';
-  }
+    /**
+     * อ่านค่าสถานะ.
+     *
+     * @return array
+     */
+    public static function create()
+    {
+        $obj = new static();
+        $obj->statuses = array();
+        $obj->colors = array();
+        foreach (self::all() as $item) {
+            $obj->statuses[$item['id']] = $item['topic'];
+            $obj->colors[$item['id']] = $item['color'];
+        }
 
-  /**
-   * อ่านสถานะที่ $id
-   *
-   * @param int $id
-   * @return string
-   */
-  public function get($id)
-  {
-    return isset($this->statuses[$id]) ? $this->statuses[$id] : 'Unknow';
-  }
+        return $obj;
+    }
 
-  /**
-   * คืนค่าสถานะการซ่อมสำหรับใส่ลงใน select
-   *
-   * @return array
-   */
-  public function toSelect()
-  {
-    return $this->statuses;
-  }
+    /**
+     * อ่านค่าสีที่ $id.
+     *
+     * @param int $id
+     *
+     * @return string
+     */
+    public function getColor($id)
+    {
+        return isset($this->colors[$id]) ? $this->colors[$id] : 'inherit';
+    }
+
+    /**
+     * อ่านสถานะที่ $id.
+     *
+     * @param int $id
+     *
+     * @return string
+     */
+    public function get($id)
+    {
+        return isset($this->statuses[$id]) ? $this->statuses[$id] : 'Unknow';
+    }
+
+    /**
+     * คืนค่าสถานะการซ่อมสำหรับใส่ลงใน select.
+     *
+     * @return array
+     */
+    public function toSelect()
+    {
+        return $this->statuses;
+    }
 }
