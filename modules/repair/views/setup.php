@@ -183,8 +183,8 @@ class View extends \Gcms\View
             );
         }
         // save cookie
-        setcookie('repair_perPage', $table->perPage, time() + 3600 * 24 * 365, '/');
-        setcookie('repair_sort', $table->sort, time() + 3600 * 24 * 365, '/');
+        setcookie('repair_perPage', $table->perPage, time() + 2592000, '/', null, null, true);
+        setcookie('repair_sort', $table->sort, time() + 2592000, '/', null, null, true);
 
         return $table->render();
     }
