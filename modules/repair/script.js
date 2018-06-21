@@ -13,25 +13,29 @@ function initRepairGet() {
     "name",
     WEB_URL + "index.php/repair/model/autocomplete/findCustomer",
     "name,phone",
-    doCustomerEmpty
+    "customer",
+    { onChanged: doCustomerEmpty }
   );
   initAutoComplete(
     "phone",
     WEB_URL + "index.php/repair/model/autocomplete/findCustomer",
     "phone,name",
-    doCustomerEmpty
+    "phone",
+    { onChanged: doCustomerEmpty }
   );
   initAutoComplete(
     "equipment",
     WEB_URL + "index.php/repair/model/autocomplete/findInventory",
     "equipment,serial",
-    doInventoryEmpty
+    "tools",
+    { onChanged: doInventoryEmpty }
   );
   initAutoComplete(
     "serial",
     WEB_URL + "index.php/repair/model/autocomplete/findInventory",
     "serial,equipment",
-    doInventoryEmpty
+    "tools",
+    { onChanged: doInventoryEmpty }
   );
   var doSubmit = function() {
     $E("print").value = this.id == "save_print" ? 1 : 0;

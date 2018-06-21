@@ -114,6 +114,12 @@ class Model extends \Kotchasan\Model
                 // ตรวจสอบรายการที่เลือก
                 $index = self::get($request->post('id')->toInt());
                 if ($index) {
+                    // ตาราง
+                    $inventory_table = $this->getTableName('inventory');
+                    $repair_table = $this->getTableName('repair');
+                    $repair_status_table = $this->getTableName('repair_status');
+                    // Database
+                    $db = $this->db();
                     // name
                     if (empty($user['name'])) {
                         $ret['ret_name'] = 'Please fill in';
@@ -130,49 +136,45 @@ class Model extends \Kotchasan\Model
                             $repair['customer_id'] = $user['id'];
                         } elseif ($index->user_status == 0) {
                             // แก้ไขข้อมูลลูกค้า ถ้าเป็นสมาชิกทั่วไป
-                            $this->db()->update($this->getTableName('user'), $repair['customer_id'], $user);
+                            $db->update($this->getTableName('user'), $repair['customer_id'], $user);
                         }
                         // ตรวจสอบรายการพัสดุเดิม
-                        $table = $this->getTableName('inventory');
-                        $search = $this->db()->first($table, array(
+                        $search = $db->first($inventory_table, array(
                             array('equipment', $inventory['equipment']),
                             array('serial', $inventory['serial']),
                         ));
                         if (!$search) {
                             // บันทึกพัสดุรายการใหม่
                             $inventory['create_date'] = time();
-                            $repair['inventory_id'] = $this->db()->insert($table, $inventory);
+                            $repair['inventory_id'] = $db->insert($inventory_table, $inventory);
                         } else {
                             // มีพัสดุเดิมอยู่ก่อนแล้ว
                             $repair['inventory_id'] = $search->id;
                         }
-                        // ตาราง repair
-                        $table = $this->getTableName('repair');
                         // job_id
                         if ($index->id == 0) {
                             // สุ่ม job_id 10 หลัก
                             $repair['job_id'] = Text::rndname(10, 'ABCDEFGHKMNPQRSTUVWXYZ0123456789');
                             // ตรวจสอบ job_id ซ้ำ
-                            while ($this->db()->first($table, array('job_id', $repair['job_id']))) {
+                            while ($db->first($repair_table, array('job_id', $repair['job_id']))) {
                                 $repair['job_id'] = Text::rndname(10, 'ABCDEFGHKMNPQRSTUVWXYZ0123456789');
                             }
                             $repair['create_date'] = date('Y-m-d H:i:s');
                             $log['create_date'] = $repair['create_date'];
                             // บันทึกรายการแจ้งซ่อม
-                            $log['repair_id'] = $this->db()->insert($table, $repair);
+                            $log['repair_id'] = $db->insert($repair_table, $repair);
                             $log['status'] = isset(self::$cfg->repair_first_status) ? self::$cfg->repair_first_status : 1;
                         } else {
                             // แก้ไขรายการแจ้งซ่อม
-                            $this->db()->update($table, $index->id, $repair);
+                            $db->update($repair_table, $index->id, $repair);
                             $log['repair_id'] = $index->id;
                             $repair['job_id'] = $index->job_id;
                         }
                         // บันทึกประวัติการทำรายการ
-                        $table = $this->getTableName('repair_status');
                         if ($index->status_id == 0) {
-                            $repair['id'] = $this->db()->insert($table, $log);
+                            $repair['id'] = $db->insert($repair_status_table, $log);
                         } else {
-                            $this->db()->update($table, $index->status_id, $log);
+                            $db->update($repair_status_table, $index->status_id, $log);
                         }
                         // คืนค่า
                         $ret['alert'] = Language::get('Saved successfully');
