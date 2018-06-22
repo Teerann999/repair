@@ -6,7 +6,7 @@ if (isset($_GET['fid']) && isset($_GET['w']) && isset($_GET['h'])) {
     // load Kotchasan
     include '../../../../load.php';
     // Initial Kotchasan Framework
-    Kotchasan::createWebApplication('Gcms\Config');
+    Kotchasan::createWebApplication();
     // hotfix: these checks need to be changed later
     $ext = explode('.', $_GET['fid']);
     if (Kotchasan\Login::isMember() && strpos($_GET['fid'], '..') === false && in_array(strtolower(end($ext)), array('jpg', 'jpeg', 'gif', 'png'))) {
