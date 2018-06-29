@@ -40,11 +40,20 @@ class View extends \Gcms\View
         $this->statuses = \Repair\Status\Model::create();
         // อ่านสถานะการทำรายการทั้งหมด
         $statuses = \Repair\Detail\Model::getAllStatus($index->id);
+        // URL สำหรับส่งให้ตาราง
+        $uri = self::$request->createUriWithGlobals(WEB_URL.'index.php');
         // ตาราง
         $table = new DataTable(array(
+            /* Uri */
+            'uri' => $uri,
             /* array datas */
             'datas' => $statuses,
             'onRow' => array($this, 'onRow'),
+            /* คอลัมน์ที่ไม่ต้องแสดงผล */
+            'hideColumns' => array('id'),
+            /* ตั้งค่าการกระทำของของตัวเลือกต่างๆ ด้านล่างตาราง ซึ่งจะใช้ร่วมกับการขีดถูกเลือกแถว */
+            'action' => 'index.php/repair/model/detail/action?repair_id='.$index->id,
+            'actionCallback' => 'dataTableActionCallback',
             /* ส่วนหัวของตาราง และการเรียงลำดับ (thead) */
             'headers' => array(
                 'name' => array(
@@ -76,6 +85,14 @@ class View extends \Gcms\View
                 ),
                 'create_date' => array(
                     'class' => 'center',
+                ),
+            ),
+            /* ปุ่มแสดงในแต่ละแถว */
+            'buttons' => array(
+                'delete' => array(
+                    'class' => 'icon-delete button red notext',
+                    'id' => ':id',
+                    'title' => '{LNG_Delete}',
                 ),
             ),
         ));

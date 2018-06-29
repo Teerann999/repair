@@ -29,9 +29,7 @@ class Model extends \Kotchasan\KBase
      */
     public static function all()
     {
-        $model = new \Kotchasan\Model();
-
-        return $model->db()->createQuery()
+        return \Kotchasan\Model::createQuery()
             ->select('id', 'topic', 'color')
             ->from('category')
             ->where(array(

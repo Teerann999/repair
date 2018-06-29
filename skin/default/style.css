@@ -43,18 +43,18 @@ a:hover {
 #login_div .warning,
 #login_div form {
   width: 320px;
-  max-width: 90%;
-  display: table;
+  max-width: 95%;
   margin: 0 auto;
+  overflow: hidden;
+}
+#login_div aside {
+  margin: 10px 20px 0 !important;
 }
 #login_div .warning {
   margin: 20px auto 0;
 }
 #login_div h2 .td {
   padding: 15px 20px 0 15px;
-}
-#login_div aside {
-  margin: 10px 20px 0;
 }
 #login_div form fieldset {
   margin: 20px;
@@ -124,7 +124,7 @@ header.header {
 header.header #logo {
   display: inline-block;
 }
-header.header #logo img {
+#logo img {
   height: 45px;
   width: auto;
 }
@@ -657,10 +657,6 @@ header .inline {
   color: #007fae;
   width: 2em;
   text-align: center;
-}
-.term {
-  white-space: nowrap;
-  font-size: 80%;
 }
 /* tablet, small device */
 @media only screen and (max-width: 960px) {

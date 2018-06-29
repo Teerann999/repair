@@ -80,13 +80,13 @@ class Controller extends \Gcms\Controller
         foreach (Language::installedLanguage() as $item) {
             $languages[$item] = '<li><a id=lang_'.$item.' href="'.$uri->withParams(array('lang' => $item), true).'" title="{LNG_Language} '.strtoupper($item).'" style="background-image:url('.WEB_URL.'language/'.$item.'.gif)" tabindex=1>&nbsp;</a></li>';
         }
-        if ($bodyclass == 'loginpage' && is_file(ROOT_PATH.self::$cfg->skin.'/img/bg_image.jpg')) {
-            $bg_image = WEB_URL.self::$cfg->skin.'/img/bg_image.jpg';
+        if ($bodyclass == 'loginpage' && is_file(ROOT_PATH.self::$cfg->skin.'/bg_image.jpg')) {
+            $bg_image = WEB_URL.self::$cfg->skin.'/bg_image.jpg';
         } else {
             $bg_image = '';
         }
-        if (is_file(ROOT_PATH.self::$cfg->skin.'/img/logo.png')) {
-            $logo = '<img src="'.WEB_URL.self::$cfg->skin.'/img/logo.png" alt="{WEBTITLE}">';
+        if (is_file(ROOT_PATH.self::$cfg->skin.'/logo.png')) {
+            $logo = '<img src="'.WEB_URL.self::$cfg->skin.'/logo.png" alt="{WEBTITLE}">';
         } else {
             $logo = '<span class="icon-tools">{WEBTITLE}</span>';
         }
