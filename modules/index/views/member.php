@@ -2,10 +2,10 @@
 /**
  * @filesource modules/index/views/member.php
  *
- * @see http://www.kotchasan.com/
- *
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
+ *
+ * @see http://www.kotchasan.com/
  */
 
 namespace Index\Member;
@@ -148,6 +148,7 @@ class View extends \Gcms\View
         setcookie('member_perPage', $table->perPage, time() + 2592000, '/', null, null, true);
         setcookie('member_sort', $table->sort, time() + 2592000, '/', null, null, true);
         // คืนค่า HTML
+
         return $table->render();
     }
 

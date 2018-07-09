@@ -2,10 +2,10 @@
 /**
  * @filesource modules/index/models/forgot.php
  *
- * @see http://www.kotchasan.com/
- *
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
+ *
+ * @see http://www.kotchasan.com/
  */
 
 namespace Index\Forgot;
@@ -50,6 +50,7 @@ class Model extends \Kotchasan\KBase
                 'password' => sha1($password.$salt),
             ));
             // สำเร็จ คืนค่าข้อความว่าง
+
             return '';
         }
     }

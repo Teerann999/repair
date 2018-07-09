@@ -2,10 +2,10 @@
 /**
  * @filesource modules/index/views/language.php
  *
- * @see http://www.kotchasan.com/
- *
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
+ *
+ * @see http://www.kotchasan.com/
  */
 
 namespace Index\Language;
@@ -133,6 +133,7 @@ class View extends \Gcms\View
         // Javascript
         $table->script('initLanguageTable("language_table");');
         // คืนค่า HTML
+
         return $table->render();
     }
 

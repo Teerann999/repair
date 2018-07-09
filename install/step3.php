@@ -86,6 +86,10 @@ if (defined('ROOT_PATH')) {
     }
 }
 
+/**
+ * @param $haystack
+ * @param $needle
+ */
 function startsWith($haystack, $needle)
 {
     $length = strlen($needle);
@@ -93,6 +97,10 @@ function startsWith($haystack, $needle)
     return substr($haystack, 0, $length) === $needle;
 }
 
+/**
+ * @param $config
+ * @param $file
+ */
 function save($config, $file)
 {
     $f = @fopen($file, 'wb');
