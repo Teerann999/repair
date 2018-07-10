@@ -2,10 +2,10 @@
 /**
  * @filesource modules/repair/models/receive.php
  *
- * @see http://www.kotchasan.com/
- *
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
+ *
+ * @see http://www.kotchasan.com/
  */
 
 namespace Repair\Receive;
@@ -17,7 +17,7 @@ use Kotchasan\Language;
 use Kotchasan\Text;
 
 /**
- * เพิ่ม-แก้ไข ใบรับงาน.
+ * เพิ่ม-แก้ไข ใบแจ้งซ่อม
  *
  * @author Goragod Wiriya <admin@goragod.com>
  *
@@ -27,11 +27,12 @@ class Model extends \Kotchasan\Model
 {
     /**
      * อ่านข้อมูลรายการที่เลือก
-     * ถ้า $id = 0 หมายถึงรายการใหม่.
+     * ถ้า $id = 0 หมายถึงรายการใหม่
+     * คืนค่าข้อมูล object ไม่พบคืนค่า null.
      *
      * @param int $id ID
      *
-     * @return object|null คืนค่าข้อมูล object ไม่พบคืนค่า null
+     * @return object|null
      */
     public static function get($id)
     {
@@ -67,7 +68,7 @@ class Model extends \Kotchasan\Model
 
             return $model->db()->createQuery()
                 ->from('repair R')
-                ->join(array($q1, 'T'), 'INNER', array('T.repair_id', 'R.id'))
+                ->join(array($q1, 'T'), 'LEFT', array('T.repair_id', 'R.id'))
                 ->join('repair_status S', 'LEFT', array('S.id', 'T.max_id'))
                 ->join('inventory V', 'LEFT', array('V.id', 'R.inventory_id'))
                 ->join('user U', 'LEFT', array('U.id', 'R.customer_id'))
@@ -171,7 +172,7 @@ class Model extends \Kotchasan\Model
                             $repair['job_id'] = $index->job_id;
                         }
                         // บันทึกประวัติการทำรายการ
-                        if ($index->status_id == 0) {
+                        if (empty($index->status_id)) {
                             $repair['id'] = $db->insert($repair_status_table, $log);
                         } else {
                             $db->update($repair_status_table, $index->status_id, $log);

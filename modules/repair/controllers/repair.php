@@ -2,10 +2,10 @@
 /**
  * @filesource modules/repair/controllers/repair.php
  *
- * @see http://www.kotchasan.com/
- *
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
+ *
+ * @see http://www.kotchasan.com/
  */
 
 namespace Repair\Repair;
@@ -28,7 +28,7 @@ class Controller extends \Gcms\Controller
      */
     public function index(Request $request)
     {
-        if (preg_match('/([A-Z0-9]{10,10})/', $request->get('id')->toString(), $match)) {
+        if (preg_match('/([A-Z0-9]{10,12})/', $request->get('id')->toString(), $match)) {
             // session cookie
             $request->initSession();
             // อ่านข้อมูลการทำรายการ

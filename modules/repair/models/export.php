@@ -2,10 +2,10 @@
 /**
  * @filesource modules/repair/models/export.php
  *
- * @see http://www.kotchasan.com/
- *
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
+ *
+ * @see http://www.kotchasan.com/
  */
 
 namespace Repair\Export;
@@ -33,9 +33,9 @@ class Model extends \Kotchasan\Model
         $sql = $model->db()->createQuery()
             ->select('R.*', 'U.name', 'U.phone', 'U.address', 'U.zipcode', 'U.provinceID', 'V.equipment', 'V.serial', 'S.status', 'S.comment', 'S.operator_id')
             ->from('repair R')
-            ->join('repair_status S', 'INNER', array('S.repair_id', 'R.id'))
-            ->join('inventory V', 'INNER', array('V.id', 'R.inventory_id'))
-            ->join('user U', 'INNER', array('U.id', 'R.customer_id'))
+            ->join('repair_status S', 'LEFT', array('S.repair_id', 'R.id'))
+            ->join('inventory V', 'LEFT', array('V.id', 'R.inventory_id'))
+            ->join('user U', 'LEFT', array('U.id', 'R.customer_id'))
             ->where(array('R.job_id', $job_id))
             ->order('S.id ASC');
 

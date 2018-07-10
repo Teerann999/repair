@@ -2,10 +2,10 @@
 /**
  * @filesource modules/repair/models/detail.php
  *
- * @see http://www.kotchasan.com/
- *
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
+ *
+ * @see http://www.kotchasan.com/
  */
 
 namespace Repair\Detail;
@@ -40,9 +40,9 @@ class Model extends \Kotchasan\Model
 
         return static::createQuery()
             ->from('repair R')
-            ->join('inventory V', 'INNER', array('V.id', 'R.inventory_id'))
-            ->join('user U', 'INNER', array('U.id', 'R.customer_id'))
-            ->join('repair_status S', 'INNER', array(array('S.repair_id', 'R.id'), array('S.id', $q1)))
+            ->join('inventory V', 'LEFT', array('V.id', 'R.inventory_id'))
+            ->join('user U', 'LEFT', array('U.id', 'R.customer_id'))
+            ->join('repair_status S', 'LEFT', array(array('S.repair_id', 'R.id'), array('S.id', $q1)))
             ->where(array('R.id', $id))
             ->first('R.*', 'U.name', 'U.phone', 'U.address', 'U.zipcode', 'U.provinceID', 'V.equipment', 'V.serial', 'S.status', 'S.comment', 'S.cost', 'S.operator_id', 'S.id status_id');
     }

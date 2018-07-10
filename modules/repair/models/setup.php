@@ -2,10 +2,10 @@
 /**
  * @filesource modules/repair/models/setup.php
  *
- * @see http://www.kotchasan.com/
- *
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
+ *
+ * @see http://www.kotchasan.com/
  */
 
 namespace Repair\Setup;
@@ -27,22 +27,21 @@ class Model extends \Kotchasan\Model
     /**
      * Query ข้อมูลสำหรับส่งให้กับ DataTable.
      *
-     * @return /static
+     * @return \Kotchasan\Database\QueryBuilder
      */
     public static function toDataTable()
     {
-        $model = new static();
-        $q1 = $model->db()->createQuery()
+        $q1 = static::createQuery()
             ->select('repair_id', Sql::MAX('id', 'max_id'))
             ->from('repair_status')
             ->groupBy('repair_id');
 
-        return $model->db()->createQuery()
+        return static::createQuery()
             ->select('R.id', 'R.job_id', 'U.name', 'U.phone', 'V.equipment', 'R.create_date', 'R.appointment_date', 'S.operator_id', 'S.status')
             ->from('repair R')
-            ->join(array($q1, 'T'), 'INNER', array('T.repair_id', 'R.id'))
-            ->join('repair_status S', 'INNER', array('S.id', 'T.max_id'))
-            ->join('inventory V', 'INNER', array('V.id', 'R.inventory_id'))
+            ->join(array($q1, 'T'), 'LEFT', array('T.repair_id', 'R.id'))
+            ->join('repair_status S', 'LEFT', array('S.id', 'T.max_id'))
+            ->join('inventory V', 'LEFT', array('V.id', 'R.inventory_id'))
             ->join('user U', 'LEFT', array('U.id', 'R.customer_id'));
     }
 

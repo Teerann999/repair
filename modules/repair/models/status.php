@@ -2,10 +2,10 @@
 /**
  * @filesource modules/repair/modules/status.php
  *
- * @see http://www.kotchasan.com/
- *
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
+ *
+ * @see http://www.kotchasan.com/
  */
 
 namespace Repair\Status;
@@ -19,7 +19,13 @@ namespace Repair\Status;
  */
 class Model extends \Kotchasan\KBase
 {
+    /**
+     * @var mixed
+     */
     private $statuses;
+    /**
+     * @var mixed
+     */
     private $colors;
 
     /**

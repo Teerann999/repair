@@ -2,10 +2,10 @@
 /**
  * @filesource modules/repair/controllers/export.php
  *
- * @see http://www.kotchasan.com/
- *
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
+ *
+ * @see http://www.kotchasan.com/
  */
 
 namespace Repair\Export;
@@ -34,7 +34,7 @@ class Controller extends \Gcms\Controller
         // can_received_repair, can_repair
         if (Login::checkPermission(Login::isMember(), array('can_received_repair', 'can_repair'))) {
             // ตรวจสอบ id ที่ต้องการ
-            if (preg_match('/([A-Z0-9]{10,10})/', $request->get('id')->toString(), $match)) {
+            if (preg_match('/([A-Z0-9]{10,12})/', $request->get('id')->toString(), $match)) {
                 // อ่านข้อมูลการทำรายการ
                 $index = \Repair\Export\Model::get($match[1]);
                 if ($index) {

@@ -2,10 +2,10 @@
 /**
  * @filesource modules/repair/views/repair.php
  *
- * @see http://www.kotchasan.com/
- *
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
+ *
+ * @see http://www.kotchasan.com/
  */
 
 namespace Repair\Repair;
@@ -26,6 +26,9 @@ use Kotchasan\Template;
  */
 class View extends \Gcms\View
 {
+    /**
+     * @var mixed
+     */
     private $statuses;
 
     /**

@@ -2,10 +2,10 @@
 /**
  * @filesource modules/repair/models/home.php
  *
- * @see http://www.kotchasan.com/
- *
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
+ *
+ * @see http://www.kotchasan.com/
  */
 
 namespace Repair\Home;
@@ -37,7 +37,7 @@ class Model extends \Kotchasan\Model
             $search = $model->db()->createQuery()
                 ->selectCount()
                 ->from('repair_status S')
-                ->join(array($q1, 'T'), 'INNER', array(array('T.repair_id', 'S.repair_id'), array('S.id', 'T.max_id')))
+                ->join(array($q1, 'T'), 'LEFT', array(array('T.repair_id', 'S.repair_id'), array('S.id', 'T.max_id')))
                 ->where(array('S.status', self::$cfg->repair_first_status))
                 ->toArray()
                 ->execute();

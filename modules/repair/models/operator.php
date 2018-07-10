@@ -2,10 +2,10 @@
 /**
  * @filesource modules/repair/modules/operator.php
  *
- * @see http://www.kotchasan.com/
- *
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
+ *
+ * @see http://www.kotchasan.com/
  */
 
 namespace Repair\Operator;
@@ -19,6 +19,9 @@ namespace Repair\Operator;
  */
 class Model extends \Kotchasan\KBase
 {
+    /**
+     * @var mixed
+     */
     private $operators;
 
     /**
@@ -28,9 +31,7 @@ class Model extends \Kotchasan\KBase
      */
     public static function all()
     {
-        $model = new \Kotchasan\Model();
-
-        return $model->db()->createQuery()
+        return \Kotchasan\Model::createQuery()
             ->select('id', 'name')
             ->from('user')
             ->where(array('permission', 'LIKE', '%,can_repair,%'))
