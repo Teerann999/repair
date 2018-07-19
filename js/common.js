@@ -662,8 +662,8 @@ function initWeb(module) {
         if ($E(scroll_to)) {
           window.scrollTo(0, $G(scroll_to).getTop() - 10);
         }
-      } else {
-        content.setHTML(xhr.responseText);
+      } else if (xhr.responseText != "") {
+        console.log(xhr.responseText);
       }
     },
     null,
