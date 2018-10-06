@@ -13,6 +13,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- โครงสร้างตาราง `{prefix}_language`
+--
+
+CREATE TABLE `{prefix}_language` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `key` text COLLATE utf8_unicode_ci NOT NULL,
+  `type` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+  `owner` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `js` tinyint(1) NOT NULL,
+  `th` text COLLATE utf8_unicode_ci NOT NULL,
+  `en` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
 -- โครงสร้างตาราง `{prefix}_category`
 --
 
@@ -65,7 +80,7 @@ CREATE TABLE `{prefix}_repair` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
   `inventory_id` int(11) NOT NULL,
-  `job_id` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `job_id` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
   `job_description` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `create_date` datetime NOT NULL,
   `appointment_date` date NOT NULL,
@@ -89,7 +104,8 @@ CREATE TABLE `{prefix}_repair_status` (
   `member_id` int(11) NOT NULL,
   `create_date` datetime NOT NULL,
   `cost` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  INDEX `repair_id` (`repair_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -101,8 +117,8 @@ CREATE TABLE `{prefix}_repair_status` (
 CREATE TABLE `{prefix}_user` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `salt` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `status` tinyint(1) NOT NULL,
   `permission` text COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
@@ -119,7 +135,7 @@ CREATE TABLE `{prefix}_user` (
   `ip` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `create_date` datetime NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
-  `fb` tinyint(1) NOT NULL DEFAULT '0',
+  `social` tinyint(1) NOT NULL DEFAULT '0',
   `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `website` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -133,4 +149,4 @@ CREATE TABLE `{prefix}_user` (
 INSERT INTO `{prefix}_user` (`id`, `username`, `salt`, `password`, `status`, `permission`, `name`, `sex`, `id_card`, `expire_date`, `address`, `phone`, `provinceID`, `zipcode`, `visited`, `lastvisited`, `session_id`, `ip`, `create_date`) VALUES
 (1, 'admin@localhost', 'admin@localhost', 'b620e8b83d7fcf7278148d21b088511917762014', 1, ',can_config,can_repair,', 'แอดมิน', 'm', '', '1899-11-30', '1 หมู่ 1 ตำบล ลาดหญ้า อำเภอ เมือง', '08080808', '102', '71190', 86, 1499143102, '72f5jv4qn9gsgjs86f13n9gn00', '110.171.14.23', '0000-00-00 00:00:00'),
 (2, 'demo2@localhost', 'demo2@localhost', 'db75cdf3d5e77181ec3ed6072b56a8870eb6822d', 2, ',can_repair,', 'ช่างซ่อม 2', 'f', '', '0000-00-00', '', '0123456789', '101', '', 0, 0, NULL, NULL, '2017-07-02 08:11:21'),
-(3, 'demo@localhost', 'demo@localhost', 'db75cdf3d5e77181ec3ed6072b56a8870eb6822d', 2, ',can_repair,', 'ช่างซ่อม 1', 'f', '', '0000-00-00', '', '0123456788', '101', '', 21, 1499124076, 'nhmshndjgk9f09qc6390s1nnd4', '110.171.14.23', '2017-07-02 08:10:30');
+(3, 'demo@localhost', 'demo@localhost', 'db75cdf3d5e77181ec3ed6072b56a8870eb6822d', 2, ',can_repair,', 'ช่างซ่อม 1', 'f', '', '0000-00-00', '', '0123456788', '101', '', 21, 1499124076, '', '110.171.14.23', '2017-07-02 08:10:30');

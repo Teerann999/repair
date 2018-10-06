@@ -41,6 +41,7 @@ class View extends \Kotchasan\KBase
         $js[] = file_get_contents(ROOT_PATH.'js/tooltip.js');
         $js[] = file_get_contents(ROOT_PATH.'js/common.js');
         $js[] = file_get_contents(ROOT_PATH.'js/facebook.js');
+        $js[] = file_get_contents(ROOT_PATH.'js/google.js');
         // js ของโมดูล
         $dir = ROOT_PATH.'modules/';
         $f = @opendir($dir);
@@ -74,7 +75,10 @@ class View extends \Kotchasan\KBase
         $js[] = 'Date.dayNames = ["'.implode('", "', $languages['DATE_SHORT']).'"];';
         $js[] = 'Date.yearOffset = '.(int) $languages['YEAR_OFFSET'].';';
         if (!empty(self::$cfg->facebook_appId)) {
-            $js[] = 'initFacebook("'.self::$cfg->facebook_appId.'", "'.Language::name().'");';
+            $js[] = 'initFacebook("'.self::$cfg->facebook_appId.'", "'.$lng.'");';
+        }
+        if (!empty(self::$cfg->google_client_id)) {
+            $js[] = 'initGooleSignin("'.self::$cfg->google_client_id.'");';
         }
         // compress javascript
         $patt = array('#/\*(?:[^*]*(?:\*(?!/))*)*\*/#u', '#[\r\t]#', '#\n//.*\n#', '#;//.*\n#', '#[\n]#', '#[\s]{2,}#');

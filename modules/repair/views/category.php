@@ -73,7 +73,7 @@ class View extends \Gcms\View
         $id = $item['id'].'_'.$item['type'];
         $row = '<li class="row" id="list_'.$id.'">';
         $row .= '<div class="no">['.$item['id'].']</div>';
-        $row .= '<div><span id="list_name_'.$id.'" title="{LNG_click to edit}" class="editinplace">'.$item['topic'].'</span></div>';
+        $row .= '<div><span id="list_name_'.$id.'" title="{LNG_Click to edit}" class="editinplace">'.$item['topic'].'</span></div>';
         $row .= '<div class="right">';
         $row .= '<span id="list_published_'.$id.'" class="icon-published'.$item['published'].'"></span>';
         if ($item['type'] == 'repairstatus') {

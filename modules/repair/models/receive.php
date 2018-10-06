@@ -186,8 +186,8 @@ class Model extends \Kotchasan\Model
                         // clear
                         $request->removeToken();
                         // save cookie
-                        setcookie('repair_provinceID', $user['provinceID'], time() + 2592000, '/', null, null, true);
-                        setcookie('repair_zipcode', $user['zipcode'], time() + 2592000, '/', null, null, true);
+                        setcookie('repair_provinceID', $user['provinceID'], time() + 2592000, '/', null, HOST, true);
+                        setcookie('repair_zipcode', $user['zipcode'], time() + 2592000, '/', null, HOST, true);
                     }
                 } else {
                     // ไม่พบรายการที่แก้ไข

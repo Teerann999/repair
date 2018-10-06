@@ -86,9 +86,11 @@ class InputItem
      * คืนค่า null ถ้าข้อมูลวันที่ว่างเปล่าหรือมีรูปแบบไม่ถูกต้อง.
      *
      * @assert create('2016-01-01 20:20:20')->date() [==] '2016-01-01 20:20:20'
-     * @assert create('2016-01-01   20:20:20')->date() [==] '2016-01-01 20:20:20'
+     * @assert create('2016-01-01   20:20:20')->date() [==] '2016-01-01   20:20:20'
+     * @assert create('2016-01-01   20:20:20')->date(true) [==] '2016-01-01 20:20:20'
      * @assert create('20:20:20')->date() [==] '20:20:20'
-     * @assert create('20:20')->date() [==] '20:20:00'
+     * @assert create('20:20')->date() [==] '20:20'
+     * @assert create('20:20')->date(true) [==] '20:20:00'
      * @assert create('2016-01-01')->date() [==] '2016-01-01'
      * @assert create('')->date() [==] null
      * @assert create(null)->date() [==] null
@@ -102,7 +104,10 @@ class InputItem
         $ret = $this->filter('\d\s\-:');
         if ($strict) {
             if (preg_match('/^([0-9]{4,4}\-[0-9]{1,2}\-[0-9]{1,2})?[\s]{0,}([0-9]{1,2}:[0-9]{1,2})?(:[0-9]{1,2})?$/', $ret, $match)) {
-                $ret = (empty($match[1]) ? '' : $match[1]).trim(empty($match[2]) ? '' : ' '.$match[2].(empty($match[3]) ? ':00' : $match[3]));
+                $ret = empty($match[1]) ? '' : $match[1];
+                if (!empty($match[2])) {
+                    $ret .= ($ret == '' ? '' : ' ').(empty($match[2]) ? '' : $match[2].(empty($match[3]) ? ':00' : $match[3]));
+                }
             } else {
                 $ret = null;
             }

@@ -83,7 +83,7 @@ class Model extends \Kotchasan\KBase
                         // เพิ่มแถวใหม่
                         $data = array(
                             'id' => Sql::NEXT('id', $table),
-                            'topic' => Language::get('click to edit'),
+                            'topic' => Language::get('Click to edit'),
                             'color' => '#000000',
                             'published' => 1,
                             'type' => $match[3],
