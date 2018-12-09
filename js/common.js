@@ -253,7 +253,9 @@ var dataTableActionCallback = function(xhr) {
         el = $E(val);
         if (el) {
           el.className = ds.class;
-          el.title = ds.title;
+          if (ds.title) {
+            el.title = ds.title;
+          }
         }
       } else if (prop == "modal") {
         if (val == "close") {
@@ -419,7 +421,7 @@ function initEditInplace(id, model, addbtn) {
         }
         return true;
       } else if (req.responseText != "") {
-        console.log(req.responseText);
+        alert(req.responseText);
       }
       return false;
     }
@@ -473,7 +475,7 @@ function initEditInplace(id, model, addbtn) {
               alert(ds.alert);
             }
           } else if (xhr.responseText != "") {
-            console.log(xhr.responseText);
+            alert(xhr.responseText);
           }
         },
         this
@@ -553,6 +555,33 @@ function initFirstRowNumberOnly(tr) {
         return /^[0-9]+$/.test(this.value);
       });
     }
+  });
+}
+function initEditProfile(prefix, countries) {
+  prefix += prefix == "" ? "" : "_";
+  var countryChanged = function() {
+    var province = $E(prefix + "province"),
+      provinceID = $E(prefix + "provinceID");
+    if (countries.indexOf(this.value) === -1) {
+      if (provinceID) {
+        $G(provinceID.parentNode.parentNode).addClass("hidden");
+      }
+      if (province) {
+        $G(province.parentNode.parentNode).removeClass("hidden");
+      }
+    } else {
+      if (province) {
+        $G(province.parentNode.parentNode).addClass("hidden");
+      }
+      if (provinceID) {
+        $G(provinceID.parentNode.parentNode).removeClass("hidden");
+      }
+    }
+  };
+  new GMultiSelect([prefix + "country"], {
+    action: WEB_URL + "index.php/index/model/province/toJSON",
+    prefix: prefix,
+    onchange: countryChanged
   });
 }
 var createLikeButton;
