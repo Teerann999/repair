@@ -70,6 +70,7 @@ class Controller extends \Gcms\Controller
         if (is_file(APP_PATH.'modules/'.$owner.'/controllers/'.$module.'.php')) {
             // โหลดคลาส ถ้าพบโมดูลที่เรียก
             include APP_PATH.'modules/'.$owner.'/controllers/'.$module.'.php';
+            // คืนค่า ชื่อคลาส
 
             return ucfirst($owner).'\\'.ucfirst($module).'\Controller';
         }

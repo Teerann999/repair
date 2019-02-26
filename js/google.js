@@ -7,6 +7,7 @@
  * @license http://www.kotchasan.com/license/
  */
 var auth2;
+
 function initGooleSignin(google_client_id) {
   loadJavascript(
     "apis-google",
@@ -14,6 +15,7 @@ function initGooleSignin(google_client_id) {
   );
   window.google_client_id = google_client_id;
 }
+
 function googleSigninLoad() {
   gapi.load("auth2", function() {
     auth2 = gapi.auth2.init({
@@ -22,6 +24,7 @@ function googleSigninLoad() {
     });
   });
 }
+
 function initGoogleButton(button) {
   if ($E(button)) {
     window.setTimeout(function() {
@@ -43,10 +46,10 @@ function initGoogleButton(button) {
           q.push("email=" + encodeURIComponent(profile.getEmail()));
           send(
             WEB_URL +
-              "index.php/" +
-              ($E("google_action")
-                ? $E("google_action").value
-                : "index/model/gglogin/chklogin"),
+            "index.php/" +
+            ($E("google_action") ?
+              $E("google_action").value :
+              "index/model/gglogin/chklogin"),
             q.join("&"),
             ggLoginSubmit
           );
@@ -57,6 +60,7 @@ function initGoogleButton(button) {
     }, 100);
   }
 }
+
 function ggLoginSubmit(xhr) {
   var ds = xhr.responseText.toJSON();
   if (ds) {

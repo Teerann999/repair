@@ -25,21 +25,18 @@ class Template
      * @var int
      */
     protected $cols = 0;
-
     /**
      * แอเรย์ของข้อมูล.
      *
      * @var array
      */
     protected $items;
-
     /**
      * ตัวแปรสำหรับการขึ้นแถวใหม่ (Grid).
      *
      * @var int
      */
     protected $num;
-
     /**
      * ชื่อ template ที่กำลังใช้งานอยู่ รวมโฟลเดอร์ที่เก็บ template ด้วย
      * นับแต่ DOCUMENT_ROOT เช่น skin/default/.
@@ -47,7 +44,6 @@ class Template
      * @var string
      */
     protected static $src;
-
     /**
      * ข้อมูล template.
      *

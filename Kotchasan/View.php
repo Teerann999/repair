@@ -25,28 +25,24 @@ class View extends \Kotchasan\KBase
      * @var array
      */
     protected $after_contents = array();
-
     /**
      * ตัวแปรเก็บเนื่อหาของเว็บไซต์.
      *
      * @var array
      */
     protected $contents = array();
-
     /**
      * รายการ header.
      *
      * @var array
      */
     protected $headers = array();
-
     /**
      * meta tag.
      *
      * @var array
      */
     protected $metas = array();
-
     /**
      * คำสั่ง Javascript ที่จะแทรกไว้ใน head.
      *

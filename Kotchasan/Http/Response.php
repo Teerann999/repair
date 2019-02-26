@@ -88,19 +88,16 @@ class Response extends Message implements ResponseInterface
         510 => 'Not Extended', // RFC2774
         511 => 'Network Authentication Required', // RFC6585
     );
-
     /**
      * เนื้อหา.
      *
      * @var string
      */
     protected $content;
-
     /**
      * @var string
      */
     protected $reasonPhrase;
-
     /**
      * @var int
      */

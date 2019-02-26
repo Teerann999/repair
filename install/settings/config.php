@@ -17,4 +17,7 @@ return array(
         1 => '#FF0000',
         2 => '#0000FF',
     ),
+    'user_forgot' => 0,
+    'user_register' => 0,
+    'welcome_email' => 0
 );

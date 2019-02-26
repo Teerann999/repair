@@ -25,7 +25,6 @@ class DOMNode
      * @var array
      */
     public $attributes = array();
-
     /**
      * รายการของโหนดที่อยู่ภายใน
      * <parentNode><childNode></childNode><childNode></childNode></parentNode>.
@@ -33,14 +32,12 @@ class DOMNode
      * @var array
      */
     public $childNodes;
-
     /**
      * ลำดับของโหนด ชั้นนอกสุดคือ 0.
      *
      * @var int
      */
     public $level;
-
     /**
      * โหนดถัดไป (ลำดับเดียวกัน) ถ้าเป็นโหนดสุดท้ายจะเป็น null
      * <node></node><nextSibling></nextSibling>.
@@ -48,12 +45,10 @@ class DOMNode
      * @var DOMNode
      */
     public $nextSibling;
-
     /**
      * @var mixed
      */
     public $nodeName;
-
     /**
      * ข้อความภายในโหนด ถ้าเป็น tag ค่านี้จะเป็น null
      * <node>nodeValue</node>.
@@ -61,7 +56,6 @@ class DOMNode
      * @var string|null
      */
     public $nodeValue;
-
     /**
      * โหนดแม่
      * <parentNode><childNode></childNode></parentNode>.
@@ -69,7 +63,6 @@ class DOMNode
      * @var DOMNode
      */
     public $parentNode;
-
     /**
      * โหนดก่อนหน้า (ลำดับเดียวกัน) ถ้าเป็นโหนดแรกจะเป็น null
      * <previousSibling></previousSibling><node></node>.

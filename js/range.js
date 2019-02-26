@@ -69,9 +69,9 @@
           var elem = GEvent.element(e);
           if (elem == HInstant.slider || elem == HInstant.range) {
             var pos =
-                GEvent.pointerX(e) -
-                this.viewportOffset().left -
-                HInstant.pointerL.getDimensions().width / 2,
+              GEvent.pointerX(e) -
+              this.viewportOffset().left -
+              HInstant.pointerL.getDimensions().width / 2,
               oldvalue = HInstant.getValue(),
               onchange = false,
               value,

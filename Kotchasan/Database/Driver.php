@@ -31,42 +31,36 @@ abstract class Driver extends Query
      * @var Cache
      */
     protected $cache;
-
     /**
      * Cacheitem.
      *
      * @var Item
      */
     protected $cache_item;
-
     /**
      * database connection.
      *
      * @var resource
      */
     protected $connection = null;
-
     /**
      * database error message.
      *
      * @var string
      */
     protected $error_message = '';
-
     /**
      * นับจำนวนการ query.
      *
      * @var int
      */
     protected static $query_count = 0;
-
     /**
      * เก็บ Object ที่เป็นผลลัพท์จากการ query.
      *
      * @var resource|object
      */
     protected $result_id;
-
     /**
      * ตัวแปรเก็บ query สำหรับการ execute.
      *
@@ -190,7 +184,7 @@ abstract class Driver extends Query
     {
         $search = $this->doCustomQuery("SELECT 1 FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME='$database'");
 
-        return $search && sizeof($search) == 1 ? true : false;
+        return $search && count($search) == 1 ? true : false;
     }
 
     /**
@@ -313,7 +307,7 @@ abstract class Driver extends Query
     {
         $result = $this->select($table_name, $condition, array(), 1);
 
-        return sizeof($result) == 1 ? (object) $result[0] : false;
+        return count($result) == 1 ? (object) $result[0] : false;
     }
 
     /**

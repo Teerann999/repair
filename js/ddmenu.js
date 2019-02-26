@@ -90,6 +90,7 @@
       var _domouseout = function(e) {
         this.removeClass("hover focus");
       };
+
       function initMenu(ul, tab, id) {
         var li = ul.firstChild;
         while (li) {

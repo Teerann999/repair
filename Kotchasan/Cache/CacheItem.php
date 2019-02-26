@@ -25,14 +25,12 @@ class CacheItem implements CacheItemInterface
      * @var bool
      */
     private $hit;
-
     /**
      * Cache Key.
      *
      * @var string
      */
     private $key;
-
     /**
      * Cache value.
      *

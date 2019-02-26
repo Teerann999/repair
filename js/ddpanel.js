@@ -24,6 +24,7 @@
         self.show(this);
         return false;
       });
+
       function _isPanel(src) {
         var c,
           tag = src.tagName.toLowerCase();
@@ -36,9 +37,9 @@
               tag == "select" ||
               tag == "textarea" ||
               tag == "label" ||
-              tag == "button"
-              ? src
-              : null;
+              tag == "button" ?
+              src :
+              null;
           } else {
             src = src.parentNode;
           }

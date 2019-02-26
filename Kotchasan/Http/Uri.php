@@ -25,42 +25,36 @@ class Uri extends \Kotchasan\KBase implements \Psr\Http\Message\UriInterface
      * @var string
      */
     protected $fragment = '';
-
     /**
      * Uri host.
      *
      * @var string
      */
     protected $host = '';
-
     /**
      * Uri path.
      *
      * @var string
      */
     protected $path = '';
-
     /**
      * Uri port.
      *
      * @var int
      */
     protected $port;
-
     /**
      * Uri query string หลัง ?
      *
      * @var string
      */
     protected $query = '';
-
     /**
      * Uri scheme.
      *
      * @var string
      */
     protected $scheme = '';
-
     /**
      * Uri user info.
      *

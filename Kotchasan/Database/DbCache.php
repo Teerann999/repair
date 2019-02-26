@@ -32,14 +32,12 @@ class DbCache
      * @var int
      */
     private $action = 0;
-
     /**
      * คลาส Cache.
      *
      * @var Cache
      */
     private $db_cache;
-
     /**
      * @var Singleton สำหรับเรียกใช้ class นี้เพียงครั้งเดียวเท่านั้น
      */

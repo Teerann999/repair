@@ -114,14 +114,7 @@
             if (Object.isFunction(fn)) {
               action = fn(t, $E(f).value, cs);
             } else {
-              if (
-                confirm(
-                  trans("You want to XXX the selected items ?").replace(
-                    /XXX/,
-                    t
-                  )
-                )
-              ) {
+              if (confirm(trans("You want to XXX the selected items ?").replace(/XXX/, t))) {
                 action = "module=" + f + "&action=" + $E(f).value + "&id=" + cs;
               }
             }
@@ -266,13 +259,9 @@
       } else if (!q || confirm(q)) {
         hs = patt.exec(input.id);
         if (hs) {
-          if (hs[1] == "delete") {
-            if (
-              confirm(
-                trans("You want to XXX ?").replace(/XXX/, trans("delete"))
-              )
-            ) {
-              action = "action=delete&id=" + hs[2];
+          if (hs[1] == "delete" || hs[1] == "cancel") {
+            if (confirm(trans("You want to XXX ?").replace(/XXX/, trans(hs[1])))) {
+              action = "action=" + hs[1] + "&id=" + hs[2];
             }
           } else if (hs[4]) {
             action = "action=" + hs[1] + "_" + hs[2] + "&id=" + hs[4];
@@ -346,9 +335,7 @@
           if (temp.options.onBeforeDelete) {
             ret = temp.options.onBeforeDelete.call(temp, tr);
           } else if (tbody.elems("tr").length > 1) {
-            ret = confirm(
-              trans("You want to XXX ?").replace(/XXX/, trans("delete"))
-            );
+            ret = confirm(trans("You want to XXX ?").replace(/XXX/, trans("delete")));
           }
           if (ret) {
             if (tbody.elems("tr").length > 1) {
@@ -361,35 +348,27 @@
           }
         } else if ((hs = a_patt.exec(c))) {
           var action = "";
-          if (
-            hs[1] == "delete" &&
-            confirm(trans("You want to XXX ?").replace(/XXX/, trans("delete")))
-          ) {
+          if (hs[1] == "delete" && confirm(trans("You want to XXX ?").replace(/XXX/, trans("delete")))) {
             action = "action=delete&id=" + hs[2];
           }
           if (action != "" && temp.options.action) {
-            send(
-              temp.options.action,
-              action,
-              function(xhr) {
-                var ds = xhr.responseText.toJSON();
-                if (ds) {
-                  if (ds.alert && ds.alert != "") {
-                    alert(ds.alert);
-                  } else if (ds.action) {
-                    if (ds.action == "delete") {
-                      var tr = $G(temp.table.id + "_" + ds.id);
-                      var tbody = tr.parentNode;
-                      tr.remove();
-                      temp.initTBODY(tbody, tr);
-                    }
+            send(temp.options.action, action, function(xhr) {
+              var ds = xhr.responseText.toJSON();
+              if (ds) {
+                if (ds.alert && ds.alert != "") {
+                  alert(ds.alert);
+                } else if (ds.action) {
+                  if (ds.action == "delete") {
+                    var tr = $G(temp.table.id + "_" + ds.id);
+                    var tbody = tr.parentNode;
+                    tr.remove();
+                    temp.initTBODY(tbody, tr);
                   }
-                } else if (xhr.responseText != "") {
-                  alert(xhr.responseText);
                 }
-              },
-              this
-            );
+              } else if (xhr.responseText != "") {
+                alert(xhr.responseText);
+              }
+            }, this);
           }
         }
       };
@@ -401,9 +380,7 @@
             this.className = chk ? "icon-uncheck" : "icon-check";
             this.title = chk ? trans("check") : trans("uncheck");
           } else if (this.hasClass("checkall")) {
-            this.className = chk
-              ? "checkall icon-uncheck"
-              : "checkall icon-check";
+            this.className = chk ? "checkall icon-uncheck" : "checkall icon-check";
             this.title = chk ? trans("select all") : trans("select none");
           }
         });
@@ -440,15 +417,9 @@
         hs = patt.exec(this.className);
         if (hs) {
           if (sort == hs[2]) {
-            this.className = this.className.replace(
-              "sort_" + hs[1],
-              "sort_" + (hs[1] == "asc" ? "desc" : "asc")
-            );
+            this.className = this.className.replace("sort_" + hs[1], "sort_" + (hs[1] == "asc" ? "desc" : "asc"));
           } else {
-            this.className = this.className.replace(
-              "sort_" + hs[1],
-              "sort_none"
-            );
+            this.className = this.className.replace("sort_" + hs[1], "sort_none");
           }
         }
       });
@@ -471,12 +442,7 @@
           if ((hs = patt.exec(this))) {
             hs[1] = hs[1].toLowerCase();
             hs[2] = hs[2].toLowerCase();
-            if (
-              hs[1] != "page" &&
-              hs[1] != "sort" &&
-              hs[1] != "search" &&
-              !(hs[1] == "action" && (hs[2] == "login" || hs[2] == "logout"))
-            ) {
+            if (hs[1] != "page" && hs[1] != "sort" && hs[1] != "search" && !(hs[1] == "action" && (hs[2] == "login" || hs[2] == "logout"))) {
               urls[hs[1]] = this;
             }
           } else {

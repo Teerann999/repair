@@ -29,7 +29,6 @@ class Login extends \Kotchasan\KBase
      * @var bool
      */
     public static $from_submit = false;
-
     /**
      * ชื่อ Input ที่ต้องการให้ active
      * login_username หรือ login_password.
@@ -37,14 +36,12 @@ class Login extends \Kotchasan\KBase
      * @var string
      */
     public static $login_input;
-
     /**
      * ข้อความจาก Login Class.
      *
      * @var string
      */
     public static $login_message;
-
     /**
      * ตัวแปรเก็บข้อมูลที่ส่งมา
      * เช่น username, password.

@@ -27,21 +27,18 @@ class Curl
      * @var int
      */
     protected $error = 0;
-
     /**
      * ข้อความ Error จาก cURL หากมีข้อผิดพลาดในการส่ง.
      *
      * @var string
      */
     protected $errorMessage = '';
-
     /**
      * HTTP headers.
      *
      * @var array
      */
     protected $headers = array();
-
     /**
      * พารามิเตอร์ CURLOPT.
      *

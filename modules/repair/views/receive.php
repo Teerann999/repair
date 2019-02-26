@@ -77,21 +77,20 @@ class View extends \Gcms\View
         ));
         $groups = $fieldset->add('groups');
         // provinceID
-        $groups->add('select', array(
+        $groups->add('text', array(
             'id' => 'provinceID',
             'labelClass' => 'g-input icon-location',
             'itemClass' => 'width50',
             'label' => '{LNG_Province}',
-            'options' => \Kotchasan\Province::all(),
+            'datalist' => \Kotchasan\Province::all(),
             'value' => $index->provinceID,
         ));
         // zipcode
-        $groups->add('text', array(
+        $groups->add('number', array(
             'id' => 'zipcode',
-            'labelClass' => 'g-input icon-location',
+            'labelClass' => 'g-input icon-number',
             'itemClass' => 'width50',
             'label' => '{LNG_Zipcode}',
-            'pattern' => '[0-9]+',
             'maxlength' => 10,
             'value' => $index->zipcode,
         ));

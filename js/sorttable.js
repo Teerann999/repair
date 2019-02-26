@@ -25,6 +25,7 @@
         dropitems = new Array(),
         hoverItem = null,
         position = 0;
+
       function checkMouseOver(item, mousePos) {
         var elemPos = item.viewportOffset();
         var elemSize = item.getDimensions();
@@ -35,12 +36,14 @@
           mousePos.y < elemPos.top + elemSize.height
         );
       }
+
       function doBeginDrag() {
         self.changed = false;
         self.dragItem = this;
         hoverItem = this;
         position = this.mousePos.y;
       }
+
       function doMoveDrag() {
         var temp = this;
         forEach(dropitems, function() {
@@ -59,11 +62,13 @@
         });
         position = this.mousePos.y;
       }
+
       function doEndDrag() {
         if (self.changed) {
           self.options.endDrag.call(this);
         }
       }
+
       function _find(tr) {
         if (tr.hasClass(self.options.sortClass)) {
           return tr;

@@ -10,6 +10,7 @@
 
 namespace Index\System;
 
+use Gcms\Login;
 use Kotchasan\Html;
 use Kotchasan\Language;
 
@@ -26,10 +27,11 @@ class View extends \Gcms\View
      * ฟอร์มตั้งค่า system.
      *
      * @param object $config
+     * @param array  $login
      *
      * @return string
      */
-    public function render($config)
+    public function render($config, $login)
     {
         $form = Html::create('form', array(
             'id' => 'setup_frm',
@@ -68,14 +70,72 @@ class View extends \Gcms\View
         foreach (\DateTimeZone::listIdentifiers() as $item) {
             $datas[$item] = $item;
         }
-        $fieldset->add('select', array(
+        $fieldset->add('text', array(
             'id' => 'timezone',
             'labelClass' => 'g-input icon-clock',
             'itemClass' => 'item',
             'label' => '{LNG_Time zone}&nbsp;({LNG_Server time}&nbsp;<em id=server_time>'.date('H:i:s').'</em>&nbsp;{LNG_Local time}&nbsp;<em id=local_time></em>)',
             'comment' => '{LNG_Settings the timing of the server to match the local time}',
-            'options' => $datas,
+            'datalist' => $datas,
             'value' => isset($config->timezone) ? $config->timezone : self::$cfg->timezone,
+        ));
+        $fieldset = $form->add('fieldset', array(
+            'title' => '{LNG_User}',
+        ));
+        // member_only
+        $fieldset->add('select', array(
+            'id' => 'member_only',
+            'labelClass' => 'g-input icon-customer',
+            'itemClass' => 'item',
+            'label' => '{LNG_Login per one account}',
+            'comment' => '{LNG_Limit access to only one account per member. Members who have logged in before will be forced to log out.}',
+            'options' => Language::get('BOOLEANS'),
+            'value' => isset($config->member_only) ? $config->member_only : self::$cfg->member_only,
+        ));
+        // user_forgot
+        $fieldset->add('select', array(
+            'id' => 'user_forgot',
+            'labelClass' => 'g-input icon-password',
+            'itemClass' => 'item',
+            'label' => '{LNG_Forgot}',
+            'options' => Language::get('BOOLEANS'),
+            'value' => isset($config->user_forgot) ? $config->user_forgot : 1,
+        ));
+        // user_register
+        $fieldset->add('select', array(
+            'id' => 'user_register',
+            'labelClass' => 'g-input icon-register',
+            'itemClass' => 'item',
+            'label' => '{LNG_Register}',
+            'options' => Language::get('BOOLEANS'),
+            'value' => isset($config->user_register) ? $config->user_register : 1,
+        ));
+        // welcome_email
+        $fieldset->add('select', array(
+            'id' => 'welcome_email',
+            'labelClass' => 'g-input icon-email',
+            'itemClass' => 'item',
+            'label' => '{LNG_Send a welcome email to new members}',
+            'options' => Language::get('BOOLEANS'),
+            'value' => isset($config->welcome_email) ? $config->welcome_email : 0,
+        ));
+        $notDemoMode = Login::notDemoMode($login);
+        // google_client_id
+        $fieldset->add('text', array(
+            'id' => 'google_client_id',
+            'labelClass' => 'g-input icon-google',
+            'itemClass' => 'item',
+            'label' => '{LNG_Google client ID} <a class=icon-help href="https://gcms.in.th/index.php?module=howto&id=374" target=_blank></a>',
+            'comment' => '<em>xxxxxxxxxx</em>.apps.googleusercontent.com',
+            'value' => $notDemoMode && isset($config->google_client_id) ? $config->google_client_id : '',
+        ));
+        // facebook_appId
+        $fieldset->add('text', array(
+            'id' => 'facebook_appId',
+            'labelClass' => 'g-input icon-facebook',
+            'itemClass' => 'item',
+            'label' => '{LNG_Facebook App ID} <a class=icon-help href="https://gcms.in.th/index.php?module=howto&id=350" target="_blank"></a>',
+            'value' => $notDemoMode && isset($config->facebook_appId) ? $config->facebook_appId : '',
         ));
         $fieldset = $form->add('fieldset', array(
             'title' => '{LNG_Style}',

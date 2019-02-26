@@ -145,12 +145,12 @@
               } else {
                 tootip.push(
                   "<b>" +
-                    self.subtitle +
-                    self.datas.labels[index] +
-                    "</b> " +
-                    rows.title +
-                    " " +
-                    item.title
+                  self.subtitle +
+                  self.datas.labels[index] +
+                  "</b> " +
+                  rows.title +
+                  " " +
+                  item.title
                 );
               }
               return true;
@@ -257,7 +257,7 @@
       var context = this.context;
       var offsetRight = Math.ceil(
         context.measureText(this.datas.labels[this.datas.labels.length - 1])
-          .width / 2
+        .width / 2
       );
       var label = this.max;
       var labelValue = this.max / options.rows;
@@ -294,6 +294,7 @@
           item.h = item.cy + o;
         });
       });
+
       function drawGraph() {
         var y = t;
         context.lineWidth = 1;
@@ -413,6 +414,7 @@
         item.percentage = Math.round(fraction * 100);
         counter += fraction;
       });
+
       function drawSlice(slice, index) {
         if (slice.percentage) {
           var distance =
@@ -461,6 +463,7 @@
         context.strokeStyle = self.backgroundColor;
         context.stroke();
       }
+
       function drawGraph() {
         context.save();
         context.fillStyle = self.backgroundColor;
@@ -500,7 +503,7 @@
         var yFromCenter = mouseY - centerY;
         var distanceFromCenter = Math.sqrt(
           Math.pow(Math.abs(xFromCenter), 2) +
-            Math.pow(Math.abs(yFromCenter), 2)
+          Math.pow(Math.abs(yFromCenter), 2)
         );
         if (distanceFromCenter <= radius) {
           var mouseAngle =
@@ -574,6 +577,7 @@
         item.percentage = Math.round(fraction * 100);
         counter += fraction;
       });
+
       function drawSlice(slice, index) {
         if (slice.percentage) {
           var distance =
@@ -622,6 +626,7 @@
         context.strokeStyle = self.backgroundColor;
         context.stroke();
       }
+
       function drawGraph() {
         context.save();
         context.fillStyle = self.backgroundColor;
@@ -672,7 +677,7 @@
         var yFromCenter = mouseY - centerY;
         var distanceFromCenter = Math.sqrt(
           Math.pow(Math.abs(xFromCenter), 2) +
-            Math.pow(Math.abs(yFromCenter), 2)
+          Math.pow(Math.abs(yFromCenter), 2)
         );
         if (
           distanceFromCenter <= radius &&
@@ -752,7 +757,7 @@
       var barHeight = Math.max(
         2,
         (cellHeight - 8 - 2 * (this.datas.rows.length + 1)) /
-          this.datas.rows.length
+        this.datas.rows.length
       );
       var offsetHeight = t + 6;
       forEach(self.datas.rows, function() {
@@ -769,6 +774,7 @@
         });
         offsetHeight = offsetHeight + barHeight + 2;
       });
+
       function drawGraph() {
         var y = t;
         context.textAlign = "left";
@@ -859,7 +865,7 @@
       var context = this.context;
       var offsetRight = Math.ceil(
         context.measureText(this.datas.labels[this.datas.labels.length - 1])
-          .width / 2
+        .width / 2
       );
       var label = this.max;
       var labelValue = this.max / options.rows;
@@ -885,7 +891,7 @@
       var barWidth = Math.max(
         2,
         (cellWidth - 8 - 2 * (this.datas.rows.length + 1)) /
-          this.datas.rows.length
+        this.datas.rows.length
       );
       var offsetWidth = l + 6;
       forEach(self.datas.rows, function() {
@@ -907,6 +913,7 @@
         });
         offsetWidth = offsetWidth + barWidth + 2;
       });
+
       function drawGraph() {
         var y = t;
         context.textAlign = "right";

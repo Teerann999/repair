@@ -25,14 +25,12 @@ final class Language extends \Kotchasan\KBase
      * @var array
      */
     private static $installed_languages;
-
     /**
      * ชื่อภาษาที่กำลังใช้งานอยู่.
      *
      * @var string
      */
     private static $language_name;
-
     /**
      * รายการภาษา.
      *

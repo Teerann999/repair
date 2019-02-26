@@ -23,12 +23,10 @@ class AbstractRequest extends AbstractMessage implements \Psr\Http\Message\Reque
      * @var string
      */
     protected $method = null;
-
     /**
      * @var string
      */
     protected $requestTarget;
-
     /**
      * @var \Kotchasan\Http\Uri
      */

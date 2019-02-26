@@ -29,56 +29,48 @@ class UploadedFile implements UploadedFileInterface
      * @var int
      */
     private $error;
-
     /**
      * นามสกุลของไฟล์อัปโหลด.
      *
      * @var string
      */
     private $ext;
-
     /**
      * ใช้สำหรับบอกว่ามีการย้ายไฟล์ไปแล้ว.
      *
      * @var bool
      */
     private $isMoved = false;
-
     /**
      * MIME Type.
      *
      * @var string
      */
     private $mime;
-
     /**
      * ชื่อไฟล์ที่อัปโหลด.
      *
      * @var string
      */
     private $name;
-
     /**
      *  Indicates if the upload is from a SAPI environment.
      *
      * @var bool
      */
     private $sapi = false;
-
     /**
      * ขนาดไฟล์อัปโหลด.
      *
      * @var int
      */
     private $size;
-
     /**
      * file stream.
      *
      * @var Stream
      */
     private $stream;
-
     /**
      * ไฟล์อัปโหลด รวมพาธ.
      *

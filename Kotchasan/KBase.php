@@ -27,7 +27,6 @@ class KBase
      * @var Config
      */
     protected static $cfg;
-
     /**
      * Server request class.
      *

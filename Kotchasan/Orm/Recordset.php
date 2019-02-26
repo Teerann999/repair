@@ -29,35 +29,30 @@ class Recordset extends Query implements \Iterator
      * @var array
      */
     private $datas;
-
     /**
      * คลาส Field.
      *
      * @var Field
      */
     private $field;
-
     /**
      * รายชื่อฟิลด์.
      *
      * @var array
      */
     private $fields = array();
-
     /**
      * รายการเริ่มต้นสำหรับการ query เพื่อแบ่งหน้า.
      *
      * @var int
      */
     private $firstRecord;
-
     /**
      * จำนวนรายการต่อหน้า สำหรับใช้ในการแบ่งหน้า.
      *
      * @var int
      */
     private $perPage;
-
     /**
      * กำหนดผลลัพท์ของ Recordset
      * true ผลลัพท์เป็น Array
@@ -66,7 +61,6 @@ class Recordset extends Query implements \Iterator
      * @var bool
      */
     private $toArray = false;
-
     /**
      * ถ้ามีข้อมูลในตัวแปรนี้ จะใช้การ prepare แทน exexute.
      *
@@ -512,7 +506,7 @@ class Recordset extends Query implements \Iterator
      */
     public function recordCount()
     {
-        return sizeof($this->datas);
+        return count($this->datas);
     }
 
     /**

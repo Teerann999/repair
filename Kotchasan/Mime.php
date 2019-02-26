@@ -2,10 +2,10 @@
 /**
  * @filesource Kotchasan/Mime.php
  *
- * @see http://www.kotchasan.com/
- *
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
+ *
+ * @see http://www.kotchasan.com/
  */
 
 namespace Kotchasan;
@@ -1009,9 +1009,10 @@ class Mime
      * Get the MIME type for a file extension
      * คืนค่า null ถ้าไม่พบ.
      *
-     * @param string|array $exts
      * @assert (array('jpg','gif','png')) [==]  array('jpg' => 'image/jpeg', 'gif' => 'image/gif', 'png' => 'image/png')
      * @assert ('jpg') [==] 'image/jpeg'
+     *
+     * @param string|array $exts
      *
      * @return string|array|null
      */
@@ -1039,9 +1040,10 @@ class Mime
      * ใช้สำหรับการตรวจสอบไฟล์อัปโหลด
      * คืนค่า true หาก $mime และ $typies สอดคล้องกัน.
      *
+     * @assert (array('jpg','gif','png'), 'image/png') [==] true
+     *
      * @param array  $typies ชนิดของไฟล์ที่ยอมรับ เช่น array(jpg, gif, png)
      * @param string $mime   ชนิดของไฟล์ที่ต้องการตรวจสอบ เช่น image/png ซึ่งปกติจะได้จากการอัปโหลด เช่น $file[mime]
-     * @assert (array('jpg','gif','png'), 'image/png') [==] true
      *
      * @return bool
      */
@@ -1061,8 +1063,9 @@ class Mime
      * ฟังก์ชั่น อ่าน mimetype ของไฟล์ สำหรับส่งให้ input ชนิด file
      * คืนค่า mimetype ของไฟล์ คั่นแต่ละรายการด้วย , เช่น image/jpeg,image/png,image/gif.
      *
-     * @param array $typies ชนิดของไฟล์ เช่น array(jpg, gif, png)
      * @assert (array('jpg','gif','png')) [==] "image/jpeg,image/gif,image/png"
+     *
+     * @param array $typies ชนิดของไฟล์ เช่น array(jpg, gif, png)
      *
      * @return string
      */

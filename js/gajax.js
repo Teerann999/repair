@@ -15,24 +15,14 @@ window.$K = (function() {
       return true;
     },
     isMobile: function() {
-      return navigator.userAgent.match(
-        /(iPhone|iPod|iPad|Android|webOS|BlackBerry|Windows Phone)/i
-      );
+      return navigator.userAgent.match(/(iPhone|iPod|iPad|Android|webOS|BlackBerry|Windows Phone)/i);
     },
     init: function(element) {
       forEach(element.querySelectorAll("input,textarea"), function(elem) {
         var tagName = $G(elem).tagName.toLowerCase(),
           type = elem.get("type"),
           type = type ? type.toLowerCase() : "";
-        if (
-          elem.initObj !== true &&
-          (tagName == "textarea" ||
-            (type !== "hidden" &&
-              type !== "radio" &&
-              type !== "checkbox" &&
-              type !== "button" &&
-              type !== "submit"))
-        ) {
+        if (elem.initObj !== true && (tagName == "textarea" || (type !== "hidden" && type !== "radio" && type !== "checkbox" && type !== "button" && type !== "submit"))) {
           var obj = new Object();
           obj.tagName = tagName;
           obj.type = type;
@@ -61,20 +51,9 @@ window.$K = (function() {
               var _docheck = function() {
                 if (this.value == "" && obj.required !== null) {
                   this.addClass("required");
-                  this.invalid(
-                    obj.title !== ""
-                      ? obj.title
-                      : trans("Please fill in") +
-                        (this.placeholder == "" ? "" : " " + this.placeholder)
-                  );
-                } else if (
-                  this.value != "" &&
-                  obj.pattern &&
-                  !obj.pattern.test(this.value)
-                ) {
-                  this.invalid(
-                    obj.title !== "" ? obj.title : trans("Invalid data")
-                  );
+                  this.invalid(obj.title !== "" ? obj.title : trans("Please fill in") + (this.placeholder == "" ? "" : " " + this.placeholder));
+                } else if (this.value != "" && obj.pattern && !obj.pattern.test(this.value)) {
+                  this.invalid(obj.title !== "" ? obj.title : trans("Invalid data"));
                 } else if (obj.required !== null || obj.pattern) {
                   this.reset();
                 }
@@ -98,16 +77,7 @@ window.$K = (function() {
             var text = elem;
             if (obj.type == "date") {
               new GCalendar(text);
-            } else if (
-              obj.type == "number" ||
-              obj.type == "integer" ||
-              obj.type == "tel" ||
-              obj.type == "email" ||
-              obj.type == "url" ||
-              obj.type == "color" ||
-              obj.type == "currency" ||
-              obj.type == "time"
-            ) {
+            } else if (obj.type == "number" || obj.type == "integer" || obj.type == "tel" || obj.type == "email" || obj.type == "url" || obj.type == "color" || obj.type == "currency" || obj.type == "time") {
               var o = {
                 type: "text",
                 name: elem.name,
@@ -163,18 +133,12 @@ window.$K = (function() {
                     obj.dataset["keyboard"] = "1234567890-";
                   } else if (obj.type == "currency") {
                     obj.dataset["keyboard"] = "1234567890-.";
-                  } else if (
-                    obj.type == "number" ||
-                    obj.type == "tel" ||
-                    obj.type == "currency"
-                  ) {
+                  } else if (obj.type == "number" || obj.type == "tel" || obj.type == "currency") {
                     obj.dataset["keyboard"] = "1234567890";
                   }
                 }
                 if (obj.dataset["keyboard"]) {
-                  obj.pattern = new RegExp(
-                    "^(?:[" + obj.dataset["keyboard"].preg_quote() + "]+)$"
-                  );
+                  obj.pattern = new RegExp("^(?:[" + obj.dataset["keyboard"].preg_quote() + "]+)$");
                   if (obj.type == "currency") {
                     new GInput(text, obj.dataset["keyboard"], function() {
                       var val = floatval(this.value);
@@ -242,6 +206,8 @@ window.$K = (function() {
               new GRange(elem);
             } else if (obj.type == "inputgroup") {
               new GInputGroup(elem);
+            } else if (elem.get("list")) {
+              new Datalist(elem);
             } else if (obj.pattern) {
               new GMask(text, function() {
                 return obj.pattern.test(this.value);
@@ -305,13 +271,7 @@ window.$K = (function() {
   window.round = function(val, digit) {
     var value = Math.round(val * Math.pow(10, digit)) / Math.pow(10, digit);
     if (val - value > 0) {
-      return (
-        value +
-        Math.floor(
-          (2 * Math.round((val - value) * Math.pow(10, digit + 1))) / 10
-        ) /
-          Math.pow(10, digit)
-      );
+      return value + Math.floor((2 * Math.round((val - value) * Math.pow(10, digit + 1))) / 10) / Math.pow(10, digit);
     } else {
       return value;
     }
@@ -339,13 +299,7 @@ window.$K = (function() {
   window.trans = function(val) {
     try {
       var patt = /^[_]+|[_]+$/g;
-      return eval(
-        val
-          .replace(/[\s]/g, "_")
-          .replace("?", "")
-          .replace(patt, "")
-          .toUpperCase()
-      );
+      return eval(val.replace(/[\s]/g, "_").replace("?", "").replace(patt, "").toUpperCase());
     } catch (e) {
       return val;
     }
@@ -357,8 +311,7 @@ window.$K = (function() {
       div = document.createElement("div");
       div.id = "gdebug";
       document.body.appendChild(div);
-      div.style.cssText =
-        "left:0;bottom:0;width:100%;height:100px;color:#F00;background-color:#FFF;position:fixed;line-height:1;padding:10px;overflow:auto;";
+      div.style.cssText = "left:0;bottom:0;width:100%;height:100px;color:#F00;background-color:#FFF;position:fixed;line-height:1;padding:10px;overflow:auto;";
     }
     p.style.cssText = "margin:0;";
     p.innerText = val;
@@ -384,9 +337,7 @@ window.$K = (function() {
   Date.prototype.formatter = function(c) {
     switch (c) {
       case "d":
-        return this.getDate()
-          .toString()
-          .leftPad(2, "0");
+        return this.getDate().toString().leftPad(2, "0");
       case "D":
         return Date.dayNames[this.getDay()];
       case "y":
@@ -400,9 +351,7 @@ window.$K = (function() {
       case "F":
         return Date.longMonthNames[this.getMonth()];
       case "H":
-        return this.getHours()
-          .toString()
-          .leftPad(2, "0");
+        return this.getHours().toString().leftPad(2, "0");
       case "h":
         return this.getHours();
       case "A":
@@ -410,15 +359,11 @@ window.$K = (function() {
       case "a":
         return this.getHours() < 12 ? "am" : "pm";
       case "I":
-        return this.getMinutes()
-          .toString()
-          .leftPad(2, "0");
+        return this.getMinutes().toString().leftPad(2, "0");
       case "i":
         return this.getMinutes();
       case "S":
-        return this.getSeconds()
-          .toString()
-          .leftPad(2, "0");
+        return this.getSeconds().toString().leftPad(2, "0");
       case "s":
         return this.getSeconds();
       default:
@@ -453,14 +398,7 @@ window.$K = (function() {
     var a = parseInt((14 - this.getMonth()) / 12);
     var y = this.getFullYear() - a;
     var m = this.getMonth() + 12 * a - 2;
-    var d =
-      (this.getDate() +
-        y +
-        parseInt(y / 4) -
-        parseInt(y / 100) +
-        parseInt(y / 400) +
-        parseInt((31 * m) / 12)) %
-      7;
+    var d = (this.getDate() + y + parseInt(y / 4) - parseInt(y / 100) + parseInt(y / 400) + parseInt((31 * m) / 12)) % 7;
     return d;
   };
   Date.prototype.compare = function(d) {
@@ -613,9 +551,7 @@ window.$K = (function() {
   };
   String.prototype.evalScript = function() {
     var regex = /<script.*?>(.*?)<\/script>/g;
-    var t = this.replace(/[\r\n]/g, "")
-      .replace(/\/\/<\!\[CDATA\[/g, "")
-      .replace(/\/\/\]\]>/g, "");
+    var t = this.replace(/[\r\n]/g, "").replace(/\/\/<\!\[CDATA\[/g, "").replace(/\/\/\]\]>/g, "");
     var m = regex.exec(t);
     while (m) {
       try {
@@ -642,9 +578,7 @@ window.$K = (function() {
     return this.replace(/(\s|&nbsp;)+$/, "");
   };
   String.prototype.strip_tags = function(allowed) {
-    allowed = (
-      ((allowed || "") + "").toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []
-    ).join("");
+    allowed = (((allowed || "") + "").toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join("");
     var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
     var php = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
     return this.replace(php, "").replace(tags, function($0, $1) {
@@ -808,17 +742,7 @@ window.$K = (function() {
       s = n < 0 ? "-" : "",
       i = String(parseInt((n = Math.abs(Number(n) || 0).toFixed(decimals)))),
       j = (j = i.length) > 3 ? j % 3 : 0;
-    return (
-      s +
-      (j ? i.substr(0, j) + thousands_sep : "") +
-      i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands_sep) +
-      (decimals
-        ? dec_point +
-          Math.abs(n - i)
-            .toFixed(decimals)
-            .slice(2)
-        : "")
-    );
+    return (s + (j ? i.substr(0, j) + thousands_sep : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands_sep) + (decimals ? dec_point + Math.abs(n - i).toFixed(decimals).slice(2) : ""));
   };
   document.viewport = {
     getWidth: function() {
@@ -1107,12 +1031,7 @@ window.$K = (function() {
       s = s == "float" && this.currentStyle ? "styleFloat" : s;
       s = s == "borderColor" ? "borderBottomColor" : s;
       var v = this.currentStyle ? this.currentStyle[s] : null;
-      v =
-        !v && window.getComputedStyle
-          ? document.defaultView
-              .getComputedStyle(this, null)
-              .getPropertyValue(s.replace(/([A-Z])/g, "-$1").toLowerCase())
-          : v;
+      v = !v && window.getComputedStyle ? document.defaultView.getComputedStyle(this, null).getPropertyValue(s.replace(/([A-Z])/g, "-$1").toLowerCase()) : v;
       if (s == "opacity") {
         return Object.isNull(v) ? 100 : floatval(v) * 100;
       } else {
@@ -1492,9 +1411,9 @@ window.$K = (function() {
       return result;
     },
     element: function() {
-      return Object.isString(this.elem)
-        ? document.getElementById(this.elem)
-        : this.elem;
+      return Object.isString(this.elem) ?
+        document.getElementById(this.elem) :
+        this.elem;
     },
     elems: function(tagname) {
       return this.getElementsByTagName(tagname);
@@ -1513,12 +1432,12 @@ window.$K = (function() {
             } else {
               v = document.createElement(
                 '<input id="' +
-                  i +
-                  '" name="' +
-                  n +
-                  '" type="' +
-                  o.type +
-                  '" />'
+                i +
+                '" name="' +
+                n +
+                '" type="' +
+                o.type +
+                '" />'
               );
             }
           } catch (e) {
@@ -1702,8 +1621,7 @@ window.$K = (function() {
     html: "text/html",
     text: "text/plain",
     json: "application/json, text/javascript",
-    all:
-      "text/html, text/plain, application/xml, text/xml, application/json, text/javascript"
+    all: "text/html, text/plain, application/xml, text/xml, application/json, text/javascript"
   };
   window.GAjax = GClass.create();
   GAjax.prototype = {
@@ -1949,9 +1867,9 @@ window.$K = (function() {
       this.submitButton = frm.querySelector("[type=submit]");
       this.loading = loading || this.submitButton || "wait";
       this.center = center;
-      this.onbeforesubmit = Object.isFunction(onbeforesubmit)
-        ? onbeforesubmit
-        : $K.resultFunction;
+      this.onbeforesubmit = Object.isFunction(onbeforesubmit) ?
+        onbeforesubmit :
+        $K.resultFunction;
       var self = this;
       frm.onsubmit = function() {
         var loading = true;
@@ -1962,11 +1880,11 @@ window.$K = (function() {
               var title = elem.srcObj.title,
                 val = elem.value;
               if (elem.srcObj.required !== null && val == "") {
-                title = (title !== ""
-                  ? trans("Please fill in") + " " + title
-                  : elem.placeholder == ""
-                    ? ""
-                    : elem.placeholder
+                title = (title !== "" ?
+                  trans("Please fill in") + " " + title :
+                  elem.placeholder == "" ?
+                  "" :
+                  elem.placeholder
                 ).strip_tags();
                 alert(title);
                 elem
@@ -1980,11 +1898,11 @@ window.$K = (function() {
                 val !== "" &&
                 !elem.srcObj.pattern.test(val)
               ) {
-                title = (title !== ""
-                  ? trans("Invalid data") + " " + title
-                  : elem.placeholder == ""
-                    ? ""
-                    : elem.placeholder
+                title = (title !== "" ?
+                  trans("Invalid data") + " " + title :
+                  elem.placeholder == "" ?
+                  "" :
+                  elem.placeholder
                 ).strip_tags();
                 elem.invalid(title);
                 alert(title);
@@ -2002,12 +1920,12 @@ window.$K = (function() {
             var uploadCallback = function() {
               if (!loading) {
                 try {
-                  self.responseText = io.contentWindow.document.body
-                    ? io.contentWindow.document.body.innerHTML
-                    : null;
-                  self.responseXML = io.contentWindow.document.XMLDocument
-                    ? io.contentWindow.document.XMLDocument
-                    : io.contentWindow.document;
+                  self.responseText = io.contentWindow.document.body ?
+                    io.contentWindow.document.body.innerHTML :
+                    null;
+                  self.responseXML = io.contentWindow.document.XMLDocument ?
+                    io.contentWindow.document.XMLDocument :
+                    io.contentWindow.document;
                 } catch (e) {}
                 self.hideLoading();
                 self.form.method = old_method;
@@ -2065,12 +1983,12 @@ window.$K = (function() {
         if (!loading) {
           self.hideLoading();
           try {
-            self.responseText = io.contentWindow.document.body
-              ? io.contentWindow.document.body.innerHTML
-              : null;
-            self.responseXML = io.contentWindow.document.XMLDocument
-              ? io.contentWindow.document.XMLDocument
-              : io.contentWindow.document;
+            self.responseText = io.contentWindow.document.body ?
+              io.contentWindow.document.body.innerHTML :
+              null;
+            self.responseXML = io.contentWindow.document.XMLDocument ?
+              io.contentWindow.document.XMLDocument :
+              io.contentWindow.document;
           } catch (e) {}
           self.form.method = old_method;
           self.form.target = old_target;
@@ -2197,11 +2115,11 @@ window.$K = (function() {
       window.setTimeout(function() {
         var dm = self.body.getDimensions(),
           hOffset =
-            dm.height -
-            self.body.getClientHeight() +
-            parseInt(self.body.getStyle("marginTop")) +
-            parseInt(self.body.getStyle("marginBottom")) +
-            40,
+          dm.height -
+          self.body.getClientHeight() +
+          parseInt(self.body.getStyle("marginTop")) +
+          parseInt(self.body.getStyle("marginBottom")) +
+          40,
           h = document.viewport.getHeight() - hOffset;
         if (dm.height > h) {
           self.div.style.height = h + "px";
@@ -2303,27 +2221,27 @@ window.$K = (function() {
         var size = this.container.getDimensions();
         if (this.options.scrollto == "bottom") {
           this.scrollerTop =
-            this.scrollerTop > size.height
-              ? 0 - this.scroller.getHeight()
-              : this.scrollerTop + this.options.duration;
+            this.scrollerTop > size.height ?
+            0 - this.scroller.getHeight() :
+            this.scrollerTop + this.options.duration;
           this.scroller.style.top = this.scrollerTop + "px";
         } else if (this.options.scrollto == "left") {
           this.scrollerLeft =
-            this.scrollerLeft + this.scroller.getWidth() < 0
-              ? size.width
-              : this.scrollerLeft - this.options.duration;
+            this.scrollerLeft + this.scroller.getWidth() < 0 ?
+            size.width :
+            this.scrollerLeft - this.options.duration;
           this.scroller.style.left = this.scrollerLeft + "px";
         } else if (this.options.scrollto == "right") {
           this.scrollerLeft =
-            this.scrollerLeft > size.width
-              ? 0 - this.scroller.getWidth()
-              : this.scrollerLeft + this.options.duration;
+            this.scrollerLeft > size.width ?
+            0 - this.scroller.getWidth() :
+            this.scrollerLeft + this.options.duration;
           this.scroller.style.left = this.scrollerLeft + "px";
         } else {
           this.scrollerTop =
-            this.scrollerTop + this.scroller.getHeight() < 0
-              ? size.height
-              : this.scrollerTop - this.options.duration;
+            this.scrollerTop + this.scroller.getHeight() < 0 ?
+            size.height :
+            this.scrollerTop - this.options.duration;
           this.scroller.style.top = this.scrollerTop + "px";
         }
       }
@@ -2402,14 +2320,12 @@ window.$K = (function() {
     pointer: function(e) {
       e = window.event || e;
       return {
-        x:
-          e.pageX ||
+        x: e.pageX ||
           e.clientX +
-            (document.documentElement.scrollLeft || document.body.scrollLeft),
-        y:
-          e.pageY ||
+          (document.documentElement.scrollLeft || document.body.scrollLeft),
+        y: e.pageY ||
           e.clientY +
-            (document.documentElement.scrollTop || document.body.scrollTop)
+          (document.documentElement.scrollTop || document.body.scrollTop)
       };
     },
     pointerX: function(e) {
@@ -2516,9 +2432,9 @@ window.$K = (function() {
     },
     validate: function() {
       this.abort();
-      var ret = Object.isFunction(this.validtor)
-        ? this.validtor.call(this.input)
-        : true;
+      var ret = Object.isFunction(this.validtor) ?
+        this.validtor.call(this.input) :
+        true;
       if (this.form && ret && this.action && ret !== "" && this.action !== "") {
         this.input.addClass("wait");
         var temp = this;
@@ -2577,16 +2493,20 @@ window.$K = (function() {
       this.src = $G(src);
       this.move = $G(move);
       var self = this;
+
       function _mousemove(e) {
         self.mousePos = GEvent.pointer(e);
         self.options.moveDrag.call(self);
       }
+
       function _selectstart(e) {
         GEvent.stop(e);
       }
+
       function _dragstart(e) {
         GEvent.stop(e);
       }
+
       function _mouseup(e) {
         document.removeEvent("mouseup", _mouseup);
         document.removeEvent("mousemove", _mousemove);
@@ -2599,12 +2519,14 @@ window.$K = (function() {
         GEvent.stop(e);
         self.options.endDrag.call(self.src);
       }
+
       function _mousedown(e) {
         var delay;
         var temp = this;
-        function _cancleClick(e) {
+
+        function _cancelClick(e) {
           window.clearTimeout(delay);
-          this.removeEvent("mouseup", _cancleClick);
+          this.removeEvent("mouseup", _cancelClick);
         }
         if (GEvent.isLeftClick(e)) {
           GEvent.stop(e);
@@ -2619,10 +2541,11 @@ window.$K = (function() {
             document.addEvent("dragstart", _dragstart);
             self.options.beginDrag.call(self);
           }, 100);
-          temp.addEvent("mouseup", _cancleClick);
+          temp.addEvent("mouseup", _cancelClick);
         }
       }
       this.src.addEvent("mousedown", _mousedown);
+
       function touchHandler(event) {
         var touches = event.changedTouches,
           first = touches[0],
@@ -2681,6 +2604,7 @@ window.$K = (function() {
       this.dragObj.style.cursor = "move";
       this.moveObj = $G(move_id);
       var Hinstance = this;
+
       function _beginDrag() {
         if (
           Hinstance.options.beginDrag.call(Hinstance.moveObj, {
@@ -2694,6 +2618,7 @@ window.$K = (function() {
           };
         }
       }
+
       function _moveDrag() {
         if (
           Hinstance.options.moveDrag.call(Hinstance.moveObj, {
@@ -2707,6 +2632,7 @@ window.$K = (function() {
             this.mousePos.x - Hinstance.mouseOffset.x + "px";
         }
       }
+
       function _endDrag() {
         Hinstance.options.endDrag.call(Hinstance.moveObj, {
           mousePos: this.mousePos,
@@ -2959,9 +2885,9 @@ window.$K = (function() {
         this.panel.style.top = t + "px";
       }
       var l = Math.max(
-        vpo.left + dm.width > document.viewport.getWidth()
-          ? vpo.left + this.input.getWidth() - dm.width
-          : vpo.left,
+        vpo.left + dm.width > document.viewport.getWidth() ?
+        vpo.left + this.input.getWidth() - dm.width :
+        vpo.left,
         document.viewport.getscrollLeft() + 5
       );
       this.panel.style.left = l + "px";
@@ -2986,6 +2912,7 @@ window.$K = (function() {
         this.pattern = new RegExp(input.pattern);
         input.setAttribute("pattern", "(.*){0,}");
       }
+
       function checkKey(e) {
         if (e.key) {
           return /^(Backspace|(Arrow)?Left|(Arrow)?Right|Enter|Tab|Delete)$/.test(
@@ -3157,9 +3084,9 @@ window.$K = (function() {
               var startPos = self.input.selectionStart,
                 endPos = self.input.selectionEnd,
                 value =
-                  self.input.value.substring(0, startPos) +
-                  text +
-                  self.input.value.substring(endPos, self.input.value.length);
+                self.input.value.substring(0, startPos) +
+                text +
+                self.input.value.substring(endPos, self.input.value.length);
               if (self.maxlength == 0 || value.length <= self.maxlength) {
                 self.input.value = value;
                 self.input.selectionStart = startPos + text.length;
@@ -3190,9 +3117,9 @@ window.$K = (function() {
         this.panel.style.top = t + "px";
       }
       var l = Math.max(
-        vpo.left + dm.width > document.viewport.getWidth()
-          ? vpo.left + this.input.getWidth() - dm.width
-          : vpo.left,
+        vpo.left + dm.width > document.viewport.getWidth() ?
+        vpo.left + this.input.getWidth() - dm.width :
+        vpo.left,
         document.viewport.getscrollLeft() + 5
       );
       this.panel.style.left = l + "px";
@@ -3212,6 +3139,7 @@ window.$K = (function() {
       this.placeholder.style.position = "absolute";
       this.input.appendChild(this.placeholder);
       this.display = document.createElement("div");
+      this.display.id = this.hidden.id + "_display";
       this.input.appendChild(this.display);
       this.input.tabIndex = 0;
       this.input.style.cursor = "pointer";
@@ -3267,12 +3195,10 @@ window.$K = (function() {
         }
       });
       $G(document.body).addEvent("click", function(e) {
-        if (
-          !(
+        if (!(
             $G(GEvent.element(e)).hasClass("input-gcalendar") ||
             $G(GEvent.element(e).parentNode).hasClass("input-gcalendar")
-          )
-        ) {
+          )) {
           self.calendar.style.display = "none";
         }
       });
@@ -3379,9 +3305,9 @@ window.$K = (function() {
           a.appendChild(
             document.createTextNode(
               start_year +
-                Date.yearOffset +
-                "-" +
-                (start_year + 11 + Date.yearOffset)
+              Date.yearOffset +
+              "-" +
+              (start_year + 11 + Date.yearOffset)
             )
           );
         }
@@ -3630,9 +3556,9 @@ window.$K = (function() {
           this.calendar.style.top = t + "px";
         }
         var l = Math.max(
-          vpo.left + dm.width > document.viewport.getWidth()
-            ? vpo.left + this.input.getWidth() - dm.width
-            : vpo.left,
+          vpo.left + dm.width > document.viewport.getWidth() ?
+          vpo.left + this.input.getWidth() - dm.width :
+          vpo.left,
           document.viewport.getscrollLeft() + 5
         );
         this.calendar.style.left = l + "px";
@@ -3832,23 +3758,23 @@ window.$K = (function() {
         );
         if (rgb) {
           this.r =
-            rgb[1].length == 2
-              ? parseInt(rgb[1], 16)
-              : parseInt(rgb[1] + rgb[1], 16);
+            rgb[1].length == 2 ?
+            parseInt(rgb[1], 16) :
+            parseInt(rgb[1] + rgb[1], 16);
           this.g =
-            rgb[2].length == 2
-              ? parseInt(rgb[2], 16)
-              : parseInt(rgb[2] + rgb[2], 16);
+            rgb[2].length == 2 ?
+            parseInt(rgb[2], 16) :
+            parseInt(rgb[2] + rgb[2], 16);
           this.b =
-            rgb[3].length == 2
-              ? parseInt(rgb[3], 16)
-              : parseInt(rgb[3] + rgb[3], 16);
+            rgb[3].length == 2 ?
+            parseInt(rgb[3], 16) :
+            parseInt(rgb[3] + rgb[3], 16);
           this.a =
-            rgb[4] == ""
-              ? null
-              : rgb[4].length == 2
-                ? parseInt(rgb[4], 16)
-                : parseInt(rgb[4] + rgb[4], 16);
+            rgb[4] == "" ?
+            null :
+            rgb[4].length == 2 ?
+            parseInt(rgb[4], 16) :
+            parseInt(rgb[4] + rgb[4], 16);
         } else {
           this.r = 0;
           this.g = 0;
@@ -3885,29 +3811,29 @@ window.$K = (function() {
       return (
         "#" +
         this.r
-          .toString(16)
-          .toUpperCase()
-          .leftPad(2, "0") +
+        .toString(16)
+        .toUpperCase()
+        .leftPad(2, "0") +
         this.g
-          .toString(16)
-          .toUpperCase()
-          .leftPad(2, "0") +
+        .toString(16)
+        .toUpperCase()
+        .leftPad(2, "0") +
         this.b
+        .toString(16)
+        .toUpperCase()
+        .leftPad(2, "0") +
+        (this.a !== null && this.a !== 1 ?
+          this.a
           .toString(16)
           .toUpperCase()
-          .leftPad(2, "0") +
-        (this.a !== null && this.a !== 1
-          ? this.a
-              .toString(16)
-              .toUpperCase()
-              .leftPad(2, "0")
-          : "")
+          .leftPad(2, "0") :
+          "")
       );
     },
     toRGB: function() {
-      return this.a !== null && this.a !== 1
-        ? "rgba(" + this.r + ", " + this.g + ", " + this.b + ", " + this.a + ")"
-        : "rgb(" + this.r + ", " + this.g + ", " + this.b + ")";
+      return this.a !== null && this.a !== 1 ?
+        "rgba(" + this.r + ", " + this.g + ", " + this.b + ", " + this.a + ")" :
+        "rgb(" + this.r + ", " + this.g + ", " + this.b + ")";
     },
     toArray: function() {
       return [this.r, this.g, this.b, this.a];
@@ -4038,9 +3964,9 @@ window.$K = (function() {
         this.ddcolor.style.top = t + "px";
       }
       var l = Math.max(
-        vpo.left + dm.width > document.viewport.getWidth()
-          ? vpo.left + this.input.getWidth() - dm.width
-          : vpo.left,
+        vpo.left + dm.width > document.viewport.getWidth() ?
+        vpo.left + this.input.getWidth() - dm.width :
+        vpo.left,
         document.viewport.getscrollLeft() + 5
       );
       this.ddcolor.style.left = l + "px";

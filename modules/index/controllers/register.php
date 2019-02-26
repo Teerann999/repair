@@ -56,6 +56,7 @@ class Controller extends \Gcms\Controller
             ));
             // แสดงฟอร์ม
             $section->appendChild(createClass('Index\Register\View')->render($request));
+            // คืนค่า HTML
 
             return $section->render();
         }

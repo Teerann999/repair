@@ -27,35 +27,30 @@ class Stream implements StreamInterface
      * @var array
      */
     protected $meta;
-
     /**
      * stream readable.
      *
      * @var bool
      */
     protected $readable;
-
     /**
      * stream seekable.
      *
      * @var bool
      */
     protected $seekable;
-
     /**
      * stream size.
      *
      * @var null|int
      */
     protected $size;
-
     /**
      * stream resource.
      *
      * @var resource
      */
     protected $stream;
-
     /**
      * stream writable.
      *

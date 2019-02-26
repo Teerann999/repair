@@ -55,6 +55,7 @@ class Controller extends \Gcms\Controller
             ));
             // แสดงตาราง
             $section->appendChild(createClass('Index\Language\View')->render($request));
+            // คืนค่า HTML
 
             return $section->render();
         }

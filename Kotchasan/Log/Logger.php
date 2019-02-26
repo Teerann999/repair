@@ -28,7 +28,6 @@ class Logger extends AbstractLogger implements LoggerInterface
      * @var Singleton สำหรับเรียกใช้ class นี้เพียงครั้งเดียวเท่านั้น
      */
     protected static $instance = null;
-
     /**
      * Log Levels.
      *
@@ -44,7 +43,6 @@ class Logger extends AbstractLogger implements LoggerInterface
         LogLevel::INFO => 6,
         LogLevel::DEBUG => 7,
     );
-
     /**
      * รูปแบบของ log.
      *

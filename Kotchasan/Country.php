@@ -2,10 +2,10 @@
 /**
  * @filesource Kotchasan/Country.php
  *
- * @see http://www.kotchasan.com/
- *
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
+ *
+ * @see http://www.kotchasan.com/
  */
 
 namespace Kotchasan;
@@ -290,10 +290,11 @@ class Country
      * อ่านชื่อประเทศจาก ISO ตามภาษา (ถ้าไม่มีใช้ภาษาอังกฤษ)
      * คืนค่าว่างถ้าไม่พบ.
      *
+     * @assert ('TH') [==] 'ไทย'
+     *
      * @param int $iso
      *
      * @return string
-     * @assert ('TH') [==] 'ไทย'
      */
     public static function get($iso)
     {

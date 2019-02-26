@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @filesource Kotchasan/Kotchasan.php
  *
@@ -25,21 +26,18 @@ class Kotchasan extends Kotchasan\KBase
      * @var string
      */
     public $char_set = 'utf-8';
-
     /**
      * Controller หลัก
      *
      * @var string
      */
     public $defaultController = 'Index\Index\Controller';
-
     /**
      * Router หลัก
      *
      * @var string
      */
     public $defaultRouter = 'Kotchasan\Router';
-
     /**
      * @var Singleton สำหรับเรียกใช้ class นี้เพียงครั้งเดียวเท่านั้น
      */

@@ -7,7 +7,8 @@ return array(
   ),
   'CURRENCY_UNITS' => array(
     'THB' => 'Baht',
-    'USD' => 'Dollar'
+    'USD' => 'Dollar',
+    'LAK' => 'Kip'
   ),
   'DATE_FORMAT' => 'd M Y, H:i',
   'DATE_LONG' => array(
@@ -60,6 +61,7 @@ return array(
     11 => 'Nov',
     12 => 'Dec'
   ),
+  'Name' => 'Name Surname',
   'PERMISSIONS' => array(
     'can_config' => 'Can configure the system'
   ),

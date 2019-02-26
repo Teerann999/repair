@@ -23,47 +23,38 @@ class Pdf extends \PDF\FPDF
      * @var mixed
      */
     protected $B;
-
     /**
      * @var mixed
      */
     protected $I;
-
     /**
      * @var mixed
      */
     protected $U;
-
     /**
      * @var mixed
      */
     protected $css;
-
     /**
      * @var mixed
      */
     protected $cssClass;
-
     /**
      * @var mixed
      */
     protected $fontSize;
-
     /**
      * @var mixed
      */
     protected $lastBlock = true;
-
     /**
      * @var int
      */
     protected $lineHeight = 5;
-
     /**
      * @var mixed
      */
     protected $link = null;
-
     /**
      * @var mixed
      */

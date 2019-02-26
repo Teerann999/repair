@@ -25,28 +25,24 @@ class HtmlTable
      * @var string
      */
     private $caption;
-
     /**
      * แอเรย์เก็บ property ของตาราง.
      *
      * @var array
      */
     private $properties;
-
     /**
      * แอเรย์ของ TableRow เก็บแถวของตาราง (tbody).
      *
      * @var array
      */
     private $tbody;
-
     /**
      * แอเรย์ของ TableRow เก็บแถวของตาราง (tfoot).
      *
      * @var array
      */
     private $tfoot;
-
     /**
      * แอเรย์เก็บข้อมูลส่วน thead.
      *
@@ -204,7 +200,6 @@ class TableRow
      * @var array
      */
     private $properties;
-
     /**
      * แอเรย์เก็บรายการ cell ในแถว.
      *

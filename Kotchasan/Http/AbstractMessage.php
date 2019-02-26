@@ -26,12 +26,10 @@ abstract class AbstractMessage implements MessageInterface
      * @var array
      */
     protected $headers = array();
-
     /**
      * @var string
      */
     protected $protocol = '1.1';
-
     /**
      * @var StreamInterface
      */

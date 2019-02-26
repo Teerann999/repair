@@ -31,7 +31,7 @@ class Model extends \Kotchasan\Model
     public static function toDataTable()
     {
         return static::createQuery()
-            ->select('id', 'username', 'name', 'active', 'social', 'phone', 'status', 'create_date', 'lastvisited', 'visited', 'website')
+            ->select('id', 'username', 'name', 'active', 'social', 'phone', 'status', 'create_date', 'lastvisited', 'visited')
             ->from('user');
     }
 

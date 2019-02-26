@@ -30,7 +30,6 @@ class QueryBuilder extends \Kotchasan\Database\Query
      * @var bool
      */
     protected $toArray = false;
-
     /**
      * ตัวแปรเก็บพารามิเตอร์สำหรับการ bind.
      *
@@ -136,7 +135,7 @@ class QueryBuilder extends \Kotchasan\Database\Query
         }
         $result = $this->toArray()->execute();
 
-        return sizeof($result) == 1 ? (int) $result[0]['count'] : 0;
+        return count($result) == 1 ? (int) $result[0]['count'] : 0;
     }
 
     /**
@@ -258,7 +257,7 @@ class QueryBuilder extends \Kotchasan\Database\Query
         foreach (func_get_args() as $table) {
             $qs[] = $this->quoteTableName($table);
         }
-        if (sizeof($qs) > 0) {
+        if (count($qs) > 0) {
             $this->sqls['from'] = implode(', ', $qs);
         }
 
@@ -308,7 +307,7 @@ class QueryBuilder extends \Kotchasan\Database\Query
                 $sqls[] = "$match[1]`$match[3]`";
             }
         }
-        if (sizeof($sqls) > 0) {
+        if (count($sqls) > 0) {
             $this->sqls['group'] = implode(', ', $sqls);
         }
 
@@ -539,7 +538,7 @@ class QueryBuilder extends \Kotchasan\Database\Query
                 }
             }
         }
-        if (sizeof($qs) > 0) {
+        if (count($qs) > 0) {
             $this->sqls['function'] = 'customQuery';
             $this->sqls['select'] = implode(',', $qs);
         }
@@ -567,7 +566,7 @@ class QueryBuilder extends \Kotchasan\Database\Query
                 $sqls[] = 'COUNT('.($match[1] == '*' ? '*' : '`'.$match[1].'`').')'.(isset($match[3]) ? ' AS `'.$match[3].'`' : '');
             }
         }
-        if (sizeof($sqls) > 0) {
+        if (count($sqls) > 0) {
             $this->sqls['function'] = 'customQuery';
             $this->sqls['select'] = implode(', ', $sqls);
         }

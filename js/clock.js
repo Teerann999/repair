@@ -38,13 +38,7 @@
       if (Hour >= 24) {
         Hour = 0;
       }
-      this._setDisplay(
-        Hour.toString().leftPad(2, "0") +
-          ":" +
-          Minute.toString().leftPad(2, "0") +
-          ":" +
-          Second.toString().leftPad(2, "0")
-      );
+      this._setDisplay(Hour.toString().leftPad(2, "0") + ":" + Minute.toString().leftPad(2, "0") + ":" + Second.toString().leftPad(2, "0"));
       return this;
     },
     stop: function() {
@@ -84,12 +78,7 @@
         }
       }
       this._setDisplay(
-        Hour.toString().leftPad(2, "0") +
-          ":" +
-          Minute.toString().leftPad(2, "0") +
-          ":" +
-          Second.toString().leftPad(2, "0")
-      );
+        Hour.toString().leftPad(2, "0") + ":" + Minute.toString().leftPad(2, "0") + ":" + Second.toString().leftPad(2, "0"));
       if (Object.isFunction(this.options.onTimer)) {
         this.options.onTimer.call(this, Hour, Minute, Second);
       }

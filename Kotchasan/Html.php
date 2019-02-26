@@ -25,28 +25,24 @@ class Html extends \Kotchasan\KBase
      * @var array
      */
     public $attributes;
-
     /**
      * ตัวแปรเก็บ form object.
      *
      * @var \static
      */
     public static $form;
-
     /**
      * Javascript.
      *
      * @var array
      */
     protected $javascript;
-
     /**
      * แอเรย์ของข้อมูลภายใน tag.
      *
      * @var array
      */
     protected $rows;
-
     /**
      * ชื่อ tag.
      *
@@ -319,7 +315,7 @@ class Html extends \Kotchasan\KBase
             }
         }
 
-        return sizeof($attr) == 0 ? '' : ' '.implode(' ', $attr);
+        return count($attr) == 0 ? '' : ' '.implode(' ', $attr);
     }
 
     /**

@@ -8,6 +8,7 @@
  */
 var loader,
   modal = null;
+
 function send(target, query, callback, wait, c) {
   var req = new GAjax();
   req.initLoading(wait || "wait", false, c);
@@ -22,6 +23,7 @@ var hideModal = function() {
     modal.hide();
   }
 };
+
 function showModal(src, qstr, doClose, className) {
   send(src, qstr, function(xhr) {
     var ds = xhr.responseText.toJSON();
@@ -43,6 +45,7 @@ function showModal(src, qstr, doClose, className) {
     }
   });
 }
+
 function defaultSubmit(ds) {
   var _alert = "",
     _input = false,
@@ -60,15 +63,17 @@ function defaultSubmit(ds) {
     } else if (prop == "alert") {
       _alert = val;
     } else if (prop == "modal") {
-      if (modal && val == "close") {
-        modal.hide();
+      if (val == "close") {
+        if (modal) {
+          modal.hide();
+        }
+      } else {
+        if (!modal) {
+          modal = new GModal();
+        }
+        modal.show(val);
+        val.evalScript();
       }
-    } else if (prop == "showmodal") {
-      if (!modal) {
-        modal = new GModal();
-      }
-      modal.show(val);
-      val.evalScript();
     } else if (prop == "elem") {
       el = $E(val);
       if (el) {
@@ -115,11 +120,7 @@ function defaultSubmit(ds) {
       if (val == "") {
         el.valid();
       } else {
-        if (
-          val == "Please fill in" ||
-          val == "Please select" ||
-          val == "Please browse file"
-        ) {
+        if (val == "Please fill in" || val == "Please select" || val == "Please browse file") {
           val = trans(val);
           var label = el.findLabel();
           if (label) {
@@ -127,6 +128,8 @@ function defaultSubmit(ds) {
           } else {
             if (typeof el.placeholder != "undefined") {
               t = el.placeholder.strip_tags();
+            } else {
+              t = "";
             }
             if (t == "") {
               t = el.title.strip_tags();
@@ -140,6 +143,8 @@ function defaultSubmit(ds) {
         } else if (val == "this") {
           if (typeof el.placeholder != "undefined") {
             t = el.placeholder.strip_tags();
+          } else {
+            t = "";
           }
           if (t == "") {
             t = el.title.strip_tags();
@@ -192,6 +197,7 @@ function defaultSubmit(ds) {
     }
   }
 }
+
 function doFormSubmit(xhr) {
   var datas = xhr.responseText.toJSON();
   if (datas) {
@@ -200,6 +206,7 @@ function doFormSubmit(xhr) {
     console.log(xhr.responseText);
   }
 }
+
 function initWriteTab(id, sel) {
   function _doclick(sel) {
     forEach($E(id).getElementsByTagName("a"), function() {
@@ -274,6 +281,7 @@ var dataTableActionCallback = function(xhr) {
     console.log(xhr.responseText);
   }
 };
+
 function checkUsername() {
   var patt = /[a-zA-Z0-9@\.\-_]+/;
   var value = this.value;
@@ -287,6 +295,7 @@ function checkUsername() {
     this.invalid(this.title);
   }
 }
+
 function checkPassword() {
   var ids = this.id.split("_");
   var id = "&id=" + floatval($E(ids[0] + "_id").value);
@@ -306,6 +315,7 @@ function checkPassword() {
     this.Validator.invalid(this.Validator.title);
   }
 }
+
 function checkIdcard() {
   var value = this.value;
   var ids = this.id.split("_");
@@ -326,6 +336,7 @@ function checkIdcard() {
     }
   }
 }
+
 function initMailserver() {
   var doChanged = function() {
     var a = this.value.toInt();
@@ -337,14 +348,15 @@ function initMailserver() {
   el.addEvent("change", doChanged);
   doChanged.call(el);
 }
+
 function replaceURL(key, value) {
   var q,
     prop,
     urls = window.location
-      .toString()
-      .replace(/\#/g, "&")
-      .replace(/\?/g, "&")
-      .split("&"),
+    .toString()
+    .replace(/\#/g, "&")
+    .replace(/\?/g, "&")
+    .split("&"),
     new_url = new Object(),
     qs = Array(),
     l = urls.length;
@@ -368,10 +380,12 @@ function replaceURL(key, value) {
   }
   return urls[0] + "?" + qs.join("&");
 }
+
 function initSystem() {
   new Clock("local_time");
   new Clock("server_time");
 }
+
 function selectMenu(module) {
   forEach(document.querySelectorAll("#topmenu > ul > li"), function() {
     if ($G(this).hasClass(module)) {
@@ -388,6 +402,7 @@ function selectMenu(module) {
     }
   });
 }
+
 function loadJavascript(id, src) {
   var js,
     fjs = document.getElementsByTagName("script")[0];
@@ -399,6 +414,7 @@ function loadJavascript(id, src) {
   js.src = src;
   fjs.parentNode.insertBefore(js, fjs);
 }
+
 function initEditInplace(id, model, addbtn) {
   var patt = /list_([a-z]+)_([0-9]+)(_([0-9]+))?/;
   var o = {
@@ -426,6 +442,7 @@ function initEditInplace(id, model, addbtn) {
       return false;
     }
   };
+
   function _doAction(c) {
     var q = "",
       hs = patt.exec(this.id);
@@ -482,6 +499,7 @@ function initEditInplace(id, model, addbtn) {
       );
     }
   }
+
   function _initOrder() {
     new GSortTable(id, {
       tag: "li",
@@ -502,6 +520,7 @@ function initEditInplace(id, model, addbtn) {
       }
     });
   }
+
   function _doInitEditInplaceMethod(src) {
     var loading = true,
       move = false;
@@ -537,6 +556,7 @@ function initEditInplace(id, model, addbtn) {
   callClick(addbtn, _doAction);
   _doInitEditInplaceMethod(id);
 }
+
 function initLanguageTable(id) {
   forEach($G(id).elems("a"), function() {
     if ($G(this).hasClass("icon-copy")) {
@@ -548,6 +568,7 @@ function initLanguageTable(id) {
     }
   });
 }
+
 function initFirstRowNumberOnly(tr) {
   forEach($G(tr).elems("input"), function(item, index) {
     if (index == 0) {
@@ -557,34 +578,24 @@ function initFirstRowNumberOnly(tr) {
     }
   });
 }
-function initEditProfile(prefix, countries) {
+
+function initEditProfile(prefix) {
   prefix += prefix == "" ? "" : "_";
-  var countryChanged = function() {
-    var province = $E(prefix + "province"),
-      provinceID = $E(prefix + "provinceID");
-    if (countries.indexOf(this.value) === -1) {
-      if (provinceID) {
-        $G(provinceID.parentNode.parentNode).addClass("hidden");
+  $G(prefix + "country").addEvent('change', function(evt) {
+    var self = this;
+    self.addClass("wait");
+    new GAjax().send(WEB_URL + "index.php/index/model/province/toJSON", 'country=' + this.getValue(), function(xhr) {
+      self.removeClass("wait");
+      var items = xhr.responseText.toJSON(),
+        provinceID = $E(prefix + "provinceID");
+      if (items && provinceID) {
+        provinceID.setDatalist(items['provinceID']);
       }
-      if (province) {
-        $G(province.parentNode.parentNode).removeClass("hidden");
-      }
-    } else {
-      if (province) {
-        $G(province.parentNode.parentNode).addClass("hidden");
-      }
-      if (provinceID) {
-        $G(provinceID.parentNode.parentNode).removeClass("hidden");
-      }
-    }
-  };
-  new GMultiSelect([prefix + "country"], {
-    action: WEB_URL + "index.php/index/model/province/toJSON",
-    prefix: prefix,
-    onchange: countryChanged
+    });
   });
 }
 var createLikeButton;
+
 function initWeb(module) {
   module = module ? module + "/" : "";
   if (navigator.userAgent.indexOf("MSIE") > -1) {
@@ -635,10 +646,7 @@ function initWeb(module) {
     });
   }
   var fontSize = floatval(Cookie.get(module + "fontSize"));
-  document.body.set(
-    "data-fontSize",
-    floatval(document.body.getStyle("fontSize"))
-  );
+  document.body.set("data-fontSize", floatval(document.body.getStyle("fontSize")));
   if (fontSize > 5) {
     document.body.setStyle("fontSize", fontSize + "px");
   }

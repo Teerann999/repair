@@ -25,35 +25,30 @@ class Field extends \Kotchasan\Database\Db
      * @var string
      */
     public $table_alias;
-
     /**
      * ชื่อตาราง.
      *
      * @var string
      */
     public $table_name;
-
     /**
      * ชื่อของการเชื่อมต่อ ใช้สำหรับโหลด config จาก settings/database.php.
      *
      * @var string
      */
     protected $conn = 'mysql';
-
     /**
      * true ถ้ามาจากการ query, false ถ้าเป็นรายการใหม่.
      *
      * @var bool
      */
     protected $exists;
-
     /**
      * ชื่อฟิลด์ที่จะใช้เป็น Primary Key INT(11) AUTO_INCREMENT.
      *
      * @var string
      */
     protected $primaryKey = 'id';
-
     /**
      * ชื่อตาราง.
      *
@@ -179,7 +174,7 @@ class Field extends \Kotchasan\Database\Db
             $this->table_alias = $t;
         } elseif (preg_match('/([a-z0-9A-Z_]+)(\s+(as|AS))?\s+([a-zA-Z0-9]{1,})/', $this->table, $match)) {
             $this->table_name = $this->getFullTableName($match[1]);
-            $this->table_alias = sizeof($match[4]) < 3 ? $match[4] : '`'.$match[4].'`';
+            $this->table_alias = count($match[4]) < 3 ? $match[4] : '`'.$match[4].'`';
         } else {
             $this->table_name = $this->getFullTableName($this->table);
             $this->table_alias = '`'.$this->table.'`';

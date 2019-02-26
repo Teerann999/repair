@@ -69,6 +69,7 @@ if (defined('ROOT_PATH')) {
         }
     }
 }
+
 /**
  * ตรวจสอบฟิลด์.
  *
@@ -100,6 +101,7 @@ function indexExists($conn, $table_name, $index)
 
     return empty($result) ? false : true;
 }
+
 /**
  * @param $config
  * @param $file

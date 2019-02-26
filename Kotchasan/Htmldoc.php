@@ -25,21 +25,18 @@ class Htmldoc
      * @var string
      */
     private $docFile;
-
     /**
      * เนื้อหา.
      *
      * @var string
      */
     private $htmlBody;
-
     /**
      * HTML header.
      *
      * @var string
      */
     private $htmlHead;
-
     /**
      * title.
      *

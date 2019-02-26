@@ -23,12 +23,10 @@ class Accordion
      * @var mixed
      */
     private $datas;
-
     /**
      * @var mixed
      */
     private $id;
-
     /**
      * @var mixed
      */

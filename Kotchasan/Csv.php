@@ -23,17 +23,14 @@ class Csv
      * @var mixed
      */
     private $charset;
-
     /**
      * @var mixed
      */
     private $columns;
-
     /**
      * @var mixed
      */
     private $datas;
-
     /**
      * @var mixed
      */

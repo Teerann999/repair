@@ -26,7 +26,6 @@ class Config extends \Kotchasan\Config
      * @var int
      */
     public $cache_expire = 5;
-
     /**
      * สีของสมาชิกตามสถานะ.
      *
@@ -41,7 +40,6 @@ class Config extends \Kotchasan\Config
         5 => '#660000',
         6 => '#336600',
     );
-
     /**
      * ถ้ากำหนดเป็น true บัญชี Facebook จะเป็นบัญชีตัวอย่าง
      * ได้รับสถานะแอดมิน (สมาชิกใหม่) แต่อ่านได้อย่างเดียว.
@@ -49,28 +47,24 @@ class Config extends \Kotchasan\Config
      * @var bool
      */
     public $demo_mode = false;
-
     /**
      * App ID สำหรับการเข้าระบบด้วย Facebook https://gcms.in.th/howto/การขอ_app_id_จาก_facebook.html.
      *
      * @var string
      */
     public $facebook_appId = '';
-
     /**
      * Client ID สำหรับการเข้าระบบโดย Google.
      *
      * @var string
      */
     public $google_client_id = '';
-
     /**
      * รายชื่อฟิลด์จากตารางสมาชิก สำหรับตรวจสอบการ login.
      *
      * @var array
      */
     public $login_fields = array('username');
-
     /**
      * สถานะสมาชิก
      * 0 สมาชิกทั่วไป
@@ -82,7 +76,6 @@ class Config extends \Kotchasan\Config
         0 => 'สมาชิก',
         1 => 'ผู้ดูแลระบบ',
     );
-
     /*
      * คีย์สำหรับการเข้ารหัส ควรแก้ไขให้เป็นรหัสของตัวเอง
      * ตัวเลขหรือภาษาอังกฤษเท่านั้น ไม่น้อยกว่า 10 ตัว
@@ -93,7 +86,6 @@ class Config extends \Kotchasan\Config
      * @var string
      */
     public $password_key = '1245678912';
-
     /**
      * ไดเร็คทอรี่ template ที่ใช้งานอยู่ ตั้งแต่ DOCUMENT_ROOT
      * ไม่ต้องมี / ทั้งเริ่มต้นและปิดท้าย
@@ -102,4 +94,29 @@ class Config extends \Kotchasan\Config
      * @var string
      */
     public $skin = 'skin/default';
+    /**
+     * สามารถขอรหัสผ่านในหน้าเข้าระบบได้.
+     *
+     * @var bool
+     */
+    public $user_forgot = 0;
+    /**
+     * บุคคลทั่วไป สามารถสมัครสมาชิกได้.
+     *
+     * @var bool
+     */
+    public $user_register = 0;
+    /**
+     * ส่งอีเมลต้อนรับ เมื่อบุคคลทั่วไปสมัครสมาชิก
+     *
+     * @var bool
+     */
+    public $welcome_email = 0;
+    /**
+     * การเข้าระบบต่อ 1 user
+     * ค่าเริ่มต้น true (แนะนำ) สามารถเข้าระบบได้เพียงคนเดียวต่อ 1 user คนที่อยู่ในระบบก่อนหน้าจะถูกบังคับให้ออกจากระบบ.
+     *
+     * @var bool
+     */
+    public $member_only = true;
 }

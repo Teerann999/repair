@@ -25,7 +25,6 @@ class Schema
      * @var Driver
      */
     private $db;
-
     /**
      * รายการ Schema ที่โหลดแล้ว.
      *
