@@ -116,6 +116,7 @@ CREATE TABLE `{prefix}_repair_status` (
 CREATE TABLE `{prefix}_user` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `salt` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `token` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
