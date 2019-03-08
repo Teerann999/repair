@@ -1,4 +1,5 @@
 <?php
+
 /* language/la.php */
 return array(
   'Add' => 'ເພີ່ມ',
@@ -14,7 +15,7 @@ return array(
   'Background image' => 'ພາບພື້ນຫລັງ',
   'BOOLEANS' => array(
     0 => 'ປິດໃຊ້ວຽກ',
-    1 => 'ເປີດໃຊ້ວຽກ'
+    1 => 'ເປີດໃຊ້ວຽກ',
   ),
   'Browse file' => 'ເລືອກໄຟ',
   'Browse image uploaded, type :type size :width*:height pixel' => 'ເລືອກຮູບພາບອັບໂຫຼດຊະນິດ :type ຂະໜາດ :width*:height ຟິດເຊວล',
@@ -35,7 +36,7 @@ return array(
   'CURRENCY_UNITS' => array(
     'THB' => 'ບາດ',
     'USD' => 'ດໍລ່າ',
-    'LAK' => 'ກີບ'
+    'LAK' => 'ກີບ',
   ),
   'Customer' => 'ລູກຄ້າ',
   'Customer Name' => 'ຊື່ລູກຄ້າ',
@@ -48,7 +49,7 @@ return array(
     3 => 'ພຸດ',
     4 => 'ພະຫັດ',
     5 => 'ສຸກ',
-    6 => 'ເສົາ'
+    6 => 'ເສົາ',
   ),
   'DATE_SHORT' => array(
     0 => 'ທ.',
@@ -57,7 +58,7 @@ return array(
     3 => 'ພ.',
     4 => 'ພ.',
     5 => 'ສ.',
-    6 => 'ສ.'
+    6 => 'ສ.',
   ),
   'Delete' => 'ລືບ',
   'Description' => 'ຄຳອະທິບາຍ',
@@ -89,7 +90,7 @@ return array(
   'Height' => 'ສູງ',
   'Home' => 'ໜ້າຫຼັກ',
   'How to define user authentication for mail servers. If you enable it, you must configure below correctly.' => 'ກຳນົດວິທີການກວດສອບຜູ້ໃຊ້ສຳລັບເມນເຊິບເວີຫາກທ່ານເປີດໃຊ້ການທ່ານຕ້ອງກຳນົດຄ່າຕ່າງໆດ້ານລຸ່ມຖືກຕ້ອງ',
-  'Identification number' => 'ເລກບັດປະຊາຊົນ',
+  'Identification No.' => 'ເລກບັດປະຊາຊົນ',
   'Identity of the repair machine used to separate items.' => 'ລະຫັດປະຈໍາຕົວຂອງເຄື່ອງຊ່ອມໃຊ້ແຍກແຕ່ລະລາຍະການອອກຈາກກັນ',
   'Image' => 'ຮູບພາບ',
   'Image size is in pixels' => 'ຂະໜາດຂອງຮູບພາບເປັນພິກເຊວ',
@@ -113,7 +114,7 @@ return array(
   'Mail server settings' => 'ຄ່າກຳນົດຂອງເມວເຊີບເວີ',
   'MAIL_PROGRAMS' => array(
     0 => 'ສົ່ງຈົດໝາຍດ້ວຍ PHP',
-    1 => 'ສົ່ງຈົດໝາຍດ້ວຍ PHPMailer (ແນະນຳ)'
+    1 => 'ສົ່ງຈົດໝາຍດ້ວຍ PHPMailer (ແນະນຳ)',
   ),
   'Manage languages' => 'ຈັດການພາສາ',
   'Member list' => 'ລາຍຊື່ສະມາຊິກ',
@@ -132,7 +133,7 @@ return array(
     9 => 'ກັນຍາ',
     10 => 'ຕຸລາ',
     11 => 'ພະຈິກ',
-    12 => 'ທັນວາ'
+    12 => 'ທັນວາ',
   ),
   'MONTH_SHORT' => array(
     1 => 'ມ.ກ.',
@@ -146,7 +147,7 @@ return array(
     9 => 'ກ.ຍ.',
     10 => 'ຕ.ລ.',
     11 => 'ພ.ຈ.',
-    12 => 'ທ.ວ.'
+    12 => 'ທ.ວ.',
   ),
   'Name' => 'ຊື່ ນາມສະກຸນ',
   'New' => 'ໃຫມ່',
@@ -160,7 +161,7 @@ return array(
   'Passwords must be at least four characters' => 'ລະຫັດຜ່ານຕ້ອງບໍ່ຕ່ຳກວ່າ 4 ຕົວອັກສອນ',
   'Permission' => 'ສິດໃນການໃຊ້ວຽກ',
   'PERMISSIONS' => array(
-    'can_config' => 'ສາມາດຕັ້ງຄ່າລະບົບໄດ້'
+    'can_config' => 'ສາມາດຕັ້ງຄ່າລະບົບໄດ້',
   ),
   'Phone' => 'ໂທລະສັບ',
   'Please fill in' => 'ກະລຸນາຕື່ມຂໍ້ມູນໃສ່',
@@ -188,7 +189,7 @@ return array(
   'Repair status' => 'ສະຖານະການສ້ອມແປງ',
   'Repair system' => 'ລະບົບຊ່ອມແຊມ',
   'REPAIR_CATEGORIES' => array(
-    'repairstatus' => 'ສະຖານະການສ້ອມແປງ'
+    'repairstatus' => 'ສະຖານະການສ້ອມແປງ',
   ),
   'Repairman' => 'ຊ່າງຊ່ອມ',
   'Repassword' => 'ຢືນຢັນລະຫັດຜ່ານ',
@@ -207,7 +208,7 @@ return array(
   'Sex' => 'ເພດ',
   'SEXES' => array(
     'f' => 'ຍິງ',
-    'm' => 'ຊາຍ'
+    'm' => 'ຊາຍ',
   ),
   'Short description about your website' => 'ຂໍ້ຄວາມສັ້ນໆ ອະທິບາຍວ່າເປັນເວັບໄຊກ່ຽວກັບຫຍັງ',
   'Show' => 'ສະແດງ',
@@ -219,7 +220,7 @@ return array(
   'skip to content' => 'ຂ້າມໄປຍັງເນື້ອຫາ',
   'SMTPSECURIES' => array(
     '' => 'ການເຊື່ອມຕໍ່ແບບປົກກະຕິ',
-    'ssl' => 'ການເຊື່ອມຕໍ່ທີ່ປອດໄຟ (SSL)'
+    'ssl' => 'ການເຊື່ອມຕໍ່ທີ່ປອດໄຟ (SSL)',
   ),
   'Sorry' => 'ຂໍໂທດ',
   'Sorry, Item not found It&#39;s may be deleted' => 'ຂໍໂທດ ບໍ່ພົບລາຍການທີ່ເລືອກ ລາຍການນີ້ອາດຖືກລຶບໄປແລ້ວ',
@@ -258,5 +259,5 @@ return array(
   'You want to' => 'ທ່ານຕ້ອງການ',
   'Your message was sent successfully' => 'ສົ່ງຂໍ້ຄວາມໄປຫາບຸກຄົນທີ່ກ່ຽວຂ້ອງ.',
   'Your new password is' => 'ລະຫັດຜ່ານໃໝ່ຂອງທ່ານຄື',
-  'Zipcode' => 'ລະຫັດໄປສະນີ'
+  'Zipcode' => 'ລະຫັດໄປສະນີ',
 );
