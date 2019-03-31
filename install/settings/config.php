@@ -3,7 +3,7 @@
 /* config.php */
 
 return array(
-    'version' => '2.0.2',
+    'version' => '2.0.3',
     'web_title' => 'Repair',
     'web_description' => 'ระบบบันทึกข้อมูลงานซ่อม',
     'timezone' => 'Asia/Bangkok',
@@ -19,5 +19,7 @@ return array(
     ),
     'user_forgot' => 0,
     'user_register' => 0,
-    'welcome_email' => 0
+    'welcome_email' => 0,
+    'currency_unit' => 'THB',
+    'repair_first_status' => 1,
 );
