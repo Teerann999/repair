@@ -23,7 +23,7 @@ CREATE TABLE `{prefix}_category` (
   `category_id` int(11) NOT NULL,
   `topic` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `color` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `published` tinyint(1) NOT NULL DEFAULT '1'
+  `published` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -84,7 +84,7 @@ CREATE TABLE `{prefix}_repair` (
   `job_description` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `create_date` datetime NOT NULL,
   `appointment_date` date NOT NULL,
-  `appraiser` decimal(10,2) NOT NULL
+  `appraiser` decimal(10,2) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
