@@ -10,15 +10,28 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
+-- --------------------------------------------------------
+--
+-- Table structure for table `{prefix}_language`
+--
 
+CREATE TABLE `{prefix}_language` (
+  `id` int(11) NOT NULL,
+  `key` text COLLATE utf8_unicode_ci NOT NULL,
+  `type` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+  `owner` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `js` tinyint(1) NOT NULL,
+  `th` text COLLATE utf8_unicode_ci,
+  `en` text COLLATE utf8_unicode_ci
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-
+-- --------------------------------------------------------
 --
 -- Table structure for table `{prefix}_category`
 --
 
 CREATE TABLE `{prefix}_category` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int(11) NOT NULL,
   `type` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `category_id` int(11) NOT NULL,
   `topic` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
@@ -48,26 +61,10 @@ INSERT INTO `{prefix}_category` (`id`, `type`, `category_id`, `topic`, `color`, 
 --
 
 CREATE TABLE `{prefix}_inventory` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int(11) NOT NULL,
   `equipment` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `serial` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `create_date` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `{prefix}_language`
---
-
-CREATE TABLE `{prefix}_language` (
-  `id` int(11) NOT NULL,
-  `key` text COLLATE utf8_unicode_ci NOT NULL,
-  `th` text COLLATE utf8_unicode_ci,
-  `en` text COLLATE utf8_unicode_ci,
-  `owner` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `type` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
-  `js` tinyint(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -83,7 +80,7 @@ CREATE TABLE `{prefix}_repair` (
   `job_id` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
   `job_description` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `create_date` datetime NOT NULL,
-  `appointment_date` date NOT NULL,
+  `appointment_date` date DEFAULT NULL,
   `appraiser` decimal(10,2) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -101,7 +98,7 @@ CREATE TABLE `{prefix}_repair_status` (
   `comment` varchar(1000) NOT NULL,
   `member_id` int(11) NOT NULL,
   `create_date` datetime NOT NULL,
-  `cost` decimal(10,2) NOT NULL
+  `cost` decimal(10,2) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -111,7 +108,7 @@ CREATE TABLE `{prefix}_repair_status` (
 --
 
 CREATE TABLE `{prefix}_user` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int(11) NOT NULL,
   `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `salt` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -137,7 +134,7 @@ CREATE TABLE `{prefix}_user` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- dump ตาราง `{prefix}_user`
+-- Dumping data for table `{prefix}_user`
 --
 
 INSERT INTO `{prefix}_user` (`id`, `username`, `salt`, `password`, `status`, `permission`, `name`, `sex`, `id_card`, `address`, `phone`, `provinceID`, `zipcode`, `create_date`) VALUES
@@ -154,15 +151,22 @@ ALTER TABLE `{prefix}_category`
   ADD KEY `category_id` (`category_id`);
 
 --
--- Indexes for table `{prefix}_inventory`
---
-ALTER TABLE `{prefix}_inventory`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `{prefix}_language`
 --
 ALTER TABLE `{prefix}_language`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `{prefix}_user`
+--
+ALTER TABLE `{prefix}_user`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `username` (`username`);
+
+--
+-- Indexes for table `{prefix}_inventory`
+--
+ALTER TABLE `{prefix}_inventory`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -176,46 +180,41 @@ ALTER TABLE `{prefix}_repair`
 -- Indexes for table `{prefix}_repair_status`
 --
 ALTER TABLE `{prefix}_repair_status`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `{prefix}_user`
---
-ALTER TABLE `{prefix}_user`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `username` (`username`);
-
---
--- AUTO_INCREMENT for dumped tables
---
+  ADD KEY `repair_id` (`repair_id`);
 
 --
 -- AUTO_INCREMENT for table `{prefix}_category`
 --
 ALTER TABLE `{prefix}_category`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `{prefix}_inventory`
---
-ALTER TABLE `{prefix}_inventory`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `{prefix}_language`
 --
 ALTER TABLE `{prefix}_language`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `{prefix}_user`
+--
+ALTER TABLE `{prefix}_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `{prefix}_repair`
 --
 ALTER TABLE `{prefix}_repair`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `{prefix}_repair_status`
 --
 ALTER TABLE `{prefix}_repair_status`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `{prefix}_user`
+-- AUTO_INCREMENT for table `{prefix}_inventory`
 --
-ALTER TABLE `{prefix}_user`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `{prefix}_inventory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
