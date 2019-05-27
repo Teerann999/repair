@@ -198,6 +198,7 @@ return array(
   'scroll to top' => 'ເລື່ອນຂື້ນດ້ານເທິງ',
   'Search' => 'ຄົ້ນຫາ',
   'Search <strong>:search</strong> found :count entries, displayed :start to :end, page :page of :total pages' => 'ຄົ້ນຫາ <strong>:search</strong> ພົບ :count ລາຍການ ສະແດງລາຍການທີ່:start - :end ໜ້າທີ່:page ຈາກທັງໝົດ :total ໜ້າ',
+  'Send a message to the repairman when a new transaction is made' => 'ສົ່ງຂໍ້ຄວາມເຕືອນໃຫ້ຊ່າງຊ່ອມເມື່ອມີການເຮັດທຸລະກໍາໃຫມ່.',
   'Send a welcome email to new members' => 'ສົ່ງອີເມວຕ້ອນຮັບກັບສະມາຊິກໃຫມ່',
   'Serial/Registration number' => 'ຫມາຍເລກເຄື່ອງ/ເລກທະບຽນ',
   'Set the application for send an email' => 'ເລືອກໂປຮແກຮມທີ່ໃຊ້ໃນການສົ່ງອີເມວ',

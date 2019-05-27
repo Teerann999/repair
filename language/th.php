@@ -198,6 +198,7 @@ return array(
   'scroll to top' => 'เลื่อนขึ้นด้านบน',
   'Search' => 'ค้นหา',
   'Search <strong>:search</strong> found :count entries, displayed :start to :end, page :page of :total pages' => 'ค้นหา <strong>:search</strong> พบ :count รายการ แสดงรายการที่ :start - :end หน้าที่ :page จากทั้งหมด :total หน้า',
+  'Send a message to the repairman when a new transaction is made' => 'ส่งข้อความแจ้งเตือนไปยังช่างซ่อมเมื่อมีการทำรายการใหม่',
   'Send a welcome email to new members' => 'ส่งข้อความต้อนรับสมาชิกใหม่',
   'Serial/Registration number' => 'หมายเลขเครื่อง/เลขทะเบียน',
   'Set the application for send an email' => 'เลือกโปรแกรมที่ใช้ในการส่งอีเมล',
