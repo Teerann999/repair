@@ -166,11 +166,21 @@ class Model extends \Kotchasan\Model
                             // บันทึกรายการแจ้งซ่อม
                             $log['repair_id'] = $db->insert($repair_table, $repair);
                             $log['status'] = isset(self::$cfg->repair_first_status) ? self::$cfg->repair_first_status : 1;
+                            // ส่งข้อความแจ้งเตือนทาง Line ไปยังช่างซ่อม
+                            $message = Language::get('Get a repair').' '.WEB_URL.'index.php?module=repair-detail&id='.$log['repair_id'];
+                            $err = \Gcms\Line::send($message, self::$cfg->line_repair_token);
+                            if ($err == '') {
+                                $ret['alert'] = Language::get('Saved successfully');
+                            } else {
+                                $ret['alert'] = $err;
+                            }
                         } else {
                             // แก้ไขรายการแจ้งซ่อม
                             $db->update($repair_table, $index->id, $repair);
                             $log['repair_id'] = $index->id;
                             $repair['job_id'] = $index->job_id;
+                            // คืนค่า
+                            $ret['alert'] = Language::get('Saved successfully');
                         }
                         // บันทึกประวัติการทำรายการ
                         if (empty($index->status_id)) {
@@ -178,8 +188,7 @@ class Model extends \Kotchasan\Model
                         } else {
                             $db->update($repair_status_table, $index->status_id, $log);
                         }
-                        // คืนค่า
-                        $ret['alert'] = Language::get('Saved successfully');
+                        // redirect
                         $ret['location'] = 'index.php?module=repair-setup';
                         if ($request->post('print')->toString() == 1) {
                             $ret['open'] = WEB_URL.'modules/repair/print.php?id='.$repair['job_id'];

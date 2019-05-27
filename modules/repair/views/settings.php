@@ -84,6 +84,19 @@ class View extends \Gcms\View
             'value' => isset(self::$cfg->currency_unit) ? self::$cfg->currency_unit : 'THB',
         ));
         $fieldset = $form->add('fieldset', array(
+            'titleClass' => 'icon-line',
+            'title' => '{LNG_LINE Notify}',
+        ));
+        // line_repair_token
+        $fieldset->add('text', array(
+            'id' => 'line_repair_token',
+            'labelClass' => 'g-input icon-password',
+            'itemClass' => 'item',
+            'label' => '{LNG_Access token} <a href="https://gcms.in.th/index.php?module=howto&id=367" class=icon-help></a>',
+            'comment' => '{LNG_Send a message to the repairman when a new transaction is made}',
+            'value' => isset(self::$cfg->line_repair_token) ? self::$cfg->line_repair_token : '',
+        ));
+        $fieldset = $form->add('fieldset', array(
             'class' => 'submit',
         ));
         // submit

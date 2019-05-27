@@ -676,6 +676,9 @@ header .inline {
   width: 2em;
   text-align: center;
 }
+.repair_detail .item {
+  border-bottom: 1px dashed #eee;
+}
 
 /* tablet, small device */
 

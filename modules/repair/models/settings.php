@@ -42,6 +42,7 @@ class Model extends \Kotchasan\KBase
                 $config->phone = $request->post('phone')->topic();
                 $config->address = $request->post('address')->topic();
                 $config->currency_unit = $request->post('currency_unit')->topic();
+                $config->line_repair_token = $request->post('line_repair_token')->topic();
                 // save config
                 if (Config::save($config, ROOT_PATH.'settings/config.php')) {
                     // คืนค่า
