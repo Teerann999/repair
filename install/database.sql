@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 31, 2019 at 03:13 PM
+-- Generation Time: Jun 16, 2019 at 01:54 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.0.32
 
@@ -33,7 +33,7 @@ CREATE TABLE `{prefix}_language` (
 CREATE TABLE `{prefix}_category` (
   `id` int(11) NOT NULL,
   `type` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `category_id` int(11) NOT NULL,
+  `category_id` int(11) DEFAULT 0,
   `topic` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `color` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
   `published` tinyint(1) NOT NULL DEFAULT 1
@@ -124,13 +124,13 @@ CREATE TABLE `{prefix}_user` (
   `province` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `zipcode` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `country` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `visited` int(11) UNSIGNED DEFAULT 0,
+  `visited` int(11) DEFAULT 0,
   `lastvisited` int(11) DEFAULT 0,
   `session_id` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   `ip` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  `social` tinyint(1) NOT NULL DEFAULT 0
+  `active` tinyint(1) DEFAULT 1,
+  `social` tinyint(1) DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --

@@ -10,8 +10,8 @@
 
 namespace Repair\Settings;
 
+use Gcms\Config;
 use Gcms\Login;
-use Kotchasan\Config;
 use Kotchasan\Http\Request;
 use Kotchasan\Language;
 
