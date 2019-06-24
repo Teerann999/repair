@@ -45,10 +45,12 @@ class Controller extends \Kotchasan\KBase
         );
         // repair module
         $menu->addTopLvlMenu('repair', '{LNG_Repair Jobs}', null, $submenus, 'member');
-        // ตั้งค่าโมดูล
-        $menu->add('settings', '{LNG_Repair settings}', 'index.php?module=repair-settings');
-        foreach (Language::get('REPAIR_CATEGORIES') as $key => $value) {
-            $menu->add('settings', $value, 'index.php?module=repair-category&amp;typ='.$key);
+        if (Login::checkPermission($login, 'can_config')) {
+            // ตั้งค่าโมดูล
+            $menu->add('settings', '{LNG_Repair settings}', 'index.php?module=repair-settings');
+            foreach (Language::get('REPAIR_CATEGORIES') as $key => $value) {
+                $menu->add('settings', $value, 'index.php?module=repair-category&amp;typ='.$key);
+            }
         }
     }
 

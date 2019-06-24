@@ -111,7 +111,7 @@ function defaultSubmit(ds) {
       if (val == "") {
         el.valid();
       } else {
-        if (val == "Please fill in" || val == "Please select" || val == "Please browse file" || val == "already exist") {
+        if (val == "Please fill in" || val == "Please select" || val == "Please browse file" || val == "already exist" || "Please select at least one item") {
           var label = el.findLabel();
           if (label) {
             t = label.innerHTML.strip_tags();
@@ -128,12 +128,14 @@ function defaultSubmit(ds) {
           if (t != "") {
             if (val == "already exist") {
               val = t + " " + trans(val);
+            } else if (val == "Please select at least one item") {
+              val = PLEASE_SELECT_AT_LEAST_ONE_ITEM.replace('XXX', t)
             } else {
               val = trans(val) + " " + t;
             }
+          } else {
+            val = trans(val);
           }
-        } else if (val == "Please select at least one item") {
-          val = trans(val);
         } else if (val == "this") {
           if (typeof el.placeholder != "undefined") {
             t = el.placeholder.strip_tags();
@@ -587,6 +589,24 @@ function initEditProfile(prefix) {
       }
     });
   });
+}
+
+function initCalendarRange(minDate, maxDate, minChanged) {
+  if ($E(minDate) && $E(maxDate)) {
+    $G(minDate).addEvent("change", function() {
+      if (this.value != "") {
+        $E(maxDate).calendar.minDate(this.value);
+        if (Object.isFunction(minChanged)) {
+          minChanged.call($E(minDate), $E(maxDate));
+        }
+      }
+    });
+    $G(maxDate).addEvent("change", function() {
+      if (this.value != "") {
+        $E(minDate).calendar.maxDate(this.value);
+      }
+    });
+  }
 }
 var createLikeButton;
 
