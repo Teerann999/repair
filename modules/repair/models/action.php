@@ -27,6 +27,8 @@ class Model extends \Kotchasan\Model
      * รับค่า submit จากฟอร์ม action.
      *
      * @param Request $request
+     *
+     * @return JSON
      */
     public function submit(Request $request)
     {

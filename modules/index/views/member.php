@@ -65,8 +65,8 @@ class View extends \Gcms\View
                     'text' => '{LNG_With selected}',
                     'options' => array(
                         'sendpassword' => '{LNG_Get new password}',
-                        'active_1' => '{LNG_Can login}',
-                        'active_0' => '{LNG_Unable to login}',
+                        'active_1' => '{LNG_Current staff}',
+                        'active_0' => '{LNG_Past employees}',
                         'delete' => '{LNG_Delete}',
                     ),
                 ),

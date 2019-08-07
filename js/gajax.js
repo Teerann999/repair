@@ -15,7 +15,7 @@ window.$K = (function() {
       return true;
     },
     isMobile: function() {
-      return navigator.userAgent.match(/(iPhone|iPod|iPad|Android|webOS|BlackBerry|Windows Phone)/i);
+      return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
     },
     init: function(element) {
       forEach(element.querySelectorAll("input,textarea"), function(elem) {
@@ -139,7 +139,7 @@ window.$K = (function() {
                 }
                 if (obj.dataset["keyboard"]) {
                   obj.pattern = new RegExp("^(?:[" + obj.dataset["keyboard"].preg_quote() + "]+)$");
-                  if (obj.type == "integer" || obj.type == "currency" || obj.type == "number") {
+                  if (obj.type == "integer" || obj.type == "currency") {
                     new GInput(text, obj.dataset["keyboard"], function() {
                       var val = floatval(this.value);
                       if (obj.min) {
@@ -186,25 +186,31 @@ window.$K = (function() {
                       preview = $E(this.get("data-preview")),
                       max = floatval(input.get("data-max")),
                       validImageTypes = ['image/gif', 'image/jpeg', 'image/jpg', 'image/png'];
-                    preview.innerHTML = '';
+                    if (preview) {
+                      preview.innerHTML = '';
+                    }
                     forEach(input.files, function() {
                       if (max > 0 && this.size > max) {
                         input.invalid(input.title);
                       } else {
                         files.push(this.name);
-                        hs = /\.([a-z0-9]+)$/.exec(this.name.toLowerCase());
-                        var div = document.createElement('div');
-                        div.className = 'file-thumb';
-                        div.innerHTML = hs[1];
-                        preview.appendChild(div);
                         input.valid();
-                        if (preview && validImageTypes.includes(this.type) && window.FileReader) {
-                          var r = new FileReader();
-                          r.onload = function(evt) {
-                            div.innerHTML = '';
-                            div.style.backgroundImage = 'url(' + evt.target.result + ')';
-                          };
-                          r.readAsDataURL(this);
+                        if (preview) {
+                          hs = /\.([a-z0-9]+)$/.exec(this.name.toLowerCase());
+                          var div = document.createElement('div');
+                          div.className = 'file-thumb';
+                          if (hs) {
+                            div.innerHTML = hs[1];
+                          }
+                          preview.appendChild(div);
+                          if (validImageTypes.includes(this.type) && window.FileReader) {
+                            var r = new FileReader();
+                            r.onload = function(evt) {
+                              div.innerHTML = '';
+                              div.style.backgroundImage = 'url(' + evt.target.result + ')';
+                            };
+                            r.readAsDataURL(this);
+                          }
                         }
                       }
                     });
@@ -1267,29 +1273,28 @@ window.$K = (function() {
           c = !c ? false : c;
           input.addEventListener(e, f, c);
         } else if (input.attachEvent) {
-          tmp = input;
-          tmp["e" + e + f] = f;
-          tmp[e + f] = function() {
-            tmp["e" + e + f](window.event);
+          input["e" + e + f] = f;
+          input[e + f] = function() {
+            input["e" + e + f](window.event);
           };
-          tmp.attachEvent("on" + e, tmp[e + f]);
+          input.attachEvent("on" + e, input[e + f]);
         }
       });
       return this;
     },
-    removeEvent: function(t, f) {
-      if (this.removeEventListener) {
-        this.removeEventListener(
-          t == "mousewheel" && window.gecko ? "DOMMouseScroll" : t,
-          f,
-          false
-        );
-      } else if (this.detachEvent) {
-        var tmp = this;
-        tmp.detachEvent("on" + t, tmp[t + f]);
-        tmp["e" + t + f] = null;
-        tmp[t + f] = null;
-      }
+    removeEvent: function(t, f, c) {
+      var ts = t.split(" "),
+        input = this;
+      forEach(ts, function(e) {
+        if (input.removeEventListener) {
+          c = !c ? false : c;
+          input.removeEventListener(e == "mousewheel" && window.gecko ? "DOMMouseScroll" : e, f, c);
+        } else if (input.detachEvent) {
+          input.detachEvent("on" + e, input[e + f]);
+          input["e" + e + f] = null;
+          input[e + f] = null;
+        }
+      });
       return this;
     },
     highlight: function(o) {
@@ -2537,17 +2542,18 @@ window.$K = (function() {
         self.options.endDrag.call(self.src);
       }
 
-      function _mousedown(e) {
-        var delay;
-        var temp = this;
+      function _mousedown(event) {
+        var delay,
+          src = GEvent.element(event),
+          temp = this;
 
-        function _cancelClick(e) {
+        function _cancelClick(event) {
           window.clearTimeout(delay);
           this.removeEvent("mouseup", _cancelClick);
         }
-        if (GEvent.isLeftClick(e)) {
-          GEvent.stop(e);
-          self.mousePos = GEvent.pointer(e);
+        if (src == self.src && GEvent.isLeftClick(event)) {
+          GEvent.stop(event);
+          self.mousePos = GEvent.pointer(event);
           if (this.setCapture) {
             this.setCapture();
           }
@@ -2559,6 +2565,8 @@ window.$K = (function() {
             self.options.beginDrag.call(self);
           }, 100);
           temp.addEvent("mouseup", _cancelClick);
+        } else if ($K.isMobile()) {
+          src.callEvent('click');
         }
       }
       this.src.addEvent("mousedown", _mousedown);

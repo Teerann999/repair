@@ -11,7 +11,7 @@
 namespace Repair\Operator;
 
 /**
- * อ่านรายชื่อช่างซ่อมทั้งหมด.
+ * อ่านรายชื่อช่างซ่อมทั้งหมด
  *
  * @author Goragod Wiriya <admin@goragod.com>
  *
@@ -34,7 +34,10 @@ class Model extends \Kotchasan\KBase
         return \Kotchasan\Model::createQuery()
             ->select('id', 'name')
             ->from('user')
-            ->where(array('permission', 'LIKE', '%,can_repair,%'))
+            ->where(array(
+                array('active', 1),
+                array('permission', 'LIKE', '%,can_repair,%'),
+            ))
             ->order('id')
             ->toArray()
             ->execute();

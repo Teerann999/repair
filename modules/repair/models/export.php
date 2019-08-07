@@ -27,10 +27,9 @@ class Model extends \Kotchasan\Model
      *
      * @return object
      */
-    public static function get($job_id)
+    public static function get($id)
     {
-        $model = new static();
-        $sql = $model->db()->createQuery()
+        $sql = static::createQuery()
             ->select('R.*', 'U.name', 'U.phone', 'U.address', 'U.zipcode', 'U.provinceID', 'V.equipment', 'V.serial', 'S.status', 'S.comment', 'S.operator_id')
             ->from('repair R')
             ->join('repair_status S', 'LEFT', array('S.repair_id', 'R.id'))
@@ -39,7 +38,7 @@ class Model extends \Kotchasan\Model
             ->where(array('R.job_id', $job_id))
             ->order('S.id ASC');
 
-        return $model->db()->createQuery()
+        return static::createQuery()
             ->from(array($sql, 'Q'))
             ->groupBy('Q.id')
             ->first();

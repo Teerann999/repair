@@ -13,6 +13,7 @@ return array(
     'tables' => array(
         'user' => 'user',
         'category' => 'category',
+        'language' => 'language',
         'repair' => 'repair',
         'inventory' => 'inventory',
     ),

@@ -13,7 +13,7 @@ namespace Gcms;
 use Kotchasan\Curl;
 
 /**
- *  LINE Notify.
+ *  LINE Notify Class.
  *
  * @author Goragod Wiriya <admin@goragod.com>
  *

@@ -25,7 +25,7 @@ use Kotchasan\Language;
 class Controller extends \Gcms\Controller
 {
     /**
-     * ตั้งค่าโมดูล.
+     * ตั้งค่าโมดูล
      *
      * @param Request $request
      *
@@ -55,6 +55,7 @@ class Controller extends \Gcms\Controller
             ));
             // แสดงฟอร์ม
             $section->appendChild(createClass('Repair\Settings\View')->render());
+            // คืนค่า HTML
 
             return $section->render();
         }

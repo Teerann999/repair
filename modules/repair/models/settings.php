@@ -25,7 +25,7 @@ use Kotchasan\Language;
 class Model extends \Kotchasan\KBase
 {
     /**
-     * บันทึกการตั้งค่าโมดูล.
+     * รับค่าจาก settings.php
      *
      * @param Request $request
      */
@@ -34,7 +34,7 @@ class Model extends \Kotchasan\KBase
         $ret = array();
         // session, token, can_config, ไม่ใช่สมาชิกตัวอย่าง
         if ($request->initSession() && $request->isSafe() && $login = Login::isMember()) {
-            if (Login::checkPermission($login, 'can_config') && Login::notDemoMode($login)) {
+            if (Login::notDemoMode($login) && Login::checkPermission($login, 'can_config')) {
                 // โหลด config
                 $config = Config::load(ROOT_PATH.'settings/config.php');
                 // รับค่าจากการ POST

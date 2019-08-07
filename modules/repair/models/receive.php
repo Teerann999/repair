@@ -133,7 +133,7 @@ class Model extends \Kotchasan\Model
                         if ($repair['customer_id'] == 0) {
                             // ลงทะเบียนสมาชิกใหม่
                             $user['salt'] = uniqid();
-                            $user = \Index\Register\Model::execute($this, $user);
+                            $user = \Index\Register\Model::execute($this, $user, array());
                             // customer_id
                             $repair['customer_id'] = $user['id'];
                         } elseif ($index->user_status == 0) {

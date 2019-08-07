@@ -46,6 +46,7 @@ class View extends \Gcms\View
         $isAdmin = Login::checkPermission($login, 'can_received_repair');
         // สถานะการซ่อม
         $this->statuses = \Repair\Status\Model::create();
+        $status = $request->request('status', -1)->toInt();
         // รายชื่อช่างซ่อม
         $operator_id = $request->request('operator_id', -1)->toInt();
         $this->operators = \Repair\Operator\Model::create();
@@ -60,7 +61,6 @@ class View extends \Gcms\View
                 $operators[$k] = $v;
             }
         }
-        $status = $request->request('status', -1)->toInt();
         // URL สำหรับส่งให้ตาราง
         $uri = self::$request->createUriWithGlobals(WEB_URL.'index.php');
         // ตาราง
@@ -69,8 +69,8 @@ class View extends \Gcms\View
             'uri' => $uri,
             /* Model */
             'model' => \Repair\Setup\Model::toDataTable(),
-            'perPage' => $request->cookie('repair_perPage', 30)->toInt(),
-            'sort' => $request->cookie('repair_sort', 'create_date desc')->toString(),
+            'perPage' => $request->cookie('repairSetup_perPage', 30)->toInt(),
+            'sort' => $request->cookie('repairSetup_sort', 'create_date desc')->toString(),
             'onRow' => array($this, 'onRow'),
             /* คอลัมน์ที่ไม่ต้องแสดงผล */
             'hideColumns' => array('id'),
@@ -189,8 +189,8 @@ class View extends \Gcms\View
             );
         }
         // save cookie
-        setcookie('repair_perPage', $table->perPage, time() + 2592000, '/', HOST, HTTPS, true);
-        setcookie('repair_sort', $table->sort, time() + 2592000, '/', HOST, HTTPS, true);
+        setcookie('repairSetup_perPage', $table->perPage, time() + 2592000, '/', HOST, HTTPS, true);
+        setcookie('repairSetup_sort', $table->sort, time() + 2592000, '/', HOST, HTTPS, true);
 
         return $table->render();
     }
@@ -198,9 +198,11 @@ class View extends \Gcms\View
     /**
      * จัดรูปแบบการแสดงผลในแต่ละแถว.
      *
-     * @param array $item
+     * @param array  $item ข้อมูลแถว
+     * @param int    $o    ID ของข้อมูล
+     * @param object $prop กำหนด properties ของ TR
      *
-     * @return array
+     * @return array คืนค่า $item กลับไป
      */
     public function onRow($item, $o, $prop)
     {

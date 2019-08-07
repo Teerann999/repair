@@ -23,7 +23,7 @@ use Kotchasan\Language;
 class View extends \Gcms\View
 {
     /**
-     * ฟอร์ม ตั้งค่าร้านค้า.
+     * ฟอร์มตั้งค่า repair
      *
      * @return string
      */
@@ -104,6 +104,7 @@ class View extends \Gcms\View
             'class' => 'button save large icon-save',
             'value' => '{LNG_Save}',
         ));
+        // คืนค่า HTML
 
         return $form->render();
     }
