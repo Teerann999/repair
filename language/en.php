@@ -65,6 +65,10 @@ return array(
   'PERMISSIONS' => array(
     'can_config' => 'Can configure the system'
   ),
+  'PUBLISHEDS' => array(
+    0 => 'Unpublished',
+    1 => 'Published'
+  ),
   'REPAIR_CATEGORIES' => array(
     'repairstatus' => 'Repair status'
   ),

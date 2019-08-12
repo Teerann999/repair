@@ -179,6 +179,7 @@ header.header a {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
+  padding: 0 10px;
 }
 .footer a {
   color: inherit;
@@ -659,7 +660,11 @@ header .inline {
   width: 2em;
   text-align: center;
 }
-.repair_detail .item {
+.modal_detail h1 {
+  font-size: 1.5em;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+.modal_detail .item {
   border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
 }
 

@@ -27,7 +27,7 @@ class Model extends \Kotchasan\Model
      *
      * @return object
      */
-    public static function get($id)
+    public static function get($job_id)
     {
         $sql = static::createQuery()
             ->select('R.*', 'U.name', 'U.phone', 'U.address', 'U.zipcode', 'U.provinceID', 'V.equipment', 'V.serial', 'S.status', 'S.comment', 'S.operator_id')

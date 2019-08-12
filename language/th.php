@@ -19,7 +19,6 @@ return array(
   'Browse file' => 'เลือกไฟล์',
   'Browse image uploaded, type :type size :width*:height pixel' => 'เลือกรูปภาพอัปโหลด ชนิด :type ขนาด :width*:height พิกเซล',
   'Can get the repair' => 'สามารถรับงานซ่อมได้',
-  'Can login' => 'สามารถเข้าระบบได้',
   'Can not be performed this request. Because they do not find the information you need or you are not allowed' => 'ไม่สามารถดำเนินการตามที่ร้องขอได้ เนื่องจากไม่พบข้อมูลที่ต้องการ หรือ คุณไม่มีสิทธิ์',
   'Change language' => 'สลับภาษา',
   'Click to edit' => 'คลิกเพื่อแก้ไข',
@@ -37,6 +36,7 @@ return array(
     'USD' => 'ดอลล่าร์',
     'LAK' => 'กีบ'
   ),
+  'Current staff' => 'พนักงานปัจจุบัน',
   'Customer' => 'ลูกค้า',
   'Customer Name' => 'ชื่อลูกค้า',
   'date' => 'วันที่',
@@ -89,7 +89,7 @@ return array(
   'Height' => 'สูง',
   'Home' => 'หน้าหลัก',
   'How to define user authentication for mail servers. If you enable it, you must configure below correctly.' => 'กำหนดวิธีการตรวจสอบผู้ใช้สำหรับเมล์เซิร์ฟเวอร์ หากคุณเปิดใช้งานคุณต้องกำหนดค่าต่างๆด้านล่างถูกต้อง',
-  'Identification number' => 'เลขประชาชน',
+  'Identification No.' => 'เลขประชาชน',
   'Identity of the repair machine used to separate items.' => 'รหัสประจำตัวของเครื่องซ่อม ใช้แยกแต่ละรายการออกจากกัน',
   'Image' => 'รูปภาพ',
   'Image size is in pixels' => 'ขนาดของรูปภาพเป็นพิกเซล',
@@ -158,6 +158,7 @@ return array(
   'Password' => 'รหัสผ่าน',
   'Password of the mail server. (To change the fill.)' => 'รหัสผ่านของเมล์เซิร์ฟเวอร์ (ต้องการเปลี่ยน ให้กรอก)',
   'Passwords must be at least four characters' => 'รหัสผ่านต้องไม่น้อยกว่า 4 ตัวอักษร',
+  'Past employees' => 'พนักงานในอดีต',
   'Permission' => 'สิทธิ์การใช้งาน',
   'PERMISSIONS' => array(
     'can_config' => 'สามารถตั้งค่าระบบได้'
@@ -170,6 +171,10 @@ return array(
   'problems and repairs details' => 'รายละเอียดการซ่อม/ปัญหา',
   'Profile' => 'ข้อมูลส่วนตัว',
   'Province' => 'จังหวัด',
+  'PUBLISHEDS' => array(
+    0 => 'ระงับการเผยแพร่',
+    1 => 'เผยแพร่'
+  ),
   'Receipt No.' => 'เลขที่ใบรับ',
   'Received date' => 'วันที่รับซ่อม',
   'Register' => 'สมัครสมาชิก',
@@ -242,7 +247,6 @@ return array(
   'Transaction history' => 'ประวัติการทำรายการ',
   'Type' => 'ประเภท',
   'Unable to complete the transaction' => 'ไม่สามารถทำรายการนี้ได้',
-  'Unable to login' => 'ไม่สามารถเข้าระบบได้',
   'Update repair status' => 'ปรับปรุงสถานะการซ่อม',
   'Upload' => 'อัปโหลด',
   'Upload :type files no larger than :size' => 'อัปโหลดไฟล์ :type ขนาดไม่เกิน :size',

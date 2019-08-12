@@ -19,7 +19,6 @@ return array(
   'Browse file' => 'ເລືອກໄຟ',
   'Browse image uploaded, type :type size :width*:height pixel' => 'ເລືອກຮູບພາບອັບໂຫຼດຊະນິດ :type ຂະໜາດ :width*:height ຟິດເຊວล',
   'Can get the repair' => 'ສາມາດຮັບວຽກຊ່ອມໄດ້',
-  'Can login' => 'ສາມາດເຂົ້າລະບົບໄດ້',
   'Can not be performed this request. Because they do not find the information you need or you are not allowed' => 'ບໍ່ສາມາດດຳເນີນການຕາມທີ່ຮ້ອງຂໍໄດ້ເນື່ອງຈາກບໍ່ພົບຂໍ້ມູນທີ່ຕ້ອງການ ຫຼື ທ່ານບໍ່ມີສິດ',
   'Change language' => 'ສະຫລັບພາສາ',
   'Click to edit' => 'ກົດເພື່ອແກ້ໄຂ',
@@ -37,6 +36,7 @@ return array(
     'USD' => 'ດໍລ່າ',
     'LAK' => 'ກີບ'
   ),
+  'Current staff' => 'ພະນັກງານປະຈຸບັນ',
   'Customer' => 'ລູກຄ້າ',
   'Customer Name' => 'ຊື່ລູກຄ້າ',
   'date' => 'ວັນທີ',
@@ -89,7 +89,7 @@ return array(
   'Height' => 'ສູງ',
   'Home' => 'ໜ້າຫຼັກ',
   'How to define user authentication for mail servers. If you enable it, you must configure below correctly.' => 'ກຳນົດວິທີການກວດສອບຜູ້ໃຊ້ສຳລັບເມນເຊິບເວີຫາກທ່ານເປີດໃຊ້ການທ່ານຕ້ອງກຳນົດຄ່າຕ່າງໆດ້ານລຸ່ມຖືກຕ້ອງ',
-  'Identification number' => 'ເລກບັດປະຊາຊົນ',
+  'Identification No.' => 'ເລກບັດປະຊາຊົນ',
   'Identity of the repair machine used to separate items.' => 'ລະຫັດປະຈໍາຕົວຂອງເຄື່ອງຊ່ອມໃຊ້ແຍກແຕ່ລະລາຍະການອອກຈາກກັນ',
   'Image' => 'ຮູບພາບ',
   'Image size is in pixels' => 'ຂະໜາດຂອງຮູບພາບເປັນພິກເຊວ',
@@ -158,6 +158,7 @@ return array(
   'Password' => 'ລະຫັດຜ່ານ',
   'Password of the mail server. (To change the fill.)' => 'ລະຫັດຜ່ານຂອງເມວເຊີບເວີ (ຕ້ອງການປ່ຽນ ໃຫ້ເພີ່ມ)',
   'Passwords must be at least four characters' => 'ລະຫັດຜ່ານຕ້ອງບໍ່ຕ່ຳກວ່າ 4 ຕົວອັກສອນ',
+  'Past employees' => 'ພະນັກງານທີ່ຜ່ານມາ',
   'Permission' => 'ສິດໃນການໃຊ້ວຽກ',
   'PERMISSIONS' => array(
     'can_config' => 'ສາມາດຕັ້ງຄ່າລະບົບໄດ້'
@@ -170,6 +171,10 @@ return array(
   'problems and repairs details' => 'ລາຍະລະອຽດການຊ່ອມ/ບັນຫາ',
   'Profile' => 'ຂໍ້ມູນສ່ວນຕົວ',
   'Province' => 'ແຂວງ',
+  'PUBLISHEDS' => array(
+    0 => 'ໂຈະການພິມເຜີຍແຜ່',
+    1 => 'ເຜີຍແຜ່'
+  ),
   'Receipt No.' => 'ເລກທີ່ໃບຮັບ',
   'Received date' => 'ວັນສ້ອມແປງ',
   'Register' => 'ສະໝັກສະມາຊິກ',
@@ -242,7 +247,6 @@ return array(
   'Transaction history' => 'ປະວັດການເຮັດທຸລະກໍາ',
   'Type' => 'ປະເພດ',
   'Unable to complete the transaction' => 'ບໍ່ສາມາດເຮັດລາຍການນີ້ໄດ້',
-  'Unable to login' => 'ບໍ່ສາມາດເຂົ້າລະບົບໄດ້',
   'Update repair status' => 'ປັບປຸງສະຖານະພາບ',
   'Upload' => 'ອັບໂຫຼດ',
   'Upload :type files no larger than :size' => 'ອັບໂຫຼດແຟ້ມຂໍ້ມູນ :type ຂະໜາດບໍ່ເກີນ :size',
