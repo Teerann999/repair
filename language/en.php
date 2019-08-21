@@ -3,7 +3,7 @@
 return array(
   'BOOLEANS' => array(
     0 => 'Disable',
-    1 => 'Enamle'
+    1 => 'Enabled'
   ),
   'CURRENCY_UNITS' => array(
     'THB' => 'Baht',
