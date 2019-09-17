@@ -445,6 +445,7 @@ class Form extends \Kotchasan\KBase
                 $list = $prop['list'];
             }
             $prop['list'] = 'list="'.$list.'"';
+            $prop['autocomplete'] = 'autocomplete="off"';
         }
         $prop = implode(' ', $prop);
         if ($this->tag == 'input') {

@@ -14,7 +14,6 @@ use Gcms\Login;
 use Kotchasan\Database\Sql;
 use Kotchasan\Http\Request;
 use Kotchasan\Language;
-use Kotchasan\Text;
 
 /**
  * เพิ่ม-แก้ไข ใบแจ้งซ่อม
@@ -156,11 +155,11 @@ class Model extends \Kotchasan\Model
                         $err = '';
                         // job_id
                         if ($index->id == 0) {
-                            // สุ่ม job_id 10 หลัก
-                            $repair['job_id'] = Text::rndname(10, 'ABCDEFGHKMNPQRSTUVWXYZ0123456789');
+                            // สุ่ม job_id
+                            $repair['job_id'] = uniqid();
                             // ตรวจสอบ job_id ซ้ำ
                             while ($db->first($repair_table, array('job_id', $repair['job_id']))) {
-                                $repair['job_id'] = Text::rndname(10, 'ABCDEFGHKMNPQRSTUVWXYZ0123456789');
+                                $repair['job_id'] = uniqid();
                             }
                             $repair['create_date'] = date('Y-m-d H:i:s');
                             $log['create_date'] = $repair['create_date'];

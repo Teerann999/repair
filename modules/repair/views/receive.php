@@ -77,12 +77,12 @@ class View extends \Gcms\View
         ));
         $groups = $fieldset->add('groups');
         // provinceID
-        $groups->add('text', array(
+        $groups->add('select', array(
             'id' => 'provinceID',
             'labelClass' => 'g-input icon-location',
             'itemClass' => 'width50',
             'label' => '{LNG_Province}',
-            'datalist' => \Kotchasan\Province::all(),
+            'options' => \Kotchasan\Province::all(),
             'value' => $index->provinceID,
         ));
         // zipcode
