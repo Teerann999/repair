@@ -69,8 +69,11 @@ class View extends \Gcms\View
             'uri' => $uri,
             /* Model */
             'model' => \Repair\Setup\Model::toDataTable(),
+            /* รายการต่อหน้า */
             'perPage' => $request->cookie('repairSetup_perPage', 30)->toInt(),
+            /* เรียงลำดับ */
             'sort' => $request->cookie('repairSetup_sort', 'create_date desc')->toString(),
+            /* ฟังก์ชั่นจัดรูปแบบการแสดงผลแถวของตาราง */
             'onRow' => array($this, 'onRow'),
             /* คอลัมน์ที่ไม่ต้องแสดงผล */
             'hideColumns' => array('id'),

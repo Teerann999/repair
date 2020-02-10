@@ -182,7 +182,6 @@ return array(
   'Receipt No.' => 'เลขที่ใบรับ',
   'Received date' => 'วันที่รับซ่อม',
   'Register' => 'สมัครสมาชิก',
-  'Remember me' => 'จำการเข้าระบบ',
   'Remove' => 'ลบ',
   'Repair' => 'แจ้งซ่อม',
   'Repair details' => 'รายละเอียดใบรับซ่อม',

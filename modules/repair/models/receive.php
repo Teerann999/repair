@@ -156,10 +156,10 @@ class Model extends \Kotchasan\Model
                         // job_id
                         if ($index->id == 0) {
                             // สุ่ม job_id
-                            $repair['job_id'] = uniqid();
+                            $repair['job_id'] = strtoupper(substr(uniqid(), 0, 10));
                             // ตรวจสอบ job_id ซ้ำ
                             while ($db->first($repair_table, array('job_id', $repair['job_id']))) {
-                                $repair['job_id'] = uniqid();
+                                $repair['job_id'] = strtoupper(substr(uniqid(), 0, 10));
                             }
                             $repair['create_date'] = date('Y-m-d H:i:s');
                             $log['create_date'] = $repair['create_date'];

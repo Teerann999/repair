@@ -86,8 +86,10 @@ class Controller extends \Gcms\Controller
             $bg_image = '';
         }
         if (is_file(ROOT_PATH.DATA_FOLDER.'images/logo.png')) {
-            $logo = '<img src="'.WEB_URL.DATA_FOLDER.'images/logo.png" alt="{WEBTITLE}">&nbsp;{WEBTITLE}';
+            $logo_image = '<img src="'.WEB_URL.DATA_FOLDER.'images/logo.png" alt="{WEBTITLE}">';
+            $logo = $logo_image.'&nbsp;{WEBTITLE}';
         } else {
+            $logo_image = '';
             $logo = '<span class="'.self::$cfg->default_icon.'">{WEBTITLE}</span>';
         }
         // เนื้อหา
@@ -96,6 +98,7 @@ class Controller extends \Gcms\Controller
             '/{MAIN}/' => $page->detail(),
             // โลโก
             '/{LOGO}/' => $logo,
+            '/{LOGOIMAGE}/' => $logo_image,
             // language menu
             '/{LANGUAGES}/' => $languages,
             // title

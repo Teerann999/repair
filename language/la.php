@@ -182,7 +182,6 @@ return array(
   'Receipt No.' => 'ເລກທີ່ໃບຮັບ',
   'Received date' => 'ວັນສ້ອມແປງ',
   'Register' => 'ສະໝັກສະມາຊິກ',
-  'Remember me' => 'ຈົດຈຳການເຂົ້າລະບົບ',
   'Remove' => 'ລຶບ',
   'Repair' => 'ການສ້ອມແປງ',
   'Repair details' => 'ລາຍະລະອຽດໃບຮັບຊ່ອມ',

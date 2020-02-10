@@ -42,17 +42,14 @@ class View extends \Gcms\View
     {
         // สถานะการซ่อม
         $this->statuses = \Repair\Status\Model::create();
-        // อ่านสถานะการทำรายการทั้งหมด
-        $statuses = \Repair\Detail\Model::getAllStatus($index->id);
         // ตาราง
         $table = new DataTable(array(
+            'class' => 'border horiz-table',
             /* array datas */
-            'datas' => $statuses,
-            /* รองรับมือถือ */
-            'responsive' => true,
-            'border' => true,
+            'datas' => \Repair\Detail\Model::getAllStatus($index->id),
             /* ปิดการใช้งาน Javascript */
             'enableJavascript' => false,
+            /* ฟังก์ชั่นจัดรูปแบบการแสดงผลแถวของตาราง */
             'onRow' => array($this, 'onRow'),
             /* ส่วนหัวของตาราง และการเรียงลำดับ (thead) */
             'headers' => array(
@@ -88,7 +85,7 @@ class View extends \Gcms\View
                 ),
             ),
         ));
-        // template
+        // repair.html
         $template = Template::createFromFile(ROOT_PATH.'modules/repair/views/repair.html');
         $template->add(array(
             '/%COMPANY%/' => self::$cfg->company_name,

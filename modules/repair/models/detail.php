@@ -48,9 +48,11 @@ class Model extends \Kotchasan\Model
     }
 
     /**
-     * อ่านสถานะการทำรายการทั้งหมด.
+     * อ่านสถานะการทำรายการทั้งหมด
      *
      * @param int $id
+     *
+     * @return array
      */
     public static function getAllStatus($id)
     {
@@ -65,7 +67,7 @@ class Model extends \Kotchasan\Model
     }
 
     /**
-     * รับค่าจาก action.
+     * รับค่าจาก action
      *
      * @param Request $request
      */

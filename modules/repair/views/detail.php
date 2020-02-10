@@ -51,6 +51,7 @@ class View extends \Gcms\View
             'uri' => $uri,
             /* array datas */
             'datas' => $statuses,
+            /* ฟังก์ชั่นจัดรูปแบบการแสดงผลแถวของตาราง */
             'onRow' => array($this, 'onRow'),
             /* คอลัมน์ที่ไม่ต้องแสดงผล */
             'hideColumns' => array('id'),

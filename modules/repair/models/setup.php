@@ -25,7 +25,7 @@ use Kotchasan\Language;
 class Model extends \Kotchasan\Model
 {
     /**
-     * Query ข้อมูลสำหรับส่งให้กับ DataTable.
+     * Query ข้อมูลสำหรับส่งให้กับ DataTable
      *
      * @return \Kotchasan\Database\QueryBuilder
      */
@@ -46,7 +46,7 @@ class Model extends \Kotchasan\Model
     }
 
     /**
-     * รับค่าจาก action
+     * รับค่าจาก action (setup.php)
      *
      * @param Request $request
      */
