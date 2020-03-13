@@ -193,15 +193,15 @@ class PdoMysqlDriver extends Driver
         } else {
             if (isset($sqls['union'])) {
                 if (isset($sqls['select'])) {
-                    $sql .= 'SELECT '.$sqls['select'].' FROM (('.implode(') UNION (', $sqls['union']).')) AS ZZ';
+                    $sql .= 'SELECT '.$sqls['select'].' FROM (('.implode(') UNION (', $sqls['union']).')) AS U9';
                 } else {
                     $sql .= '('.implode(') UNION (', $sqls['union']).')';
                 }
             } elseif (isset($sqls['unionAll'])) {
                 if (isset($sqls['select'])) {
-                    $sql .= 'SELECT '.$sqls['select'].' FROM (('.implode(') UNION ALL (', $sqls['union']).')) AS ZZ';
+                    $sql .= 'SELECT '.$sqls['select'].' FROM (('.implode(') UNION ALL (', $sqls['unionAll']).')) AS U9';
                 } else {
-                    $sql .= '('.implode(') UNION ALL (', $sqls['union']).')';
+                    $sql .= '('.implode(') UNION ALL (', $sqls['unionAll']).')';
                 }
             } else {
                 if (isset($sqls['select'])) {

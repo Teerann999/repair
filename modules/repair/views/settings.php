@@ -48,7 +48,7 @@ class View extends \Gcms\View
             'id' => 'company_name',
             'labelClass' => 'g-input icon-user',
             'itemClass' => 'width50',
-            'label' => '{LNG_Company Name}',
+            'label' => '{LNG_Company name}',
             'comment' => '%COMPANY%',
             'value' => isset(self::$cfg->company_name) ? self::$cfg->company_name : '',
         ));

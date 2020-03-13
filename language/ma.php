@@ -26,7 +26,7 @@ return array(
   'Color' => 'အရောင်',
   'Comment' => 'မှတ်ချက်',
   'Company' => 'ကုမ္ပဏီ',
-  'Company Name' => 'ကုမ္ပဏီအမည်',
+  'Company name' => 'ကုမ္ပဏီအမည်',
   'Cost' => 'ကုန်ကျစရိတ်',
   'Country' => 'တိုင်းပြည်',
   'Create' => 'တည်ဆောက်ပါ',
@@ -41,7 +41,6 @@ return array(
   'Current staff' => 'လက်ရှိဝန်ထမ်း',
   'Customer' => 'ဖောက်သည်',
   'Customer Name' => 'ဖောက်သည်အမည်',
-  'Date' => 'ရက်စွဲ',
   'DATE_FORMAT' => 'd M Y အချိန် H:i N.',
   'DATE_LONG' => array(
     0 => 'တနင်္ဂနွေနေ့',
@@ -222,7 +221,6 @@ return array(
   'Show' => 'ပြပါ',
   'Site Name' => 'ဝဘ်ဆိုက်နာမည်',
   'Site settings' => 'ဝဘ်ဆိုက်ဆက်တင်များ',
-  'size of' => 'အရွယ်အစား',
   'skip to content' => 'အကြောင်းအရာသွားပါ',
   'SMTPSECURIES' => array(
     '' => 'ပုံမှန်ဆက်သွယ်မှု',

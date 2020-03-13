@@ -26,7 +26,7 @@ return array(
   'Color' => 'ສີ',
   'Comment' => 'ຫມາຍເຫດ',
   'Company' => 'ບໍລິສັດ',
-  'Company Name' => 'ຊື່ບໍລິສັດ',
+  'Company name' => 'ຊື່ບໍລິສັດ',
   'Cost' => 'ຄ່າໃຊ້ຈ່າຍ',
   'Country' => 'ປະເທດ',
   'Create' => 'ສ້າງ',
@@ -41,7 +41,6 @@ return array(
   'Current staff' => 'ພະນັກງານໃນປະຈຸບັນ',
   'Customer' => 'ລູກຄ້າ',
   'Customer Name' => 'ຊື່ລູກຄ້າ',
-  'Date' => 'ວັນທີ',
   'DATE_FORMAT' => 'd M Y ເວລາ H:i ນ.',
   'DATE_LONG' => array(
     0 => 'ອາທິດ',
@@ -222,7 +221,6 @@ return array(
   'Show' => 'ສະແດງ',
   'Site Name' => 'ຊື່ຂອງເວັບໄຊ',
   'Site settings' => 'ຕັ້ງຄ່າເວັບໄຊ',
-  'size of' => 'ຂະໜາດຂອງ',
   'skip to content' => 'ຂ້າມໄປຍັງເນື້ອຫາ',
   'SMTPSECURIES' => array(
     '' => 'ການເຊື່ອມຕໍ່ແບບປົກກະຕິ',

@@ -26,7 +26,7 @@ return array(
   'Color' => 'สี',
   'Comment' => 'หมายเหตุ',
   'Company' => 'บริษัท',
-  'Company Name' => 'ชื่อบริษัท',
+  'Company name' => 'ชื่อบริษัท',
   'Cost' => 'ค่าใช้จ่าย',
   'Country' => 'ประเทศ',
   'Create' => 'สร้าง',
@@ -41,7 +41,6 @@ return array(
   'Current staff' => 'พนักงานปัจจุบัน',
   'Customer' => 'ลูกค้า',
   'Customer Name' => 'ชื่อลูกค้า',
-  'Date' => 'วันที่',
   'DATE_FORMAT' => 'd M Y เวลา H:i น.',
   'DATE_LONG' => array(
     0 => 'อาทิตย์',
@@ -222,7 +221,6 @@ return array(
   'Show' => 'แสดง',
   'Site Name' => 'ชื่อของเว็บไซต์',
   'Site settings' => 'ตั้งค่าเว็บไซต์',
-  'size of' => 'ขนาดของ',
   'skip to content' => 'ข้ามไปยังเนื้อหา',
   'SMTPSECURIES' => array(
     '' => 'การเชื่อมต่อแบบปกติ',
